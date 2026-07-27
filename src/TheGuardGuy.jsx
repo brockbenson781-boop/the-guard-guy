@@ -1903,7 +1903,7 @@ const ReviewsSection=()=>{
     <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="#F59E0B"><path d="M7 1l1.545 3.13 3.455.502-2.5 2.437.59 3.44L7 8.885l-3.09 1.624.59-3.44L2 4.632l3.455-.502L7 1z"/></svg>
   ));
   return (
-    <section style={{padding:"72px 40px",background:COLORS.canvas}}>
+    <section style={{padding:isMobile?"40px 16px":"72px 40px",background:COLORS.canvas}}>
       <div style={{maxWidth:1060,margin:"0 auto"}}>
         <div style={{textAlign:"center",marginBottom:52}}>
           <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:16}}>Patient Reviews</div>
@@ -2935,8 +2935,8 @@ export default function App(){
                 <div style={{fontSize:"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.05,letterSpacing:"-0.03em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
               </div>
               <p style={{fontSize:17,color:COLORS.muted,lineHeight:1.6,margin:"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
-              <div style={{display:"flex",justifyContent:"center",marginBottom:28}}>
-                <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"cover"}}/>
+              <div style={{display:"flex",justifyContent:"center",marginBottom:isMobile?16:28}}>
+                <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"contain",mixBlendMode:"multiply",borderRadius:16}}/>
               </div>
               <div style={{textAlign:"center",paddingBottom:48}}>
                 <button
