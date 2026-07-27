@@ -210,7 +210,7 @@ const PatientPortal=({product})=>{
 
       {/* What to expect */}
       <div style={{background:"#fff",borderRadius:12,border:"1px solid "+COLORS.border,padding:"20px 24px",marginBottom:24}}>
-        <div style={{fontSize:12,fontWeight:700,color:COLORS.navy,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:14}}>What you'll complete in the form</div>
+        <div style={{fontSize:12,fontWeight:700,color:COLORS.navy,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:14}}>What you will complete in the form</div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
           {["Full name and date of birth","State of residence","Last dental exam date","Medical history questions","3 dental photos (front, upper, lower arch)","Teledentistry informed consent"].map((item,i)=>(
             <div key={i} style={{display:"flex",gap:8,alignItems:"center"}}>
@@ -1824,7 +1824,7 @@ const CheckoutPage=({product,onBack,setView})=>{
 
         {/* Whats included */}
         <div style={{background:"#fff",borderRadius:14,padding:"18px 22px",marginBottom:16,border:"1px solid "+COLORS.border}}>
-          <div style={{fontSize:11,fontWeight:700,color:COLORS.navy,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>What's included</div>
+          <div style={{fontSize:11,fontWeight:700,color:COLORS.navy,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>Whats included</div>
           <div style={{display:"grid",gridTemplateColumns:isMobileC?"1fr":"1fr 1fr",gap:8}}>
             {["Free impression kit","Dentist review 48hrs","Lab fabrication","Protective case","FSA/HSA Superbill","6-Month Warranty","Lifetime Fit Protection","Free re-impression kit"].map((item,i)=>(
               <div key={i} style={{display:"flex",gap:7,alignItems:"center"}}>
@@ -2376,7 +2376,7 @@ const WarrantyPage=({setView})=>{ const isMobile=useIsMobile(); return (
     <div style={{background:"linear-gradient(135deg,"+COLORS.navy+" 0%,"+COLORS.clinicalBlue+" 100%)",padding:"72px 40px 64px",textAlign:"center"}}>
       <div style={{maxWidth:700,margin:"0 auto"}}>
         <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:20,border:"1px solid rgba(255,255,255,0.2)"}}>Patient Protection</div>
-        <h1 style={{fontSize:"clamp(28px,5vw,52px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 16px",lineHeight:1.15}}>What's covered.<br/><span style={{color:"#93C5DA",fontStyle:"italic"}}>No asterisks. No fine print.</span></h1>
+        <h1 style={{fontSize:"clamp(28px,5vw,52px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 16px",lineHeight:1.15}}>Coverage Details.<br/><span style={{color:"#93C5DA",fontStyle:"italic"}}>No asterisks. No fine print.</span></h1>
         <p style={{fontSize:17,color:"rgba(255,255,255,0.7)",maxWidth:520,margin:"0 auto",lineHeight:1.8}}>Every Guard Guy order comes with two layers of protection — a 6-Month Defect Warranty and Lifetime Fit Protection. Here is exactly what each one means.</p>
       </div>
     </div>
@@ -2396,7 +2396,7 @@ const WarrantyPage=({setView})=>{ const isMobile=useIsMobile(); return (
           </div>
           <div style={{padding:"28px 32px"}}>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:11,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>What's covered</div>
+              <div style={{fontSize:11,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>Coverage Details</div>
               {["Manufacturing defects in materials or workmanship","Cracks or fractures not caused by misuse","Appliance that does not fit despite a proper impression","Material failure within normal use","Lab errors in fabrication"].map((item,i)=>(
                 <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:10}}>
                   <div style={{width:20,height:20,borderRadius:"50%",background:COLORS.clinicalBlueLight,border:"1.5px solid "+COLORS.clinicalBlue+"55",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>
@@ -2407,7 +2407,7 @@ const WarrantyPage=({setView})=>{ const isMobile=useIsMobile(); return (
               ))}
             </div>
             <div style={{borderTop:"1px solid "+COLORS.border,paddingTop:20,marginBottom:20}}>
-              <div style={{fontSize:11,fontWeight:700,color:COLORS.rose,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>What's not covered</div>
+              <div style={{fontSize:11,fontWeight:700,color:COLORS.rose,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}}>Not covered</div>
               {["Normal wear and thinning over time","Loss or accidental damage","Damage from improper cleaning (hot water, harsh chemicals)","Teeth shifting after fabrication (covered by Lifetime Fit Protection instead)"].map((item,i)=>(
                 <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",marginBottom:8}}>
                   <div style={{width:20,height:20,borderRadius:"50%",background:COLORS.roseLight,border:"1.5px solid "+COLORS.rose+"55",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1,fontSize:11,color:COLORS.rose,fontWeight:700}}>✕</div>
@@ -2532,7 +2532,7 @@ const IMPRESSION_STEPS = [
     steps:[
       {
         num:1,
-        title:"What's in your kit",
+        title:"Kit contents",
         duration:"1 min",
         icon:"📦",
         content:"Your kit contains: 3 tray sizes (small, medium, and large), 2 sets of VPS putty (base + catalyst — one set per arch), a prepaid return mailer, and instruction card. Lay everything out on a clean flat surface before you begin.",
@@ -3132,7 +3132,7 @@ export default function App(){
                   onMouseEnter={e=>{e.currentTarget.style.color=COLORS.clinicalBlueDark;}}
                   onMouseLeave={e=>{e.currentTarget.style.color=COLORS.clinicalBlue;}}
                   style={{background:"transparent",color:COLORS.clinicalBlue,border:"none",fontSize:14,fontWeight:700,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"4px"}}>
-                  What's covered?
+                  Coverage Details?
                 </button>
               </div>
             </div>
