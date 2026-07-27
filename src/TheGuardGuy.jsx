@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 
 const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
   return isMobile;
 };
@@ -2824,6 +2825,7 @@ const ImpressionGuidePage=({setView})=>{
 };
 
 export default function App(){
+  const isMobile=useIsMobile();
   const [view,setView]=useState("site");
   const [screeningProduct,setScreeningProduct]=useState(null);
   const [purchasedProduct,setPurchasedProduct]=useState(null);
