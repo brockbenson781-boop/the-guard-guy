@@ -2985,21 +2985,22 @@ const SCROLL_PRODUCTS=[
   return (
     <div style={{fontFamily:"-apple-system, BlinkMacSystemFont, sans-serif",background:COLORS.canvas,minHeight:"100vh",color:COLORS.navy}}>
 
-      <nav style={{background:"#fff",borderBottom:"1px solid "+COLORS.border,padding:"0 40px",position:"sticky",top:0,zIndex:200,display:"flex",alignItems:"center",height:64}}>
-        <div onClick={()=>{setView("site");setMenuOpen(false);}} style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:20,color:COLORS.navy,cursor:"pointer",flexShrink:0}}>The Guard Guy</div>
-        <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:2}}>
+      <nav style={{background:"#fff",borderBottom:"1px solid "+COLORS.border,padding:isMobile?"0 16px":"0 40px",position:"sticky",top:0,zIndex:200,display:"flex",alignItems:"center",height:64}}>
+        <div onClick={()=>{setView("site");setMenuOpen(false);}} style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:isMobile?18:20,color:COLORS.navy,cursor:"pointer",flexShrink:0}}>The Guard Guy</div>
+        {!isMobile&&<div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:2}}>
           {[{label:"Home",key:"site"},{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}].map(tab=>(
             <button key={tab.key} onClick={()=>{setView(tab.key);setMenuOpen(false);}} style={{padding:"8px 12px",border:"none",cursor:"pointer",fontSize:12,fontWeight:600,background:"transparent",color:view===tab.key?COLORS.clinicalBlue:COLORS.muted,borderBottom:view===tab.key?"2px solid "+COLORS.clinicalBlue:"2px solid transparent",borderRadius:0,transition:"all 0.15s",whiteSpace:"nowrap"}}>{tab.label}</button>
           ))}
-        </div>
+        </div>}
+        {isMobile&&<div style={{flex:1}}/>}
         <button onClick={()=>setMenuOpen(!menuOpen)} style={{width:40,height:40,borderRadius:10,background:menuOpen?COLORS.clinicalBlue:COLORS.sand,border:"none",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:5,transition:"all 0.18s",flexShrink:0}}>
           <span style={{display:"block",width:18,height:2,background:menuOpen?"#fff":COLORS.navy,borderRadius:2}}/>
           <span style={{display:"block",width:18,height:2,background:menuOpen?"#fff":COLORS.navy,borderRadius:2,opacity:menuOpen?0:1}}/>
           <span style={{display:"block",width:18,height:2,background:menuOpen?"#fff":COLORS.navy,borderRadius:2}}/>
         </button>
         {menuOpen&&(
-          <div style={{position:"absolute",top:64,right:0,width:260,background:"#fff",boxShadow:"0 16px 48px rgba(28,43,58,0.16)",borderRadius:"0 0 16px 16px",border:"1px solid "+COLORS.border,borderTop:"none",zIndex:300,overflow:"hidden"}}>
-            {[{label:"How to Take Your Impression",key:"impression"},{label:"Education",key:"learn"},{label:"Insurance",key:"superbill"},{label:"About Us",key:"about"},{label:"Warranty & Protection",key:"warranty"},{label:"FAQ",key:"faq"},{label:"Shipping & Returns",key:"shipping"},{label:"Track Order",key:"track"},{label:"Contact",key:"contact"}].map((item,i,arr)=>(
+          <div style={{position:"absolute",top:64,right:0,width:isMobile?"100vw":260,background:"#fff",boxShadow:"0 16px 48px rgba(28,43,58,0.16)",borderRadius:"0 0 16px 16px",border:"1px solid "+COLORS.border,borderTop:"none",zIndex:300,overflow:"hidden"}}>
+            {[...(isMobile?[{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}]:[]),{label:"How to Take Your Impression",key:"impression"},{label:"Education",key:"learn"},{label:"Insurance",key:"superbill"},{label:"About Us",key:"about"},{label:"Warranty & Protection",key:"warranty"},{label:"FAQ",key:"faq"},{label:"Shipping & Returns",key:"shipping"},{label:"Track Order",key:"track"},{label:"Contact",key:"contact"}].map((item,i,arr)=>(
               <button key={item.key} onClick={()=>{setView(item.key);setMenuOpen(false);}} style={{width:"100%",display:"flex",alignItems:"center",gap:14,padding:"14px 20px",background:view===item.key?COLORS.clinicalBlueLight:"#fff",border:"none",borderBottom:i<arr.length-1?"1px solid "+COLORS.border:"none",cursor:"pointer",textAlign:"left"}}>
                 <div style={{fontSize:14,fontWeight:700,color:view===item.key?COLORS.clinicalBlueDark:COLORS.navy}}>{item.label}</div>
               </button>
