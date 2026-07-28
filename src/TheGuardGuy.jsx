@@ -1814,7 +1814,7 @@ const ReviewsSection=()=>{
     <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="#F59E0B"><path d="M7 1l1.545 3.13 3.455.502-2.5 2.437.59 3.44L7 8.885l-3.09 1.624.59-3.44L2 4.632l3.455-.502L7 1z"/></svg>
   ));
   return (
-    <section style={{padding:isMobile?"40px 16px":"72px 40px",background:COLORS.canvas}}>
+    <section style={{padding:isMobile?"28px 16px":"72px 40px",background:COLORS.canvas}}>
       <div style={{maxWidth:1060,margin:"0 auto"}}>
         <div style={{textAlign:"center",marginBottom:52}}>
           <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:16}}>Patient Reviews</div>
@@ -3057,15 +3057,15 @@ const SCROLL_PRODUCTS=[
       {view==="site"&&(
         <>
           <section style={{background:COLORS.canvas,width:"100%"}}>
-            <div style={{width:"100%",maxWidth:900,margin:"0 auto",padding:"64px 60px 0",textAlign:"center",boxSizing:"border-box"}}>
+            <div style={{width:"100%",maxWidth:900,margin:"0 auto",padding:isMobile?"24px 16px 0":"64px 60px 0",textAlign:"center",boxSizing:"border-box"}}>
               <div style={{marginBottom:22}}>
                 <span style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,padding:"5px 18px",borderRadius:20,fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase"}}>Dentist-reviewed. Lab-crafted. Shipped to you.</span>
               </div>
               <div style={{marginBottom:20}}>
-                <div style={{fontSize:"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.05,letterSpacing:"-0.03em"}}>Your <span style={{color:COLORS.clinicalBlue}}>teeth</span> called.</div>
-                <div style={{fontSize:"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.05,letterSpacing:"-0.03em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
+                <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em"}}>Your <span style={{color:COLORS.clinicalBlue}}>teeth</span> called.</div>
+                <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
               </div>
-              <p style={{fontSize:17,color:COLORS.muted,lineHeight:1.6,margin:"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
+              <p style={{fontSize:isMobile?14:17,color:COLORS.muted,lineHeight:1.6,margin:isMobile?"0 auto 24px":"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
               <div style={{display:"flex",justifyContent:"center",marginBottom:isMobile?16:28}}>
                 <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"contain",mixBlendMode:"multiply",borderRadius:16}}/>
               </div>
@@ -3109,7 +3109,7 @@ const SCROLL_PRODUCTS=[
             </div>
 
             <div style={{width:"100%",background:COLORS.sand,borderTop:"1px solid "+COLORS.border,padding:"22px 0 26px"}}>
-              <div ref={scrollStripRef} style={{display:"flex",gap:16,overflowX:"auto",padding:"20px 60px",scrollSnapType:"x mandatory",msOverflowStyle:"none",scrollbarWidth:"none"}}>
+              <div ref={scrollStripRef} style={{display:"flex",gap:16,overflowX:"auto",padding:isMobile?"16px 16px":"20px 60px",scrollSnapType:"x mandatory",msOverflowStyle:"none",scrollbarWidth:"none"}}>
                 {SCROLL_PRODUCTS.map(p=>(
                   <ScrollCard key={p.id} product={p} onQuiz={()=>{
                     if(p.funnel==="ng")setShowNG(true);
@@ -3140,8 +3140,8 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <section style={{padding:"32px",background:COLORS.canvas}}>
-            <div style={{borderRadius:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:"72px 40px"}}>
+          <section style={{padding:isMobile?"12px":"32px",background:COLORS.canvas}}>
+            <div style={{borderRadius:isMobile?16:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:"72px 40px"}}>
               <div style={{maxWidth:1060,margin:"0 auto"}}>
               <div style={{textAlign:"center",marginBottom:52}}>
                 <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:18,border:"1px solid rgba(255,255,255,0.35)"}}>The Process</div>
@@ -3182,7 +3182,7 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <section style={{padding:"72px 40px",background:"linear-gradient(160deg,#FFFEF7 0%,#FFF9E6 50%,#FFF5D6 100%)"}}>
+          <section style={{padding:isMobile?"32px 16px":"72px 40px",background:"linear-gradient(160deg,#FFFEF7 0%,#FFF9E6 50%,#FFF5D6 100%)"}}>
             <div style={{maxWidth:1060,margin:"0 auto"}}>
               <div style={{textAlign:"center",marginBottom:48}}>
                 <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:16}}>Why The Guard Guy</div>
@@ -3284,11 +3284,11 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <section ref={productsRef} style={{padding:"72px 40px",background:COLORS.canvas}}>
+          <section ref={productsRef} style={{padding:isMobile?"28px 16px 48px":"72px 40px",background:COLORS.canvas}}>
             <div style={{maxWidth:1060,margin:"0 auto"}}>
               <div style={{textAlign:"center",marginBottom:52}}>
                 <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"3px 10px",borderRadius:20,marginBottom:14}}>Our Products</div>
-                <h2 style={{fontSize:32,fontWeight:700,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 8px"}}>Choose your custom fit</h2>
+                <h2 style={{fontSize:isMobile?22:32,fontWeight:700,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 8px"}}>Choose your custom fit</h2>
                 <p style={{color:COLORS.muted,fontSize:16,margin:"0 0 14px"}}>All devices fabricated by ADA-compliant dental labs. Dentist-prescribed.</p>
                 <button onClick={()=>setShowNGQuiz(true)}
                   onMouseEnter={e=>{e.currentTarget.style.color=COLORS.clinicalBlueDark;}}
