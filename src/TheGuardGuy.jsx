@@ -185,6 +185,7 @@ const labelStyle={display:"block",fontSize:12,fontWeight:700,color:COLORS.navyLi
 const inputStyle={width:"100%",padding:"11px 14px",borderRadius:8,border:"1.5px solid "+COLORS.border,fontSize:14,color:COLORS.navy,background:"#fff",outline:"none",boxSizing:"border-box",fontFamily:"inherit"};
 
 const PatientPortal=({product})=>{
+  const isMobile=useIsMobile();
   const productName = product ? product.name : "";
   const productPrice = product ? product.price : "";
   const jotformUrl = "https://form.jotform.com/261957037836064" + (product ? "?product="+encodeURIComponent(productName)+"&price="+productPrice : "");
@@ -212,7 +213,7 @@ const PatientPortal=({product})=>{
       {/* What to expect */}
       <div style={{background:"#fff",borderRadius:12,border:"1px solid "+COLORS.border,padding:"20px 24px",marginBottom:24}}>
         <div style={{fontSize:12,fontWeight:700,color:COLORS.navy,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:14}}>What you will complete in the form</div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:10}}>
           {["Full name and date of birth","State of residence","Last dental exam date","Medical history questions","3 dental photos (front, upper, lower arch)","Teledentistry informed consent"].map((item,i)=>(
             <div key={i} style={{display:"flex",gap:8,alignItems:"center"}}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-5.5" stroke={COLORS.sage} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -1458,7 +1459,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
 
       {/* Main content + sticky sidebar */}
-      <div style={{maxWidth:1060,margin:"0 auto",padding:"48px 40px 80px",display:"grid",gridTemplateColumns:"1fr 340px",gap:40,alignItems:"start"}}>
+      <div style={{maxWidth:1060,margin:"0 auto",padding:isMobile?"20px 16px 60px":"48px 40px 80px",display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 340px",gap:isMobile?20:40,alignItems:"start"}}>
 
         {/* Left: tabs + content */}
         <div>
@@ -1522,7 +1523,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
               )}
 
               {/* What is included */}
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:32}}>
+              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?16:32}}>
                 <div>
                   <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 16px"}}>Everything included</h3>
                   <div style={{display:"flex",flexDirection:"column",gap:10}}>
@@ -1854,7 +1855,7 @@ const TEAM=[
 const AboutPage=({setView})=>{ const isMobile=useIsMobile(); return (
   <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
     {/* Hero */}
-    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+" 0%,"+COLORS.clinicalBlue+" 100%)",padding:"72px 40px 64px",textAlign:"center"}}>
+    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+" 0%,"+COLORS.clinicalBlue+" 100%)",padding:isMobile?"36px 16px 28px":"72px 40px 64px",textAlign:"center"}}>
       <div style={{maxWidth:700,margin:"0 auto"}}>
         <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:20}}>Our Story</div>
         <h1 style={{fontSize:"clamp(28px,5vw,52px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 16px",lineHeight:1.15}}>Built by dentists.<br/><span style={{color:"#93C5DA",fontStyle:"italic"}}>Designed for patients.</span></h1>
@@ -1862,10 +1863,10 @@ const AboutPage=({setView})=>{ const isMobile=useIsMobile(); return (
       </div>
     </div>
 
-    <div style={{maxWidth:900,margin:"0 auto",padding:"72px 40px 80px"}}>
+    <div style={{maxWidth:900,margin:"0 auto",padding:isMobile?"28px 16px 48px":"72px 40px 80px"}}>
 
       {/* Mission */}
-      <div style={{background:"#fff",borderRadius:20,padding:"40px 44px",border:"1.5px solid "+COLORS.border,boxShadow:"0 4px 24px rgba(28,43,58,0.07)",marginBottom:48}}>
+      <div style={{background:"#fff",borderRadius:20,padding:isMobile?"24px 20px":"40px 44px",border:"1.5px solid "+COLORS.border,boxShadow:"0 4px 24px rgba(28,43,58,0.07)",marginBottom:isMobile?28:48}}>
         <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?20:40}}>
           <div>
             <div style={{fontSize:11,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:12}}>Our Mission</div>
@@ -1886,7 +1887,7 @@ const AboutPage=({setView})=>{ const isMobile=useIsMobile(); return (
       {/* How it works clinically */}
       <div style={{marginBottom:56}}>
         <h2 style={{fontSize:26,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 24px",textAlign:"center"}}>The clinical model behind every order</h2>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:20}}>
+        <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?10:20}}>
           {[
             {icon:"🦷",title:"Licensed dentist reviews every case",body:"No order enters fabrication without a licensed dentist reviewing your dental history, impression photos, and clinical screening answers."},
             {icon:"🏭",title:"ADA-compliant dental lab fabrication",body:"We partner exclusively with ADA-compliant US dental laboratories using FDA-cleared materials — the same labs your dentist outsources to."},
@@ -1963,7 +1964,7 @@ const FAQPage=()=>{
   const [openCat,setOpenCat]=useState("Ordering");
   return (
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
+      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"clamp(28px,8vw,56px) clamp(16px,5vw,40px) 40px",textAlign:"center"}}>
         <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Frequently Asked Questions</h1>
         <p style={{fontSize:16,color:"rgba(255,255,255,0.7)",margin:0}}>Everything you need to know about The Guard Guy.</p>
       </div>
@@ -1992,7 +1993,7 @@ const FAQPage=()=>{
 // ── SHIPPING PAGE ─────────────────────────────────────────────────────────────
 const ShippingPage=()=>{ const isMobile=useIsMobile(); return (
   <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
+    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"clamp(28px,8vw,56px) clamp(16px,5vw,40px) 40px",textAlign:"center"}}>
       <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Shipping and Returns</h1>
       <p style={{fontSize:16,color:"rgba(255,255,255,0.7)",margin:0}}>Free two-way shipping on every order. No surprises.</p>
     </div>
@@ -2043,11 +2044,11 @@ const OrderTracker=()=>{
   const lookup=()=>{const t=MOCK[orderNum.toUpperCase()];setTracking(t||"notfound");};
   return (
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
+      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"clamp(28px,8vw,56px) clamp(16px,5vw,40px) 40px",textAlign:"center"}}>
         <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Track Your Order</h1>
         <p style={{fontSize:16,color:"rgba(255,255,255,0.7)",margin:0}}>Enter your order number to see real-time status.</p>
       </div>
-      <div style={{maxWidth:600,margin:"0 auto",padding:"56px 40px"}}>
+      <div style={{maxWidth:600,margin:"0 auto",padding:"clamp(24px,6vw,56px) clamp(16px,5vw,40px)"}}>
         <div style={{display:"flex",gap:12,marginBottom:32}}>
           <input style={{flex:1,padding:"14px 18px",borderRadius:10,border:"1.5px solid "+COLORS.border,fontSize:15,color:COLORS.navy,background:"#fff",outline:"none",fontFamily:"inherit"}} placeholder="e.g. TGG-38291" value={orderNum} onChange={e=>setOrderNum(e.target.value)} onKeyDown={e=>e.key==="Enter"&&lookup()}/>
           <button onClick={lookup} style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:10,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap"}}>Track Order</button>
@@ -2096,7 +2097,7 @@ const ContactPage=()=>{
   const iStyle={width:"100%",padding:"12px 14px",borderRadius:8,border:"1.5px solid "+COLORS.border,fontSize:14,color:COLORS.navy,background:"#fff",outline:"none",boxSizing:"border-box",fontFamily:"inherit",marginBottom:16};
   return (
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
+      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"clamp(28px,8vw,56px) clamp(16px,5vw,40px) 40px",textAlign:"center"}}>
         <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Contact Us</h1>
         <p style={{fontSize:16,color:"rgba(255,255,255,0.7)",margin:0}}>Clinical questions, order issues, or just want to say hi — we are here.</p>
       </div>
@@ -2283,7 +2284,7 @@ const WarrantyPage=({setView})=>{ const isMobile=useIsMobile(); return (
   <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
 
     {/* Hero */}
-    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+" 0%,"+COLORS.clinicalBlue+" 100%)",padding:"72px 40px 64px",textAlign:"center"}}>
+    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+" 0%,"+COLORS.clinicalBlue+" 100%)",padding:isMobile?"36px 16px 28px":"72px 40px 64px",textAlign:"center"}}>
       <div style={{maxWidth:700,margin:"0 auto"}}>
         <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:20,border:"1px solid rgba(255,255,255,0.2)"}}>Patient Protection</div>
         <h1 style={{fontSize:"clamp(28px,5vw,52px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 16px",lineHeight:1.15}}>Coverage Details.<br/><span style={{color:"#93C5DA",fontStyle:"italic"}}>No asterisks. No fine print.</span></h1>
@@ -2406,11 +2407,11 @@ const WarrantyPage=({setView})=>{ const isMobile=useIsMobile(); return (
 // ── HIPAA / PRIVACY PAGE ──────────────────────────────────────────────────────
 const PrivacyPage=()=>(
   <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
+    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"clamp(28px,8vw,56px) clamp(16px,5vw,40px) 40px",textAlign:"center"}}>
       <h1 style={{fontSize:"clamp(24px,4vw,40px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Notice of Privacy Practices</h1>
       <p style={{fontSize:15,color:"rgba(255,255,255,0.7)",margin:0}}>Effective Date: January 1, 2025</p>
     </div>
-    <div style={{maxWidth:780,margin:"0 auto",padding:"56px 40px 80px"}}>
+    <div style={{maxWidth:780,margin:"0 auto",padding:"clamp(24px,6vw,56px) clamp(16px,5vw,40px) clamp(40px,8vw,80px)"}}>
       {[
         {title:"Who We Are",body:"The Guard Guy is a teledentistry platform that connects patients with licensed dentists for the purpose of prescribing and fabricating custom dental appliances. The licensed dentists on our platform are the Covered Entities under HIPAA. The Guard Guy operates as a Business Associate."},
         {title:"What Information We Collect",body:"We collect Protected Health Information (PHI) including your name, date of birth, state of residence, dental and medical history, dental photographs, and treatment preferences. This information is collected exclusively through our HIPAA-compliant intake partner, Jotform HIPAA Gold, and is never stored on our website."},
@@ -2733,29 +2734,6 @@ const ImpressionGuidePage=({setView})=>{
   );
 };
 
-export default function App(){
-  const isMobile=useIsMobile();
-  const [view,setView]=useState("site");
-  const [screeningProduct,setScreeningProduct]=useState(null);
-  const [purchasedProduct,setPurchasedProduct]=useState(null);
-  const [checkoutProduct,setCheckoutProduct]=useState(null);
-  const [menuOpen,setMenuOpen]=useState(false);
-  const [portalTab,setPortalTab]=useState("case");
-  const [showNG,setShowNG]=useState(false);
-  const [showNGQuiz,setShowNGQuiz]=useState(false);
-  const [ngQuizResult,setNgQuizResult]=useState(null);
-  const [showRT,setShowRT]=useState(false);
-  const [showBL,setShowBL]=useState(false);
-  const [showSP,setShowSP]=useState(false);
-  const productsRef=useRef(null);
-  const scrollStripRef=useRef(null);
-
-  const handlePass=(product)=>{setScreeningProduct(null);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
-  const handleFunnelBuy=(product)=>{setShowNG(false);setShowRT(false);setShowBL(false);setShowSP(false);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
-  const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
-
-  
 // ── FAQ ITEM ──────────────────────────────────────────────────────────────────
 const FAQItem=({q,a})=>{
   const [open,setOpen]=useState(false);
@@ -2819,14 +2797,14 @@ const ProductCard=({product,onBuy,onLearn})=>(
 );
 
 // ── SUPERBILL PAGE ────────────────────────────────────────────────────────────
-const SuperbillPage=({setView})=>(
+const SuperbillPage=({setView})=>{ const isMobile=useIsMobile(); return (
   <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:"56px 40px 48px",textAlign:"center"}}>
-      <h1 style={{fontSize:"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Insurance and Superbill</h1>
+    <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",padding:isMobile?"32px 16px 28px":"56px 40px 48px",textAlign:"center"}}>
+      <h1 style={{fontSize:isMobile?"24px":"clamp(28px,5vw,44px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 12px"}}>Insurance and Superbill</h1>
       <p style={{fontSize:16,color:"rgba(255,255,255,0.7)",margin:0}}>Use your dental benefits - every order includes an itemized Superbill.</p>
     </div>
-    <div style={{maxWidth:800,margin:"0 auto",padding:"56px 40px 80px"}}>
-      <div style={{background:"#fff",borderRadius:16,padding:"32px",border:"1.5px solid "+COLORS.border,marginBottom:20,boxShadow:"0 4px 24px rgba(28,43,58,0.07)"}}>
+    <div style={{maxWidth:800,margin:"0 auto",padding:isMobile?"24px 16px 48px":"56px 40px 80px"}}>
+      <div style={{background:"#fff",borderRadius:16,padding:isMobile?"20px":"32px",border:"1.5px solid "+COLORS.border,marginBottom:20,boxShadow:"0 4px 24px rgba(28,43,58,0.07)"}}>
         <h3 style={{fontSize:20,fontWeight:700,color:COLORS.navy,margin:"0 0 16px"}}>CDT Codes Included</h3>
         {[["D9944","Occlusal guard, hard appliance, full arch (Night Guard)"],["D9945","Occlusal guard, soft appliance, full arch (Night Guard)"],["D9946","Occlusal guard, hard appliance, partial arch"],["D8680","Orthodontic retention (Retainers)"],["D9975","External bleaching, home application (Whitening Trays)"],["D9941","Athletic mouthguard (Sport Guard)"]].map(([code,desc],i)=>(
           <div key={i} style={{display:"flex",gap:16,padding:"12px 0",borderBottom:"1px solid "+COLORS.border,alignItems:"flex-start"}}>
@@ -2841,6 +2819,7 @@ const SuperbillPage=({setView})=>(
     </div>
   </div>
 );
+};
 
 
 // ── EDUCATION PAGE ────────────────────────────────────────────────────────────
@@ -2873,7 +2852,7 @@ const EducationPage=({onBuy,setView})=>{
   ];
   return (
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(135deg,#1C2B3A 0%,#2E4A62 100%)",padding:"72px 40px 64px",textAlign:"center"}}>
+      <div style={{background:"linear-gradient(135deg,#1C2B3A 0%,#2E4A62 100%)",padding:isMobile?"36px 16px 28px":"72px 40px 64px",textAlign:"center"}}>
         <div style={{maxWidth:700,margin:"0 auto"}}>
           <div style={{display:"inline-block",background:"rgba(255,255,255,0.12)",color:"rgba(255,255,255,0.9)",fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:20}}>Clinical Evidence Library</div>
           <h1 style={{fontSize:"clamp(28px,5vw,48px)",fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 16px",lineHeight:1.15}}>The science behind every appliance we make.</h1>
@@ -2899,7 +2878,7 @@ const EducationPage=({onBuy,setView})=>{
                 </div>
               </div>
               <div style={{textAlign:"right"}}>
-                <div style={{fontSize:42,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",lineHeight:1}}>{study.stat}</div>
+                <div style={{fontSize:isMobile?28:42,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",lineHeight:1}}>{study.stat}</div>
                 <div style={{fontSize:12,color:"rgba(255,255,255,0.75)",marginTop:4,textAlign:"right"}}>{study.statLabel}</div>
               </div>
             </div>
@@ -2975,6 +2954,30 @@ const EducationPage=({onBuy,setView})=>{
   );
 };
 
+
+export default function App(){
+  const isMobile=useIsMobile();
+  const [view,setView]=useState("site");
+  const [screeningProduct,setScreeningProduct]=useState(null);
+  const [purchasedProduct,setPurchasedProduct]=useState(null);
+  const [checkoutProduct,setCheckoutProduct]=useState(null);
+  const [menuOpen,setMenuOpen]=useState(false);
+  const [portalTab,setPortalTab]=useState("case");
+  const [showNG,setShowNG]=useState(false);
+  const [showNGQuiz,setShowNGQuiz]=useState(false);
+  const [ngQuizResult,setNgQuizResult]=useState(null);
+  const [showRT,setShowRT]=useState(false);
+  const [showBL,setShowBL]=useState(false);
+  const [showSP,setShowSP]=useState(false);
+  const productsRef=useRef(null);
+  const scrollStripRef=useRef(null);
+
+  const handlePass=(product)=>{setScreeningProduct(null);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+  const handleFunnelBuy=(product)=>{setShowNG(false);setShowRT(false);setShowBL(false);setShowSP(false);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+  const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
+  const goToCheckout=(product)=>{setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+
+  
 const SCROLL_PRODUCTS=[
     {id:3,hook:"Waking up with a sore jaw?",sub:"You might be grinding.",name:"Night Guard",funnel:"ng"},
     {id:6,hook:"Did your retainer disappear?",sub:"Your smile won't wait.",name:"Invisible Retainer",funnel:"rt"},
@@ -2983,7 +2986,7 @@ const SCROLL_PRODUCTS=[
   ];
 
   return (
-    <div style={{fontFamily:"-apple-system, BlinkMacSystemFont, sans-serif",background:COLORS.canvas,minHeight:"100vh",color:COLORS.navy}}>
+    <div style={{fontFamily:"-apple-system, BlinkMacSystemFont, sans-serif",background:COLORS.canvas,minHeight:"100vh",color:COLORS.navy,overflowX:"hidden",maxWidth:"100vw"}}>
 
       <nav style={{background:"#fff",borderBottom:"1px solid "+COLORS.border,padding:isMobile?"0 16px":"0 40px",position:"sticky",top:0,zIndex:200,display:"flex",alignItems:"center",height:64}}>
         <div onClick={()=>{setView("site");setMenuOpen(false);}} style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:isMobile?18:20,color:COLORS.navy,cursor:"pointer",flexShrink:0}}>The Guard Guy</div>
@@ -3026,9 +3029,9 @@ const SCROLL_PRODUCTS=[
       {view==="learn"&&<EducationPage onBuy={p=>{setCheckoutProduct(p);setView("checkout");}} setView={setView}/>}
       {view==="superbill"&&<SuperbillPage setView={setView}/>}
       {view==="portal"&&(
-        <div style={{maxWidth:700,margin:"0 auto",padding:"60px 24px"}}>
+        <div style={{maxWidth:700,margin:"0 auto",padding:"clamp(28px,6vw,60px) clamp(16px,4vw,24px)"}}>
           {purchasedProduct?<PatientPortal product={purchasedProduct}/>:(
-            <div style={{textAlign:"center",padding:"80px 20px"}}>
+            <div style={{textAlign:"center",padding:"clamp(40px,8vw,80px) clamp(16px,4vw,20px)"}}>
               <h2 style={{fontFamily:"Georgia, serif",fontSize:26,color:COLORS.navy,marginBottom:12}}>Clinical Intake Portal</h2>
               <p style={{color:COLORS.muted,fontSize:15,maxWidth:380,margin:"0 auto 28px"}}>Complete your purchase first to access the HIPAA-secure patient intake form.</p>
               <Btn variant="primary" onClick={()=>setView("site")}>Browse Products</Btn>
@@ -3142,14 +3145,14 @@ const SCROLL_PRODUCTS=[
           </section>
 
           <section style={{padding:isMobile?"12px":"32px",background:COLORS.canvas}}>
-            <div style={{borderRadius:isMobile?16:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:"72px 40px"}}>
+            <div style={{borderRadius:isMobile?16:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:isMobile?"28px 16px":"72px 40px"}}>
               <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:52}}>
+              <div style={{textAlign:"center",marginBottom:isMobile?28:52}}>
                 <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:18,border:"1px solid rgba(255,255,255,0.35)"}}>The Process</div>
-                <h2 style={{fontSize:44,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 10px",letterSpacing:"-0.02em",lineHeight:1.1}}>Three steps. Zero dentist visits.</h2>
-                <p style={{fontSize:18,color:"rgba(255,255,255,0.75)",margin:0,fontWeight:500}}>No appointments. No waiting rooms. No insurance required.</p>
+                <h2 style={{fontSize:isMobile?26:44,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 10px",letterSpacing:"-0.02em",lineHeight:1.1}}>Three steps. Zero dentist visits.</h2>
+                <p style={{fontSize:isMobile?14:18,color:"rgba(255,255,255,0.75)",margin:0,fontWeight:500}}>No appointments. No waiting rooms. No insurance required.</p>
               </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:24}}>
+              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr 1fr",gap:isMobile?16:24}}>
                 {[
                   {step:"1",title:"Order and receive your kit",desc:"Select your guard, pass a quick safety screening, and a putty impression kit ships to your door.",img:S1},
                   {step:"2",title:"Make your impression at home",desc:"Mix the putty, press the tray to your teeth, and mail it back in the prepaid envelope.",img:S2},
@@ -3239,13 +3242,13 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <section style={{padding:"72px 40px",background:"#fff"}}>
+          <section style={{padding:isMobile?"28px 16px":"72px 40px",background:"#fff"}}>
             <div style={{maxWidth:1060,margin:"0 auto"}}>
               <div style={{textAlign:"center",marginBottom:40}}>
                 <h3 style={{fontSize:28,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 8px"}}>Our promise to every patient.</h3>
                 <p style={{fontSize:15,color:COLORS.muted,margin:0}}>Three guarantees that set us apart.</p>
               </div>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:24,marginBottom:56}}>
+              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?12:24,marginBottom:isMobile?28:56}}>
                 {[
                   {icon:"shield",color:COLORS.clinicalBlue,colorLight:COLORS.clinicalBlueLight,title:"6-Month Warranty + Lifetime 50% Off",body:"Guaranteed to fit now and in the future. Every appliance includes a 6-month replacement warranty. Plus up to 1 free re-impression kit if your mold does not meet lab standards. If your teeth shift or you get dental work, receive 50% off a brand-new replacement for life."},
                   {icon:"lab",color:COLORS.sage,colorLight:COLORS.sageLight,title:"Direct Dental-Lab Fabrication. No Middleman.",body:"Dentists outsource night guards to dental laboratories. We cut out the office markup entirely. You get the exact same FDA-cleared, custom-molded materials for up to 70% less."},
@@ -3298,7 +3301,7 @@ const SCROLL_PRODUCTS=[
                   Not sure which night guard is right for you? Take the quiz →
                 </button>
               </div>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:24}}>
+              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr 1fr":"repeat(3,1fr)",gap:isMobile?10:24}}>
                 {PRODUCTS.map(p=><ProductCard key={p.id} product={p} onBuy={(prod)=>{
                   if(prod.id===1||prod.id===2||prod.id===3)setShowNG(true);
                   else if(prod.id===6)setShowRT(true);
@@ -3349,7 +3352,7 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <footer style={{background:COLORS.navy,color:"#fff",padding:"52px 40px 32px"}}>
+          <footer style={{background:COLORS.navy,color:"#fff",padding:"clamp(28px,6vw,52px) clamp(16px,5vw,40px) 24px"}}>
             <div style={{maxWidth:1000,margin:"0 auto"}}>
               <div style={{display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:32,marginBottom:40}}>
                 <div>
