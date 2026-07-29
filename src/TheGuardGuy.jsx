@@ -2763,15 +2763,15 @@ const ScrollCard=({product,onQuiz})=>(
 
 
 // ── PRODUCT CARD ─────────────────────────────────────────────────────────────
-const ProductCard=({product,onBuy,onLearn})=>(
+const ProductCard=({product,onBuy,onLearn})=>{ const isMobile=useIsMobile(); return (
   <div style={{background:"#fff",borderRadius:16,border:"1.5px solid "+COLORS.border,overflow:"hidden",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:"column",transition:"box-shadow 0.18s"}}
     onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 8px 32px rgba(28,43,58,0.12)";}}
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
-    <div style={{background:COLORS.sand,padding:"24px",display:"flex",justifyContent:"center",alignItems:"center",height:160}}>
-      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{maxHeight:130,maxWidth:"90%",objectFit:"contain"}}/>
+    <div style={{background:COLORS.sand,padding:"16px",display:"flex",justifyContent:"center",alignItems:"center",height:180}}>
+      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{height:160,maxWidth:"90%",objectFit:"contain"}}/>
     </div>
     <div style={{padding:"20px 22px 22px",display:"flex",flexDirection:"column",flex:1}}>
-      <h3 style={{fontSize:16,fontWeight:700,color:COLORS.navy,margin:"0 0 8px"}}>{product.name}</h3>
+      <h3 style={{fontSize:isMobile?15:16,fontWeight:700,color:COLORS.navy,margin:"0 0 8px"}}>{product.name}</h3>
       <p style={{fontSize:13,color:COLORS.muted,lineHeight:1.65,margin:"0 0 6px"}}>{product.desc} <button onClick={()=>onLearn&&onLearn(product)} style={{background:"none",border:"none",color:COLORS.clinicalBlue,fontSize:12,fontWeight:600,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"3px",padding:0,display:"inline",fontFamily:"inherit"}}>Learn more</button></p>
       <div style={{flex:1}}/>
       <div style={{display:"flex",gap:8,marginBottom:16,minHeight:56}}>
@@ -2785,16 +2785,17 @@ const ProductCard=({product,onBuy,onLearn})=>(
       <div style={{paddingTop:14,borderTop:"1px solid "+COLORS.border,marginTop:"auto"}}>
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
           <div>
-            <span style={{fontSize:22,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${product.price}</span>
+            <span style={{fontSize:isMobile?20:22,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${product.price}</span>
             <span style={{fontSize:12,color:COLORS.muted,marginLeft:4}}>one-time</span>
           </div>
-          <Btn variant="primary" size="sm" onClick={()=>onBuy(product)}>Get Started</Btn>
+          <Btn variant="primary" size={isMobile?"md":"sm"} onClick={()=>onBuy(product)}>Get Started</Btn>
         </div>
         <div style={{fontSize:10,color:"#92650A",fontWeight:600}}>FSA/HSA eligible - Superbill included</div>
       </div>
     </div>
   </div>
 );
+};
 
 // ── SUPERBILL PAGE ────────────────────────────────────────────────────────────
 const SuperbillPage=({setView})=>{ const isMobile=useIsMobile(); return (
@@ -3193,19 +3194,20 @@ const SCROLL_PRODUCTS=[
                 <h2 style={{fontSize:"clamp(22px,3.5vw,34px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 12px",lineHeight:1.2}}>Why pay $600 at the dentist when you get the same lab fit for $150?</h2>
                 <p style={{fontSize:16,color:COLORS.muted,maxWidth:560,margin:"0 auto",lineHeight:1.7}}>See how The Guard Guy compares to drugstore guards, online brands, and traditional dental offices.</p>
               </div>
-              <div style={{borderRadius:20,overflow:"hidden",border:"1px solid "+COLORS.border,boxShadow:"0 8px 40px rgba(28,43,58,0.08)",marginBottom:64}}>
-                <div style={{overflowX:"auto"}}>
-                  <table style={{width:"100%",borderCollapse:"collapse",minWidth:640}}>
+              <div style={{borderRadius:20,overflow:"hidden",border:"1px solid "+COLORS.border,boxShadow:"0 8px 40px rgba(28,43,58,0.08)",marginBottom:isMobile?32:64}}>
+                {isMobile&&<div style={{background:COLORS.clinicalBlueLight,padding:"8px 16px",fontSize:11,color:COLORS.clinicalBlue,fontWeight:600,textAlign:"center",borderBottom:"1px solid "+COLORS.border}}>← Swipe to compare →</div>}
+                <div style={{overflowX:"auto",WebkitOverflowScrolling:"touch"}}>
+                  <table style={{width:"100%",borderCollapse:"collapse",minWidth:isMobile?500:640}}>
                     <thead>
                       <tr>
-                        <th style={{padding:"20px 20px",background:COLORS.canvas,textAlign:"left",fontSize:12,fontWeight:700,color:COLORS.muted,letterSpacing:"0.06em",textTransform:"uppercase",borderBottom:"2px solid "+COLORS.border,width:"28%"}}>Feature</th>
-                        {[{label:"Drugstore",sub:"$20 - $40"},{label:"DTC Brands",sub:"Remi / Cheeky"},{label:"In-Office Dentist",sub:"$400 - $800+"}].map((col,i)=>(
-                          <th key={i} style={{padding:"20px 16px",background:COLORS.canvas,textAlign:"center",fontSize:13,fontWeight:700,color:COLORS.navyLight,borderBottom:"2px solid "+COLORS.border,borderLeft:"1px solid "+COLORS.border}}>
+                        <th style={{padding:isMobile?"14px 12px":"20px 20px",background:COLORS.canvas,textAlign:"left",fontSize:isMobile?11:12,fontWeight:700,color:COLORS.muted,letterSpacing:"0.06em",textTransform:"uppercase",borderBottom:"2px solid "+COLORS.border,width:"28%"}}>Feature</th>
+                        {[{label:"Drugstore",sub:"$20-$40"},{label:"DTC Brands",sub:"Remi/Cheeky"},{label:"In-Office",sub:"$400-$800+"}].map((col,i)=>(
+                          <th key={i} style={{padding:isMobile?"14px 10px":"20px 16px",background:COLORS.canvas,textAlign:"center",fontSize:isMobile?11:13,fontWeight:700,color:COLORS.navyLight,borderBottom:"2px solid "+COLORS.border,borderLeft:"1px solid "+COLORS.border}}>
                             <div>{col.label}</div>
-                            <div style={{fontSize:11,fontWeight:500,color:COLORS.muted,marginTop:3}}>{col.sub}</div>
+                            <div style={{fontSize:10,fontWeight:500,color:COLORS.muted,marginTop:2}}>{col.sub}</div>
                           </th>
                         ))}
-                        <th style={{padding:"0",background:COLORS.clinicalBlue,textAlign:"center",borderBottom:"2px solid "+COLORS.clinicalBlueDark,borderLeft:"2px solid "+COLORS.clinicalBlueDark,position:"relative",minWidth:160}}>
+                        <th style={{padding:"0",background:COLORS.clinicalBlue,textAlign:"center",borderBottom:"2px solid "+COLORS.clinicalBlueDark,borderLeft:"2px solid "+COLORS.clinicalBlueDark,position:"relative",minWidth:isMobile?120:160}}>
                           <div style={{padding:"12px 16px 16px"}}>
                             <div style={{display:"inline-block",background:"rgba(255,255,255,0.2)",color:"#fff",fontSize:9,fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"2px 10px",borderRadius:20,marginBottom:8}}>Best Choice</div>
                             <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>The Guard Guy</div>
