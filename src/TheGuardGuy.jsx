@@ -1459,10 +1459,10 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
     <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
 
       {/* Main content + sticky sidebar */}
-      <div style={{maxWidth:1060,margin:"0 auto",padding:isMobile?"20px 16px 60px":"48px 40px 80px",display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 340px",gap:isMobile?20:40,alignItems:"start"}}>
+      <div style={{maxWidth:1060,margin:"0 auto",padding:isMobile?"20px 16px 60px":"48px 40px 80px",display:isMobile?"flex":"grid",flexDirection:isMobile?"column":"unset",gridTemplateColumns:isMobile?"1fr":"1fr 340px",gap:isMobile?20:40,alignItems:"start"}}>
 
-        {/* Left: tabs + content */}
-        <div>
+                {/* Left: tabs + content */}
+        <div style={{order:isMobile?2:1}}>
 
           {/* Product image / Gallery */}
           {pageKey==="rt" ? (
@@ -1493,7 +1493,6 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
 
           {activeTab==="overview"&&(
             <div>
-              {/* Variants selector for night guard */}
               {data.variants.length>1&&(
                 <div style={{marginBottom:32}}>
                   <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 16px"}}>Choose your guard type</h3>
@@ -1504,82 +1503,74 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
                         <button key={i} onClick={()=>setSelectedVariant(v)} style={{display:"flex",alignItems:"center",gap:16,padding:"16px 20px",borderRadius:12,border:"2px solid "+(isSelected?data.color:COLORS.border),background:isSelected?data.colorLight:"#fff",cursor:"pointer",textAlign:"left",transition:"all 0.18s"}}>
                           <img src={PRODUCT_IMAGES[v.id]} alt={v.name} style={{width:56,height:56,objectFit:"cover",borderRadius:8,flexShrink:0}}/>
                           <div style={{flex:1}}>
-                            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}>
-                              <span style={{fontSize:14,fontWeight:700,color:COLORS.navy}}>{v.name}</span>
-                              <span style={{background:data.colorLight,color:data.color,fontSize:10,fontWeight:700,padding:"2px 8px",borderRadius:20}}>{v.tag}</span>
+                            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
+                              <span style={{fontSize:15,fontWeight:700,color:isSelected?data.color:COLORS.navy}}>{v.name}</span>
+                              <span style={{fontSize:16,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${v.price}</span>
                             </div>
-                            <div style={{fontSize:12,color:COLORS.muted}}>{v.best}</div>
+                            <div style={{fontSize:13,color:COLORS.muted}}>{v.shortDesc}</div>
                           </div>
-                          <div style={{fontSize:18,fontWeight:800,color:COLORS.navy,flexShrink:0}}>${v.price}</div>
-                          <div style={{width:20,height:20,borderRadius:"50%",border:"2px solid "+(isSelected?data.color:COLORS.border),background:isSelected?data.color:"#fff",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
-                            {isSelected&&<div style={{width:8,height:8,borderRadius:"50%",background:"#fff"}}/>}
-                          </div>
+                          {isSelected&&<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill={data.color}/><path d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                         </button>
                       );
                     })}
                   </div>
-                  {!assessmentDone&&<p style={{fontSize:12,color:data.color,fontWeight:600,marginTop:12}}>Not sure which is right? Take the free 2-min clinical assessment — we will recommend the best option for your specific situation.</p>}
                 </div>
               )}
 
-              {/* What is included */}
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?16:32}}>
-                <div>
-                  <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 16px"}}>Everything included</h3>
-                  <div style={{display:"flex",flexDirection:"column",gap:10}}>
-                    {data.includes.map((item,i)=>(
-                      <div key={i} style={{display:"flex",alignItems:"flex-start",gap:10}}>
-                        <div style={{width:20,height:20,borderRadius:"50%",background:data.colorLight,border:"1.5px solid "+data.color+"66",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>
-                          <svg width="10" height="10" viewBox="0 0 10 10"><path d="M1.5 5l3 3 4-4" stroke={data.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+              <div>
+                <h2 style={{fontSize:22,fontWeight:800,color:COLORS.navy,margin:"0 0 12px",fontFamily:"Georgia, serif"}}>{activeVariant.name}</h2>
+                <p style={{fontSize:15,color:COLORS.muted,lineHeight:1.8,marginBottom:24}}>{activeVariant.longDesc||data.longDesc}</p>
+                <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?16:32}}>
+                  <div>
+                    <h3 style={{fontSize:15,fontWeight:700,color:COLORS.navy,margin:"0 0 12px"}}>Clinical specifications</h3>
+                    <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                      {(activeVariant.specs||data.specs||[]).map((s,i)=>(
+                        <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:COLORS.canvas,borderRadius:8,fontSize:13,border:"1px solid "+COLORS.border}}>
+                          <span style={{color:COLORS.muted,fontWeight:500}}>{s.label}</span>
+                          <span style={{color:COLORS.navy,fontWeight:700}}>{s.value}</span>
                         </div>
-                        <span style={{fontSize:13,color:COLORS.navy,lineHeight:1.5}}>{item}</span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 16px"}}>The process</h3>
-                  <div style={{display:"flex",flexDirection:"column",gap:14}}>
-                    {[["1","Order and take the assessment","Complete our clinical screening online."],["2","Receive your impression kit","A putty kit ships to your door in 2-3 days."],["3","Make impressions at home","3 minutes of simple putty work, mail it back."],["4","Dentist review and lab fabrication","Reviewed and milled within 5-7 business days."]].map(([n,t,d])=>(
-                      <div key={n} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
-                        <div style={{width:26,height:26,borderRadius:"50%",background:data.color,color:"#fff",fontSize:11,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{n}</div>
-                        <div><div style={{fontSize:13,fontWeight:700,color:COLORS.navy,marginBottom:2}}>{t}</div><div style={{fontSize:12,color:COLORS.muted,lineHeight:1.55}}>{d}</div></div>
-                      </div>
-                    ))}
+                  <div>
+                    <h3 style={{fontSize:15,fontWeight:700,color:COLORS.navy,margin:"0 0 12px"}}>Whats included</h3>
+                    <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                      {(activeVariant.includes||data.includes||[]).map((item,i)=>(
+                        <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",fontSize:13,color:COLORS.navy}}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{flexShrink:0,marginTop:1}}><path d="M3 8l4 4 6-6" stroke={data.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          {item}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           )}
-
           {activeTab==="symptoms"&&(
             <div>
-              <h3 style={{fontSize:22,fontWeight:800,color:COLORS.navy,margin:"0 0 8px"}}>Is this right for you?</h3>
-              <p style={{fontSize:14,color:COLORS.muted,margin:"0 0 24px",lineHeight:1.7}}>You may be a great candidate if any of these apply:</p>
-              <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:36}}>
-                {data.symptoms.map((s,i)=>(
-                  <div key={i} style={{display:"flex",alignItems:"center",gap:14,background:"#fff",borderRadius:12,padding:"14px 18px",border:"1px solid "+COLORS.border}}>
-                    <div style={{width:10,height:10,borderRadius:"50%",background:data.color,flexShrink:0}}/>
-                    <span style={{fontSize:14,color:COLORS.navy,fontWeight:500}}>{s}</span>
+              <h3 style={{fontSize:18,fontWeight:700,color:COLORS.navy,margin:"0 0 16px"}}>Signs you may need this appliance</h3>
+              <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                {(data.symptoms||[]).map((s,i)=>(
+                  <div key={i} style={{display:"flex",gap:14,alignItems:"flex-start",padding:"14px 18px",background:"#fff",borderRadius:12,border:"1px solid "+COLORS.border}}>
+                    <div style={{width:28,height:28,borderRadius:"50%",background:data.colorLight,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:700,color:data.color}}>{i+1}</div>
+                    <div><div style={{fontSize:14,fontWeight:700,color:COLORS.navy,marginBottom:3}}>{s.title}</div><div style={{fontSize:13,color:COLORS.muted,lineHeight:1.65}}>{s.desc}</div></div>
                   </div>
                 ))}
               </div>
-              <div style={{background:data.colorLight,borderRadius:14,padding:"22px 24px",border:"1.5px solid "+data.color+"33",textAlign:"center"}}>
-                <p style={{fontSize:14,color:COLORS.navy,fontWeight:600,margin:"0 0 14px"}}>Our 2-minute clinical assessment will confirm you are a good candidate and recommend the right option.</p>
-                <button onClick={onQuiz} onMouseEnter={e=>{e.currentTarget.style.opacity="0.85";}} onMouseLeave={e=>{e.currentTarget.style.opacity="1";}} style={{background:data.color,color:"#fff",border:"none",borderRadius:10,padding:"12px 24px",fontSize:14,fontWeight:700,cursor:"pointer"}}>Take the Free Assessment</button>
-              </div>
             </div>
           )}
-
           {activeTab==="faqs"&&(
-            <div style={{display:"flex",flexDirection:"column",gap:8}}>
-              {data.faqs.map((faq,i)=><FAQItem key={i} q={faq.q} a={faq.a}/>)}
+            <div>
+              <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                {data.faqs.map((faq,i)=><FAQItem key={i} q={faq.q} a={faq.a}/>)}
+              </div>
             </div>
           )}
         </div>
 
         {/* RIGHT: Sticky purchase sidebar */}
-        <div style={{position:isMobile?"relative":"sticky",top:80}}>
+        <div style={{position:isMobile?"relative":"sticky",top:80,order:isMobile?1:2}}>
           <div style={{background:"#fff",borderRadius:20,border:"1.5px solid "+COLORS.border,boxShadow:"0 8px 40px rgba(28,43,58,0.10)",overflow:"hidden"}}>
 
             {/* Product image + name */}
@@ -2770,9 +2761,11 @@ const ProductCard=({product,onBuy,onLearn})=>{ const isMobile=useIsMobile(); ret
 
     {/* Image */}
     <div style={{background:COLORS.sand,display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
-      width:isMobile?130:"100%",height:isMobile?"auto":180,padding:isMobile?"16px 12px":"16px"}}>
+      width:isMobile?130:"100%",height:isMobile?"auto":180,padding:isMobile?"8px":"16px",
+      borderRadius:isMobile?"12px 0 0 12px":0}}>
       <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{
-        height:isMobile?110:160,width:isMobile?100:"90%",objectFit:"contain"}}/>
+        height:isMobile?120:160,width:isMobile?"100%":"90%",objectFit:"contain",
+        borderRadius:isMobile?8:0}}/>
     </div>
 
     {/* Content */}
