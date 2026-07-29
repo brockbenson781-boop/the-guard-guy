@@ -2764,33 +2764,46 @@ const ScrollCard=({product,onQuiz})=>(
 
 // ── PRODUCT CARD ─────────────────────────────────────────────────────────────
 const ProductCard=({product,onBuy,onLearn})=>{ const isMobile=useIsMobile(); return (
-  <div style={{background:"#fff",borderRadius:16,border:"1.5px solid "+COLORS.border,overflow:"hidden",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:"column",transition:"box-shadow 0.18s"}}
+  <div style={{background:"#fff",borderRadius:16,border:"1.5px solid "+COLORS.border,overflow:"hidden",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:isMobile?"row":"column",transition:"box-shadow 0.18s"}}
     onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 8px 32px rgba(28,43,58,0.12)";}}
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
-    <div style={{background:COLORS.sand,padding:"16px",display:"flex",justifyContent:"center",alignItems:"center",height:180}}>
-      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{height:160,maxWidth:"90%",objectFit:"contain"}}/>
+
+    {/* Image */}
+    <div style={{background:COLORS.sand,display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
+      width:isMobile?130:"100%",height:isMobile?"auto":180,padding:isMobile?"16px 12px":"16px"}}>
+      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{
+        height:isMobile?110:160,width:isMobile?100:"90%",objectFit:"contain"}}/>
     </div>
-    <div style={{padding:"20px 22px 22px",display:"flex",flexDirection:"column",flex:1}}>
-      <h3 style={{fontSize:isMobile?15:16,fontWeight:700,color:COLORS.navy,margin:"0 0 8px"}}>{product.name}</h3>
-      <p style={{fontSize:13,color:COLORS.muted,lineHeight:1.65,margin:"0 0 6px"}}>{product.desc} <button onClick={()=>onLearn&&onLearn(product)} style={{background:"none",border:"none",color:COLORS.clinicalBlue,fontSize:12,fontWeight:600,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"3px",padding:0,display:"inline",fontFamily:"inherit"}}>Learn more</button></p>
-      <div style={{flex:1}}/>
-      <div style={{display:"flex",gap:8,marginBottom:16,minHeight:56}}>
+
+    {/* Content */}
+    <div style={{padding:isMobile?"14px 16px":"20px 22px 22px",display:"flex",flexDirection:"column",flex:1,minWidth:0}}>
+      {product.tag&&<div style={{fontSize:9,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:4}}>{product.tag}</div>}
+      <h3 style={{fontSize:isMobile?15:16,fontWeight:700,color:COLORS.navy,margin:"0 0 6px",lineHeight:1.2}}>{product.name}</h3>
+      <p style={{fontSize:isMobile?12:13,color:COLORS.muted,lineHeight:1.6,margin:"0 0 8px"}}>{product.desc} <button onClick={()=>onLearn&&onLearn(product)} style={{background:"none",border:"none",color:COLORS.clinicalBlue,fontSize:11,fontWeight:600,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"3px",padding:0,display:"inline",fontFamily:"inherit"}}>Learn more</button></p>
+
+      {/* Specs */}
+      <div style={{display:"flex",gap:isMobile?6:8,marginBottom:isMobile?10:16}}>
         {[["Material",product.material],["Thickness",product.thickness],["Wear",product.wear]].map(([k,v])=>(
-          <div key={k} style={{textAlign:"center",flex:1,background:COLORS.canvas,borderRadius:8,padding:"8px 4px",display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
-            <div style={{fontSize:9,color:COLORS.muted,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:4}}>{k}</div>
-            <div style={{fontSize:11,color:COLORS.navy,fontWeight:600,lineHeight:1.3}}>{v}</div>
+          <div key={k} style={{textAlign:"center",flex:1,background:COLORS.canvas,borderRadius:8,padding:isMobile?"6px 4px":"8px 4px"}}>
+            <div style={{fontSize:8,color:COLORS.muted,fontWeight:700,letterSpacing:"0.05em",textTransform:"uppercase",marginBottom:2}}>{k}</div>
+            <div style={{fontSize:isMobile?10:11,color:COLORS.navy,fontWeight:600,lineHeight:1.3}}>{v}</div>
           </div>
         ))}
       </div>
-      <div style={{paddingTop:14,borderTop:"1px solid "+COLORS.border,marginTop:"auto"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
+
+      {/* Price + CTA */}
+      <div style={{paddingTop:isMobile?10:14,borderTop:"1px solid "+COLORS.border,marginTop:"auto"}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:4,flexWrap:"wrap",gap:8}}>
           <div>
             <span style={{fontSize:isMobile?20:22,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${product.price}</span>
-            <span style={{fontSize:12,color:COLORS.muted,marginLeft:4}}>one-time</span>
+            <span style={{fontSize:11,color:COLORS.muted,marginLeft:4}}>one-time</span>
           </div>
-          <Btn variant="primary" size={isMobile?"md":"sm"} onClick={()=>onBuy(product)}>Get Started</Btn>
+          <button onClick={()=>onBuy(product)}
+            style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:8,padding:isMobile?"10px 16px":"8px 14px",fontSize:isMobile?13:12,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",minHeight:40}}>
+            Get Started
+          </button>
         </div>
-        <div style={{fontSize:10,color:"#92650A",fontWeight:600}}>FSA/HSA eligible - Superbill included</div>
+        <div style={{fontSize:10,color:"#92650A",fontWeight:600}}>FSA/HSA eligible — Superbill included</div>
       </div>
     </div>
   </div>
@@ -3303,7 +3316,7 @@ const SCROLL_PRODUCTS=[
                   Not sure which night guard is right for you? Take the quiz →
                 </button>
               </div>
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr 1fr":"repeat(3,1fr)",gap:isMobile?10:24}}>
+              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?16:24}}>
                 {PRODUCTS.map(p=><ProductCard key={p.id} product={p} onBuy={(prod)=>{
                   if(prod.id===1||prod.id===2||prod.id===3)setShowNG(true);
                   else if(prod.id===6)setShowRT(true);
