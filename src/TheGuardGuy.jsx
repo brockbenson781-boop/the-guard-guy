@@ -2996,7 +2996,15 @@ const SCROLL_PRODUCTS=[
     <div style={{fontFamily:"-apple-system, BlinkMacSystemFont, sans-serif",background:COLORS.canvas,minHeight:"100vh",color:COLORS.navy,overflowX:"hidden",maxWidth:"100vw"}}>
 
       <nav style={{background:"#fff",borderBottom:"1px solid "+COLORS.border,padding:isMobile?"0 16px":"0 40px",position:"sticky",top:0,zIndex:200,display:"flex",alignItems:"center",height:64}}>
-        <div onClick={()=>{setView("site");setMenuOpen(false);}} style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:isMobile?18:20,color:COLORS.navy,cursor:"pointer",flexShrink:0}}>The Guard Guy</div>
+        <div style={{display:"flex",flexDirection:"column",gap:2,flexShrink:0,cursor:"pointer"}} onClick={()=>{setView("site");setMenuOpen(false);}}>
+          <div style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:isMobile?18:20,color:COLORS.navy}}>The Guard Guy</div>
+          <div style={{display:"flex",alignItems:"center",gap:5}}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C9.5 2 7.5 3.5 6 5C4.5 3.5 2 4 2 7C2 10 4 12 4 15C4 18 5 22 7 22C8.5 22 9 20 10 18C10.5 17 11 16.5 12 16.5C13 16.5 13.5 17 14 18C15 20 15.5 22 17 22C19 22 20 18 20 15C20 12 22 10 22 7C22 4 19.5 3.5 18 5C16.5 3.5 14.5 2 12 2Z" fill={COLORS.clinicalBlue}/>
+            </svg>
+            <span style={{fontSize:isMobile?8:9,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.05em",textTransform:"uppercase",whiteSpace:"nowrap"}}>Licensed Teledentistry</span>
+          </div>
+        </div>
         {!isMobile&&<div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:2}}>
           {[{label:"Home",key:"site"},{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}].map(tab=>(
             <button key={tab.key} onClick={()=>{setView(tab.key);setMenuOpen(false);}} style={{padding:"8px 12px",border:"none",cursor:"pointer",fontSize:12,fontWeight:600,background:"transparent",color:view===tab.key?COLORS.clinicalBlue:COLORS.muted,borderBottom:view===tab.key?"2px solid "+COLORS.clinicalBlue:"2px solid transparent",borderRadius:0,transition:"all 0.15s",whiteSpace:"nowrap"}}>{tab.label}</button>
@@ -3067,7 +3075,7 @@ const SCROLL_PRODUCTS=[
 
       {view==="site"&&(
         <>
-          <section style={{background:COLORS.canvas,width:"100%"}}>
+          <section style={{background:"#F7F5F0",width:"100%"}}>
             <div style={{width:"100%",maxWidth:900,margin:"0 auto",padding:isMobile?"24px 16px 0":"64px 60px 0",textAlign:"center",boxSizing:"border-box"}}>
               <div style={{marginBottom:22}}>
                 <span style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,padding:"5px 18px",borderRadius:20,fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase"}}>Dentist-reviewed. Lab-crafted. Shipped to you.</span>
@@ -3077,9 +3085,49 @@ const SCROLL_PRODUCTS=[
                 <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
               </div>
               <p style={{fontSize:isMobile?14:17,color:COLORS.muted,lineHeight:1.6,margin:isMobile?"0 auto 24px":"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
-              <div style={{display:"flex",justifyContent:"center",marginBottom:isMobile?16:28}}>
-                <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"contain",mixBlendMode:"multiply",borderRadius:16}}/>
-              </div>
+              {/* Video hero with play button */}
+              {(()=>{
+                const [playing,setPlaying]=useState(false);
+                const [showPlay,setShowPlay]=useState(true);
+                const vidRef=useRef(null);
+                const handlePlay=()=>{
+                  if(vidRef.current){
+                    vidRef.current.play();
+                    setPlaying(true);
+                    setShowPlay(false);
+                  }
+                };
+                const handleEnd=()=>{
+                  setPlaying(false);
+                  setShowPlay(true);
+                };
+                return (
+                  <div style={{position:"relative",width:"100%",cursor:showPlay?"pointer":"default",lineHeight:0}} onClick={showPlay?handlePlay:undefined}>
+                    <video
+                      ref={vidRef}
+                      src="/videos/hero.mp4"
+                      poster={HERO_IMG}
+                      onEnded={handleEnd}
+                      playsInline
+                      style={{width:"100%",display:"block",objectFit:"contain"}}
+                    />
+                    {showPlay&&(
+                      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(28,43,58,0.08)"}}>
+                        <div style={{width:isMobile?56:72,height:isMobile?56:72,borderRadius:"50%",background:"rgba(255,255,255,0.92)",backdropFilter:"blur(8px)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 8px 32px rgba(28,43,58,0.2)",transition:"transform 0.18s"}}
+                          onMouseEnter={e=>e.currentTarget.style.transform="scale(1.08)"}
+                          onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}>
+                          <svg width={isMobile?20:26} height={isMobile?20:26} viewBox="0 0 24 24" fill="none">
+                            <path d="M8 5.14v14l11-7-11-7z" fill={COLORS.clinicalBlue}/>
+                          </svg>
+                        </div>
+                        <div style={{position:"absolute",bottom:isMobile?12:20,left:0,right:0,textAlign:"center"}}>
+                          <span style={{fontSize:isMobile?11:12,fontWeight:700,color:"rgba(28,43,58,0.6)",letterSpacing:"0.08em",textTransform:"uppercase",background:"rgba(255,255,255,0.7)",backdropFilter:"blur(4px)",padding:"4px 14px",borderRadius:20}}>Tap to watch</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
               <div style={{textAlign:"center",paddingBottom:48}}>
                 <button
                   onClick={()=>productsRef.current&&productsRef.current.scrollIntoView({behavior:"smooth",block:"start"})}
