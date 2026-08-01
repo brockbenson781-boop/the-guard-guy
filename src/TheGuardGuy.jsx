@@ -41,10 +41,12 @@ const HNG_1="/images/hng-1.jpg";
 const HNG_2="/images/hng-2.jpg";
 const HNG_3="/images/hng-3.jpg";
 const HNG_4="/images/hng-4.jpg";
+const HNG_5="/images/hng-5.jpg";
 const HYB_1="/images/hyb-1.jpg";
 const HYB_2="/images/hyb-2.jpg";
 const HYB_3="/images/hyb-3.jpg";
 const HYB_4="/images/hyb-4.jpg";
+const HYB_5="/images/hyb-5.jpg";
 const WT_1="/images/wt-1.jpg";
 const WT_2="/images/wt-2.jpg";
 const WT_3="/images/wt-3.jpg";
@@ -1024,335 +1026,189 @@ const SportFunnel=({onClose,onBuyProduct})=>{
 
 
 // ── SPORT GUARD GALLERY ──────────────────────────────────────────────────────
-const SP_GALLERY_IMGS = [
-  {src: SP_1, caption: "Custom Sport Guard — navy blue 4mm laminated EVA"},
-  {src: SP_2, caption: "Dentist-inspected — gloved lab quality check"},
-  {src: SP_3, caption: "Close-up — custom tooth impression detail on inner surface"},
-  {src: SP_4, caption: "4mm laminated thickness — maximum impact protection"},
-  {src: SP_5, caption: "Included with every order — custom case and impression kit"},
-];
-
-const SportGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = SP_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
-  return (
-    <div style={{marginBottom:32}}>
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img src={SP_GALLERY_IMGS[current].src} alt={SP_GALLERY_IMGS[current].caption}
-          style={{width:"75%",maxWidth:440,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}/>
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
-        </div>
-      </div>
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {SP_GALLERY_IMGS[current].caption}
-      </div>
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {SP_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?COLORS.sage:COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {SP_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?COLORS.sage:COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// ── WHITENING TRAY GALLERY ───────────────────────────────────────────────────
-const WT_GALLERY_IMGS = [
-  {src: WT_1, caption: "Custom Bleaching Trays — upper and lower precision-scalloped pair"},
-  {src: WT_2, caption: "Hand holding — ultra-thin reservoir tray profile"},
-  {src: WT_3, caption: "Close-up — scalloped custom fit hugging every tooth surface"},
-  {src: WT_4, caption: "Included with every order — custom case and impression kit"},
-];
-
-const WhiteningGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = WT_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
-  return (
-    <div style={{marginBottom:32}}>
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img src={WT_GALLERY_IMGS[current].src} alt={WT_GALLERY_IMGS[current].caption}
-          style={{width:"85%",maxWidth:480,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}/>
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
-        </div>
-      </div>
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {WT_GALLERY_IMGS[current].caption}
-      </div>
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {WT_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?"#92650A":COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {WT_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?"#92650A":COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// ── HYBRID NIGHT GUARD GALLERY ───────────────────────────────────────────────
-const HYB_GALLERY_IMGS = [
-  {src: HYB_1, caption: "Hybrid Hard/Soft Night Guard — dual-laminate construction"},
-  {src: HYB_2, caption: "Side profile — hard clear outer shell over soft blue inner layer"},
-  {src: HYB_3, caption: "Close-up macro — dual-layer seam in sharp detail"},
-  {src: HYB_4, caption: "Included with every order — custom case and impression kit"},
-];
-
-const HybridGuardGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = HYB_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
-  return (
-    <div style={{marginBottom:32}}>
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img src={HYB_GALLERY_IMGS[current].src} alt={HYB_GALLERY_IMGS[current].caption}
-          style={{width:"75%",maxWidth:440,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}/>
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
-        </div>
-      </div>
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {HYB_GALLERY_IMGS[current].caption}
-      </div>
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {HYB_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?COLORS.clinicalBlue:COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {HYB_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?COLORS.clinicalBlue:COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// ── HARD NIGHT GUARD GALLERY ─────────────────────────────────────────────────
-const HNG_GALLERY_IMGS = [
-  {src: HNG_1, caption: "Custom Hard Night Guard — rigid acrylic precision fit"},
-  {src: HNG_2, caption: "Close-up — crystal-clear acrylic detail and tooth impressions"},
-  {src: HNG_3, caption: "Three-quarter angle — showing rigidity and thickness"},
-  {src: HNG_4, caption: "Included with every order — custom case and impression kit"},
-];
-
-const HardGuardGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = HNG_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
-  return (
-    <div style={{marginBottom:32}}>
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img src={HNG_GALLERY_IMGS[current].src} alt={HNG_GALLERY_IMGS[current].caption}
-          style={{width:"75%",maxWidth:440,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}/>
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
-        </div>
-      </div>
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {HNG_GALLERY_IMGS[current].caption}
-      </div>
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {HNG_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?COLORS.clinicalBlue:COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {HNG_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?COLORS.clinicalBlue:COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// ── SOFT NIGHT GUARD GALLERY ──────────────────────────────────────────────────
 const SNG_GALLERY_IMGS = [
-  {src: SNG_2, caption: "Front view — flexible thermoplastic material"},
-  {src: SNG_3, caption: "Dentist-inspected before shipment"},
-  {src: SNG_4, caption: "Close-up — smooth flexible EVA surface"},
-  {src: SNG_5, caption: "Included with every order — custom case and kit"},
+  {src: SNG_1, caption: "Soft Night Guard — floating 3/4 view showing flexible EVA construction"},
+  {src: SNG_2, caption: "Top-down — full inner arch and soft tooth impression detail"},
+  {src: SNG_3, caption: "Side profile — thin 2mm flexible EVA construction"},
+  {src: SNG_4, caption: "Close-up macro — soft EVA tooth impression surface detail"},
+  {src: SNG_5, caption: "Custom impression kit — everything included with your order"},
 ];
 
-const SoftGuardGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = SNG_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
-  return (
-    <div style={{marginBottom:32}}>
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img src={SNG_GALLERY_IMGS[current].src} alt={SNG_GALLERY_IMGS[current].caption}
-          style={{width:"75%",maxWidth:440,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}/>
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
-        </div>
-      </div>
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {SNG_GALLERY_IMGS[current].caption}
-      </div>
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {SNG_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?COLORS.clinicalBlue:COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {SNG_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?COLORS.clinicalBlue:COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
+const HNG_GALLERY_IMGS = [
+  {src: HNG_1, caption: "Hard Night Guard — 3/4 view showing rigid acrylic construction"},
+  {src: HNG_2, caption: "Top-down — full inner arch and tooth impression detail"},
+  {src: HNG_3, caption: "Side profile — 3mm hard acrylic thickness clearly visible"},
+  {src: HNG_4, caption: "Close-up macro — precision tooth impression surface detail"},
+  {src: HNG_5, caption: "Custom impression kit — everything included with your order"},
+];
 
-// ── RETAINER GALLERY ─────────────────────────────────────────────────────────
+const HYB_GALLERY_IMGS = [
+  {src: HYB_1, caption: "Hybrid Night Guard — 3/4 view showing dual-layer construction"},
+  {src: HYB_2, caption: "Top-down — full inner arch and tooth impression detail"},
+  {src: HYB_3, caption: "Side profile — hard acrylic thickness and layered structure"},
+  {src: HYB_4, caption: "Close-up — precision tooth impression surface detail"},
+  {src: HYB_5, caption: "Custom impression kit — everything included with your order"},
+];
+
 const RT_GALLERY_IMGS = [
-  {src: RT_PAGE_IMG, caption: "Upper and lower retainer pair"},
-  {src: RT_G1, caption: "Close-up of tooth impression detail"},
-  {src: RT_G2, caption: "Retainer with custom case and impression kit"},
-  {src: RT_G3, caption: "Retainer held in hand — ultra-thin profile"},
-  {src: RT_G4, caption: "Upper and lower retainers stacked"},
+  {src: RT_PAGE_IMG, caption: "Upper and lower retainer pair — floating 3/4 view"},
+  {src: RT_G1, caption: "Upper and lower retainer pair — flat lay top-down"},
+  {src: RT_G2, caption: "Front profile — ultra-thin clear Essix-style construction"},
+  {src: RT_G3, caption: "Close-up macro — precision tooth impression surface detail"},
+  {src: RT_G4, caption: "Custom impression kit — upper and lower retainers included"},
 ];
 
-const RetainerGallery = () => {
-  const [current, setCurrent] = useState(0);
-  const total = RT_GALLERY_IMGS.length;
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
+const WT_GALLERY_IMGS = [
+  {src: WT_1, caption: "Custom Bleaching Trays — upper and lower pair floating view"},
+  {src: WT_2, caption: "Custom impression kit — both trays included with your order"},
+  {src: WT_3, caption: "Close-up macro — precision scalloped reservoir holds gel against enamel"},
+  {src: WT_4, caption: "Side profile — ultra-thin flexible thermoplastic construction"},
+  {src: P4, caption: "Upper and lower bleaching tray pair — custom-fitted for maximum whitening"},
+];
 
+const SP_GALLERY_IMGS = [
+  {src: SP_1, caption: "Sport Guard — 3/4 view showing thick 4mm laminated EVA construction"},
+  {src: SP_2, caption: "Floating view — custom tooth impression detail on inner surface"},
+  {src: SP_3, caption: "Top-down — full inner arch and custom tooth impression"},
+  {src: SP_4, caption: "Close-up macro — navy blue EVA surface and tooth impression detail"},
+  {src: SP_5, caption: "Custom impression kit — everything included with your order"},
+];
+
+const ProductGallery=({images})=>{
+  const isMobile=useIsMobile();
+  const [current,setCurrent]=useState(0);
+  const [lightbox,setLightbox]=useState(false);
+  const total=images.length;
   return (
-    <div style={{marginBottom:32}}>
-      {/* Main image */}
-      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",background:COLORS.sand,border:"1px solid "+COLORS.border,minHeight:340,display:"flex",alignItems:"center",justifyContent:"center",padding:"32px 0"}}>
-        <img
-          src={RT_GALLERY_IMGS[current].src}
-          alt={RT_GALLERY_IMGS[current].caption}
-          style={{width:"75%",maxWidth:440,objectFit:"contain",display:"block",margin:"0 auto",transition:"opacity 0.25s"}}
-        />
+    <div data-gallery="true" style={{marginBottom:32}}>
+      {/* Lightbox overlay */}
+      {lightbox&&(
+        <div onClick={()=>setLightbox(false)}
+          style={{position:"fixed",inset:0,background:"rgba(10,14,20,0.92)",
+            zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",
+            padding:isMobile?"12px":"40px"}}>
+
+          {/* Close button */}
+          <button onClick={()=>setLightbox(false)}
+            style={{position:"absolute",top:16,right:16,width:44,height:44,
+              borderRadius:"50%",background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.25)",
+              cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",
+              color:"#fff",zIndex:10000}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.25)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M2 2l14 14M16 2L2 16" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+
+          {/* Left arrow */}
+          {total>1&&<button onClick={e=>{e.stopPropagation();setCurrent(i=>(i-1+total)%total);}}
+            style={{position:"absolute",left:isMobile?8:24,top:"50%",transform:"translateY(-50%)",
+              width:44,height:44,borderRadius:"50%",background:"rgba(255,255,255,0.15)",
+              border:"1px solid rgba(255,255,255,0.25)",cursor:"pointer",display:"flex",
+              alignItems:"center",justifyContent:"center",zIndex:10000}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.25)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}>
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>}
+
+          {/* Right arrow */}
+          {total>1&&<button onClick={e=>{e.stopPropagation();setCurrent(i=>(i+1)%total);}}
+            style={{position:"absolute",right:isMobile?8:24,top:"50%",transform:"translateY(-50%)",
+              width:44,height:44,borderRadius:"50%",background:"rgba(255,255,255,0.15)",
+              border:"1px solid rgba(255,255,255,0.25)",cursor:"pointer",display:"flex",
+              alignItems:"center",justifyContent:"center",zIndex:10000}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,0.25)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,0.15)"}>
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>}
+
+          {/* Full image */}
+          <img src={images[current].src} alt={images[current].caption||""}
+            onClick={e=>e.stopPropagation()}
+            style={{maxWidth:"90vw",maxHeight:"85vh",objectFit:"contain",
+              borderRadius:12,boxShadow:"0 32px 80px rgba(0,0,0,0.5)"}}/>
+
+          {/* Caption + counter */}
+          <div style={{position:"absolute",bottom:20,left:0,right:0,textAlign:"center"}}>
+            {images[current].caption&&(
+              <div style={{fontSize:13,color:"rgba(255,255,255,0.8)",marginBottom:6,
+                fontStyle:"italic"}}>{images[current].caption}</div>
+            )}
+            <div style={{fontSize:12,color:"rgba(255,255,255,0.5)",fontWeight:600}}>
+              {current+1} / {total} — Click outside to close
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main image box */}
+      <div style={{position:"relative",width:"100%",borderRadius:20,overflow:"hidden",
+        background:"#F7F5F0",border:"1.5px solid "+COLORS.border,
+        height:isMobile?280:400,display:"flex",alignItems:"center",
+        justifyContent:"center",marginBottom:12}}>
+        <img src={images[current].src} alt={images[current].caption||""}
+          style={{width:"85%",height:"85%",objectFit:"contain",transition:"opacity 0.25s"}}/>
 
         {/* Left arrow */}
-        <button onClick={prev}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
+        {total>1&&<button onClick={()=>setCurrent(i=>(i-1+total)%total)}
+          style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",
+            width:36,height:36,borderRadius:"50%",background:"rgba(255,255,255,0.9)",
+            border:"1px solid "+COLORS.border,cursor:"pointer",display:"flex",
+            alignItems:"center",justifyContent:"center",
+            boxShadow:"0 2px 8px rgba(28,43,58,0.12)",zIndex:2}}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke={COLORS.navy} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>}
 
         {/* Right arrow */}
-        <button onClick={next}
-          onMouseEnter={e=>{e.currentTarget.style.background="rgba(28,43,58,0.7)";}}
-          onMouseLeave={e=>{e.currentTarget.style.background="rgba(28,43,58,0.4)";}}
-          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",width:40,height:40,borderRadius:"50%",background:"rgba(28,43,58,0.4)",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.18s",zIndex:2}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
+        {total>1&&<button onClick={()=>setCurrent(i=>(i+1)%total)}
+          style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",
+            width:36,height:36,borderRadius:"50%",background:"rgba(255,255,255,0.9)",
+            border:"1px solid "+COLORS.border,cursor:"pointer",display:"flex",
+            alignItems:"center",justifyContent:"center",
+            boxShadow:"0 2px 8px rgba(28,43,58,0.12)",zIndex:2}}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke={COLORS.navy} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>}
 
         {/* Counter */}
-        <div style={{position:"absolute",bottom:12,right:16,background:"rgba(28,43,58,0.5)",color:"#fff",fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:20}}>
-          {current+1} / {total}
+        <div style={{position:"absolute",top:12,right:12,background:"rgba(28,43,58,0.55)",
+          color:"#fff",fontSize:11,fontWeight:600,padding:"3px 10px",borderRadius:12}}>
+          {current+1}/{total}
         </div>
+
+        {/* Expand button */}
+        <button onClick={()=>setLightbox(true)}
+          style={{position:"absolute",bottom:12,right:12,width:32,height:32,
+            borderRadius:8,background:"rgba(255,255,255,0.9)",
+            border:"1px solid "+COLORS.border,cursor:"pointer",display:"flex",
+            alignItems:"center",justifyContent:"center",
+            boxShadow:"0 2px 8px rgba(28,43,58,0.12)",transition:"all 0.15s",zIndex:2}}
+          title="View fullscreen"
+          onMouseEnter={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.boxShadow="0 4px 16px rgba(28,43,58,0.18)";}}
+          onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,0.9)";e.currentTarget.style.boxShadow="0 2px 8px rgba(28,43,58,0.12)";}}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M10 2h4v4M6 14H2v-4M14 10v4h-4M2 6V2h4" stroke={COLORS.navy} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
 
       {/* Caption */}
-      <div style={{textAlign:"center",fontSize:12,color:COLORS.muted,marginTop:10,fontStyle:"italic"}}>
-        {RT_GALLERY_IMGS[current].caption}
-      </div>
+      {images[current].caption&&<div style={{textAlign:"center",fontSize:12,color:COLORS.muted,
+        fontStyle:"italic",marginBottom:10,minHeight:16}}>{images[current].caption}</div>}
 
-      {/* Dot indicators */}
-      <div style={{display:"flex",justifyContent:"center",gap:6,marginTop:10}}>
-        {RT_GALLERY_IMGS.map((_,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{width:i===current?20:8,height:8,borderRadius:4,background:i===current?COLORS.clinicalBlue:COLORS.border,border:"none",cursor:"pointer",transition:"all 0.2s",padding:0}}/>
-        ))}
-      </div>
-
-      {/* Thumbnail strip */}
-      <div style={{display:"flex",gap:8,marginTop:14,overflowX:"auto",paddingBottom:4}}>
-        {RT_GALLERY_IMGS.map((img,i)=>(
-          <button key={i} onClick={()=>setCurrent(i)} style={{flexShrink:0,width:72,height:72,borderRadius:10,overflow:"hidden",border:"2px solid "+(i===current?COLORS.clinicalBlue:COLORS.border),padding:0,cursor:"pointer",background:COLORS.sand,transition:"border-color 0.18s"}}>
-            <img src={img.src} alt={img.caption} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+      {/* Thumbnails */}
+      <div style={{display:"flex",gap:8,justifyContent:"center",overflowX:"auto",
+        WebkitOverflowScrolling:"touch",paddingBottom:4}}>
+        {images.map((img,i)=>(
+          <button key={i} onClick={()=>setCurrent(i)}
+            style={{flexShrink:0,width:isMobile?60:76,height:isMobile?60:76,
+              borderRadius:10,overflow:"hidden",padding:0,cursor:"pointer",
+              background:"#F7F5F0",transition:"all 0.18s",
+              border:"2px solid "+(i===current?COLORS.clinicalBlue:COLORS.border),
+              opacity:i===current?1:0.6,
+              boxShadow:i===current?"0 2px 8px rgba(58,107,138,0.3)":"none"}}>
+            <img src={img.src} alt={img.caption||""}
+              style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
           </button>
         ))}
       </div>
@@ -1360,7 +1216,13 @@ const RetainerGallery = () => {
   );
 };
 
-// ── PRODUCT PAGE COMPONENT ────────────────────────────────────────────────────
+const SportGallery=()=><ProductGallery images={SP_GALLERY_IMGS}/>;
+const WhiteningGallery=()=><ProductGallery images={WT_GALLERY_IMGS}/>;
+const HybridGuardGallery=()=><ProductGallery images={HYB_GALLERY_IMGS}/>;
+const HardGuardGallery=()=><ProductGallery images={HNG_GALLERY_IMGS}/>;
+const SoftGuardGallery=()=><ProductGallery images={SNG_GALLERY_IMGS}/>;
+const RetainerGallery=()=><ProductGallery images={RT_GALLERY_IMGS}/>;
+
 const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
   const isMobile=useIsMobile();
   const product=PRODUCTS.find(p=>p.id===productId);
@@ -1388,8 +1250,30 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"What if my impression does not work?",a:"We ship a free replacement impression kit. Our lab reviews every mold before fabrication — if it does not meet standards, we send another kit at no charge."},
       ],
       stats:[{n:"3-5 yrs",l:"Average lifespan"},{n:"93%",l:"Patient satisfaction"},{n:"48hr",l:"Dentist review"},{n:"Free",l:"Re-impression kit"}],
-      symptoms:["Waking up with jaw soreness or stiffness","Morning headaches near your temples","Partner reports grinding sounds at night","Teeth feel sensitive or look shorter","Dentist has noted wear or flattening"],
+      symptoms:[{title:"Jaw soreness or stiffness",desc:"Waking up with a sore, tight jaw is the most common sign of nighttime grinding. Your jaw muscles work overtime while you sleep."},{title:"Morning headaches near your temples",desc:"Tension headaches that appear in the temples or behind the eyes after waking often stem from the jaw clenching muscles during sleep."},{title:"Audible grinding at night",desc:"If your partner has heard you grinding or clenching your teeth while you sleep, you are almost certainly causing enamel wear."},{title:"Sensitive or visibly shorter teeth",desc:"Chronic grinding wears down enamel over time. Increased sensitivity to cold, heat, or sweet foods is an early warning sign."},{title:"Dentist has noted enamel wear",desc:"If your dentist has pointed out flattened cusps or enamel loss at a checkup, a night guard is typically the recommended next step."}],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","ADA-compliant dental lab fabrication","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Up to 1 free re-impression kit if mold fails","6-Month Defect Warranty — cracks and bad fit covered free","Lifetime Fit Protection — 50% off every future replacement"],
+      longDesc:"Our custom night guards offer protection that no store-bought mouthguard can match. Fabricated from 4mm laminated dental-grade EVA against a precise model of your own teeth, they absorb impact, stay in place during play, and let you breathe and communicate naturally — something boil-and-bite guards simply cannot do.",
+      specs:[
+        {label:"Material",value:"4mm laminated dental-grade EVA"},
+        {label:"Thickness",value:"4mm"},
+        {label:"Coverage",value:"Full arch, upper teeth"},
+        {label:"Fabrication",value:"ADA-compliant dental lab"},
+        {label:"Turnaround",value:"7-10 business days"},
+        {label:"Fit method",value:"Custom VPS putty impression"},
+        {label:"Warranty",value:"6-Month Defect Warranty"},
+        {label:"Replacement",value:"50% off for life"},
+      ],
+      longDesc:"Our custom night guards are fabricated by an ADA-compliant dental lab from a precise impression of your own teeth — not a generic one-size mold. Unlike store-bought boil-and-bites, every guard is prescribed by a licensed dentist and built to clinical grade standards that match what you would receive in a dental office.",
+      specs:[
+        {label:"Material",value:"Dental-grade EVA / Hard Acrylic"},
+        {label:"Thickness",value:"1.5mm – 3mm (varies by type)"},
+        {label:"Coverage",value:"Full arch, upper teeth"},
+        {label:"Fabrication",value:"ADA-compliant dental lab"},
+        {label:"Turnaround",value:"7-10 business days"},
+        {label:"Fit method",value:"Custom VPS putty impression"},
+        {label:"Warranty",value:"6-Month Defect Warranty"},
+        {label:"Replacement",value:"50% off for life"},
+      ],
     },
     rt:{
       hero:"Did your retainer disappear?",
@@ -1406,8 +1290,19 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"Can I use this to straighten my teeth?",a:"No. Retainers are passive appliances designed to hold your current position. They cannot move teeth."},
       ],
       stats:[{n:"Pair",l:"Upper + lower included"},{n:"0.75mm",l:"Ultra-thin Essix"},{n:"48hr",l:"Dentist review"},{n:"Free",l:"Re-impression kit"}],
-      symptoms:["You completed braces or Invisalign","Your retainer cracked, warped, or was lost","You have noticed minor shifting","Your orthodontist recommended a replacement","You want to maintain your smile long-term"],
+      symptoms:[{title:"Completed braces or Invisalign",desc:"After orthodontic treatment ends, teeth naturally want to drift back. A retainer is essential to hold your new smile in place."},{title:"Retainer is cracked, warped, or lost",desc:"A damaged or missing retainer leaves your teeth unprotected. Even a few weeks without one can allow noticeable shifting."},{title:"Noticed minor tooth shifting",desc:"If your teeth feel slightly different when you bite down, or your retainer fits tighter than before, shifting has already started."},{title:"Orthodontist recommended a new retainer",desc:"Dentists typically recommend replacing retainers every 1-2 years or sooner if they show wear, warping, or a poor fit."},{title:"Maintaining your smile long-term",desc:"Even years after braces, consistent retainer wear is the only reliable way to keep your teeth in their corrected positions."}],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Upper AND lower retainer pair fabricated","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"],
+      longDesc:"Our Essix-style clear retainers are fabricated as a matched upper and lower pair from your own dental impressions. Crystal-clear and virtually invisible when worn, they are the same type of retainer prescribed by orthodontists nationwide — now available without the office visit.",
+      specs:[
+        {label:"Material",value:"Clear Essix thermoplastic"},
+        {label:"Thickness",value:"0.75mm – 1mm"},
+        {label:"Coverage",value:"Full arch, upper and lower pair"},
+        {label:"Fabrication",value:"ADA-compliant dental lab"},
+        {label:"Turnaround",value:"7-10 business days"},
+        {label:"Fit method",value:"Custom VPS putty impression"},
+        {label:"Warranty",value:"6-Month Defect Warranty"},
+        {label:"Replacement",value:"50% off for life"},
+      ],
     },
     sp:{
       hero:"One bad tackle away from a dental emergency.",
@@ -1427,7 +1322,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"Will it affect my breathing or speech?",a:"Custom guards have the slimmest profile possible while maintaining protection. Most athletes report normal breathing and speech within days."},
       ],
       stats:[{n:"5M+",l:"Teeth knocked out annually"},{n:"4mm",l:"High-impact thickness"},{n:"60x",l:"More injury risk without"},{n:"$3K+",l:"Cost to replace one tooth"}],
-      symptoms:["You play any contact or collision sport","Your league requires a mouthguard","You have had a previous dental sports injury","You wear braces during sport","You want pro-level protection at a fair price"],
+      symptoms:[{title:"You play contact or collision sports",desc:"Football, hockey, basketball, soccer, and martial arts all carry significant risk of dental trauma without proper protection."},{title:"Your league or team requires one",desc:"Many leagues mandate mouthguards, but generic boil-and-bite guards provide far less protection than a custom-fitted appliance."},{title:"Previous dental injury during sport",desc:"A history of chipped, broken, or knocked-out teeth during sport makes proper protection even more critical going forward."},{title:"You wear braces during sport",desc:"Braces significantly increase soft tissue injury risk during impact. A custom guard protects both your teeth and the inside of your mouth."},"You want pro-level protection at a fair price"],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","ADA-compliant dental lab fabrication","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Up to 1 free re-impression kit if mold fails","6-Month Defect Warranty — cracks and bad fit covered free","Lifetime Fit Protection — 50% off every future replacement"],
     },
     wt:{
@@ -1445,8 +1340,19 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"Is it safe if I have sensitive teeth?",a:"Our clinical assessment will identify your sensitivity level and recommend starting with 10% carbamide peroxide — a gentler formulation with minimal discomfort."},
       ],
       stats:[{n:"70%",l:"Less than in-office cost"},{n:"10-14",l:"Nights to full results"},{n:"6-8",l:"Shades lighter"},{n:"FSA/HSA",l:"Eligible"}],
-      symptoms:["Coffee, tea, wine, or tobacco staining","Post-orthodontic smile refresh","Upcoming wedding or special event","Want professional results without the office visit","Previously whitened and want to maintain"],
+      symptoms:[{title:"Coffee, tea, wine, or tobacco staining",desc:"Daily beverages and habits gradually discolor enamel. Custom trays hold whitening gel against every surface for even, thorough results."},{title:"Post-orthodontic smile refresh",desc:"After braces or Invisalign come off, whitening is the natural next step to reveal your new smile at its brightest."},{title:"Upcoming wedding or special event",desc:"Professional-grade whitening in the weeks before a major event gives you noticeably brighter results that over-the-counter strips cannot match."},{title:"Professional results without the office visit",desc:"Custom trays use the same carbamide peroxide gels your dentist prescribes, at a fraction of the in-office cost and on your own schedule."},"Previously whitened and want to maintain"],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Upper AND lower precision-scalloped trays","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"],
+      longDesc:"Our custom bleaching trays are precision-scalloped to hug every surface of your enamel, creating a sealed reservoir that holds professional-strength whitening gel exactly where it needs to work. Unlike one-size strips that miss back teeth, custom trays deliver even, complete coverage — the same method used in dental offices.",
+      specs:[
+        {label:"Material",value:"Clear flexible thermoplastic"},
+        {label:"Thickness",value:"1mm reservoir tray"},
+        {label:"Coverage",value:"Full arch, upper and lower pair"},
+        {label:"Edge design",value:"Precision scalloped"},
+        {label:"Turnaround",value:"7-10 business days"},
+        {label:"Fit method",value:"Custom VPS putty impression"},
+        {label:"Compatible gels",value:"Carbamide / hydrogen peroxide"},
+        {label:"Warranty",value:"6-Month Defect Warranty"},
+      ],
     },
   };
 
@@ -1493,23 +1399,34 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
 
           {activeTab==="overview"&&(
             <div>
+              {/* Variant selector */}
               {data.variants.length>1&&(
-                <div style={{marginBottom:32}}>
-                  <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 16px"}}>Choose your guard type</h3>
-                  <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                <div style={{marginBottom:28}}>
+                  <h3 style={{fontSize:15,fontWeight:700,color:COLORS.navy,margin:"0 0 12px",textTransform:"uppercase",letterSpacing:"0.06em",fontSize:11,color:COLORS.muted}}>Choose your guard type</h3>
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
                     {data.variants.map((v,i)=>{
                       const isSelected=activeVariant.name===v.name;
                       return (
-                        <button key={i} onClick={()=>setSelectedVariant(v)} style={{display:"flex",alignItems:"center",gap:16,padding:"16px 20px",borderRadius:12,border:"2px solid "+(isSelected?data.color:COLORS.border),background:isSelected?data.colorLight:"#fff",cursor:"pointer",textAlign:"left",transition:"all 0.18s"}}>
-                          <img src={PRODUCT_IMAGES[v.id]} alt={v.name} style={{width:56,height:56,objectFit:"cover",borderRadius:8,flexShrink:0}}/>
-                          <div style={{flex:1}}>
-                            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
-                              <span style={{fontSize:15,fontWeight:700,color:isSelected?data.color:COLORS.navy}}>{v.name}</span>
-                              <span style={{fontSize:16,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${v.price}</span>
+                        <button key={i} onClick={()=>setSelectedVariant(v)}
+                          style={{display:"flex",alignItems:"center",gap:14,padding:"14px 18px",
+                            borderRadius:12,border:"2px solid "+(isSelected?data.color:COLORS.border),
+                            background:isSelected?data.colorLight:"#fff",cursor:"pointer",
+                            textAlign:"left",transition:"all 0.18s"}}>
+                          <img src={PRODUCT_IMAGES[v.id]} alt={v.name}
+                            style={{width:52,height:52,objectFit:"cover",borderRadius:8,flexShrink:0,background:COLORS.canvas}}/>
+                          <div style={{flex:1,minWidth:0}}>
+                            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:3}}>
+                              <span style={{fontSize:14,fontWeight:700,color:isSelected?data.color:COLORS.navy}}>{v.name}</span>
+                              <span style={{fontSize:15,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${v.price}</span>
                             </div>
-                            <div style={{fontSize:13,color:COLORS.muted}}>{v.shortDesc}</div>
+                            <div style={{fontSize:12,color:COLORS.muted,lineHeight:1.4}}>{v.desc}</div>
                           </div>
-                          {isSelected&&<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill={data.color}/><path d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                          {isSelected&&(
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{flexShrink:0}}>
+                              <circle cx="10" cy="10" r="10" fill={data.color}/>
+                              <path d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          )}
                         </button>
                       );
                     })}
@@ -1517,32 +1434,37 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
                 </div>
               )}
 
-              <div>
-                <h2 style={{fontSize:22,fontWeight:800,color:COLORS.navy,margin:"0 0 12px",fontFamily:"Georgia, serif"}}>{activeVariant.name}</h2>
-                <p style={{fontSize:15,color:COLORS.muted,lineHeight:1.8,marginBottom:24}}>{activeVariant.longDesc||data.longDesc}</p>
-                <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?16:32}}>
-                  <div>
-                    <h3 style={{fontSize:15,fontWeight:700,color:COLORS.navy,margin:"0 0 12px"}}>Clinical specifications</h3>
-                    <div style={{display:"flex",flexDirection:"column",gap:10}}>
-                      {(activeVariant.specs||data.specs||[]).map((s,i)=>(
-                        <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"10px 14px",background:COLORS.canvas,borderRadius:8,fontSize:13,border:"1px solid "+COLORS.border}}>
-                          <span style={{color:COLORS.muted,fontWeight:500}}>{s.label}</span>
-                          <span style={{color:COLORS.navy,fontWeight:700}}>{s.value}</span>
-                        </div>
-                      ))}
+              {/* Description */}
+              <div style={{marginBottom:28}}>
+                <h2 style={{fontSize:isMobile?18:22,fontWeight:800,color:COLORS.navy,
+                  margin:"0 0 10px",fontFamily:"Georgia, serif",lineHeight:1.2}}>
+                  {activeVariant.name}
+                </h2>
+                <p style={{fontSize:14,color:COLORS.muted,lineHeight:1.85,margin:0}}>
+                  {activeVariant.longDesc||data.longDesc}
+                </p>
+              </div>
+
+              {/* What's Included — navy card */}
+              <div style={{background:COLORS.navy,borderRadius:16,padding:isMobile?"20px":"24px 28px",marginBottom:8}}>
+                <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:18}}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <rect width="18" height="18" rx="9" fill="rgba(255,255,255,0.15)"/>
+                    <path d="M5 9l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span style={{fontSize:12,fontWeight:700,color:"rgba(255,255,255,0.9)",
+                    letterSpacing:"0.08em",textTransform:"uppercase"}}>Everything included with your order</span>
+                </div>
+                <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr",gap:isMobile?10:12}}>
+                  {(activeVariant.includes||data.includes||[]).map((item,i)=>(
+                    <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{flexShrink:0,marginTop:2}}>
+                        <path d="M2.5 7l3 3 6-6" stroke={data.color==="rgba(255,255,255,0.9)"?"#7EC8A0":data.color||COLORS.clinicalBlue}
+                          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      <span style={{fontSize:isMobile?12:13,color:"rgba(255,255,255,0.82)",lineHeight:1.5}}>{item}</span>
                     </div>
-                  </div>
-                  <div>
-                    <h3 style={{fontSize:15,fontWeight:700,color:COLORS.navy,margin:"0 0 12px"}}>Whats included</h3>
-                    <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                      {(activeVariant.includes||data.includes||[]).map((item,i)=>(
-                        <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",fontSize:13,color:COLORS.navy}}>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{flexShrink:0,marginTop:1}}><path d="M3 8l4 4 6-6" stroke={data.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -1573,11 +1495,31 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         <div style={{position:isMobile?"relative":"sticky",top:80,order:isMobile?1:2}}>
           <div style={{background:"#fff",borderRadius:20,border:"1.5px solid "+COLORS.border,boxShadow:"0 8px 40px rgba(28,43,58,0.10)",overflow:"hidden"}}>
 
-            {/* Product image + name */}
-            <div style={{background:data.colorLight,padding:"24px 24px 20px",textAlign:"center",borderBottom:"1px solid "+COLORS.border}}>
-              <img src={PRODUCT_IMAGES[activeVariant.id]} alt={activeVariant.name} style={{width:120,height:120,objectFit:"cover",borderRadius:14,marginBottom:12,border:"1px solid "+COLORS.border}}/>
-              <div style={{fontSize:16,fontWeight:800,color:COLORS.navy}}>{activeVariant.name}</div>
-              <div style={{fontSize:12,color:data.color,fontWeight:600,marginTop:3}}>{activeVariant.tag}</div>
+            {/* Full-bleed product image with description card overlay */}
+            <div style={{position:"relative",overflow:"hidden",borderRadius:"18px 18px 0 0"}}>
+              {/* Full image */}
+              <img src={PRODUCT_IMAGES[activeVariant.id]} alt={activeVariant.name}
+                style={{width:"100%",height:isMobile?260:300,objectFit:"cover",display:"block"}}/>
+
+              {/* Dark gradient over bottom half */}
+              <div style={{position:"absolute",bottom:0,left:0,right:0,height:"60%",
+                background:"linear-gradient(to top, rgba(28,43,58,0.85) 0%, rgba(28,43,58,0.4) 60%, transparent 100%)"}}/>
+
+              {/* Description card sitting on gradient */}
+              <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"16px 20px 20px"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
+                  {activeVariant.tag&&<div style={{background:data.color,color:"#fff",fontSize:9,fontWeight:700,
+                    padding:"3px 8px",borderRadius:10,letterSpacing:"0.06em",textTransform:"uppercase"}}>
+                    {activeVariant.tag}
+                  </div>}
+                </div>
+                <div style={{fontSize:isMobile?17:18,fontWeight:800,color:"#fff",
+                  fontFamily:"Georgia, serif",marginBottom:5,lineHeight:1.2}}>{activeVariant.name}</div>
+                <p style={{fontSize:12,color:"rgba(255,255,255,0.80)",lineHeight:1.6,margin:0,
+                  display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>
+                  {activeVariant.shortDesc||activeProduct.desc}
+                </p>
+              </div>
             </div>
 
             <div style={{padding:"20px 24px"}}>
@@ -1806,7 +1748,7 @@ const ReviewsSection=()=>{
     <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="#F59E0B"><path d="M7 1l1.545 3.13 3.455.502-2.5 2.437.59 3.44L7 8.885l-3.09 1.624.59-3.44L2 4.632l3.455-.502L7 1z"/></svg>
   ));
   return (
-    <section style={{padding:isMobile?"28px 16px":"72px 40px",background:COLORS.canvas}}>
+    <section id="our-products" style={{padding:isMobile?"28px 16px":"72px 40px",background:COLORS.canvas}}>
       <div style={{maxWidth:1060,margin:"0 auto"}}>
         <div style={{textAlign:"center",marginBottom:52}}>
           <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:16}}>Patient Reviews</div>
@@ -2740,27 +2682,50 @@ const FAQItem=({q,a})=>{
 };
 
 // ── SCROLL CARD ───────────────────────────────────────────────────────────────
-const ScrollCard=({product,onQuiz})=>(
-  <div onClick={onQuiz} style={{flexShrink:0,width:280,background:"#fff",borderRadius:16,padding:"24px",border:"1.5px solid "+COLORS.border,cursor:"pointer",scrollSnapAlign:"start",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",transition:"box-shadow 0.18s",display:"flex",flexDirection:"column"}}
+const ScrollCard=({product,onQuiz,onPage})=>(
+  <div style={{flexShrink:0,width:280,background:"#fff",borderRadius:16,padding:"24px",border:"1.5px solid "+COLORS.border,scrollSnapAlign:"start",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",transition:"box-shadow 0.18s",display:"flex",flexDirection:"column"}}
     onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 8px 32px rgba(28,43,58,0.14)";}}
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
-    <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{width:"100%",height:140,objectFit:"contain",borderRadius:10,marginBottom:14,background:COLORS.canvas,flexShrink:0}}/>
+    {/* Image — click goes to product page */}
+    <div onClick={onPage} style={{cursor:"pointer",position:"relative",marginBottom:14,flexShrink:0}}>
+      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{width:"100%",height:140,objectFit:"contain",borderRadius:10,background:COLORS.canvas,display:"block"}}/>
+      <div style={{position:"absolute",bottom:8,right:8,background:"rgba(28,43,58,0.7)",color:"#fff",fontSize:10,fontWeight:700,padding:"3px 8px",borderRadius:6,letterSpacing:"0.04em",opacity:0,transition:"opacity 0.18s"}}
+        onMouseEnter={e=>{e.currentTarget.style.opacity="1";}}
+        onMouseLeave={e=>{e.currentTarget.style.opacity="0";}}>
+        View Product →
+      </div>
+    </div>
     <div style={{fontSize:11,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:4}}>{product.name}</div>
     <div style={{fontSize:16,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",marginBottom:4,lineHeight:1.3}}>{product.hook}</div>
     <div style={{fontSize:13,color:COLORS.muted,marginBottom:0,flex:1}}>{product.sub}</div>
-    <div style={{background:COLORS.clinicalBlue,color:"#fff",borderRadius:8,padding:"10px",textAlign:"center",fontSize:13,fontWeight:700,marginTop:16,flexShrink:0}}>Start Free Assessment</div>
+    {/* Two action buttons */}
+    <div style={{display:"flex",gap:8,marginTop:16,flexShrink:0}}>
+      <button onClick={onPage}
+        style={{flex:1,background:"#fff",color:COLORS.clinicalBlue,border:"1.5px solid "+COLORS.clinicalBlue,borderRadius:8,padding:"9px 8px",fontSize:12,fontWeight:700,cursor:"pointer",transition:"all 0.15s"}}
+        onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueLight;}}
+        onMouseLeave={e=>{e.currentTarget.style.background="#fff";}}>
+        View Product
+      </button>
+      <button onClick={onQuiz}
+        style={{flex:1,background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:8,padding:"9px 8px",fontSize:12,fontWeight:700,cursor:"pointer",transition:"background 0.15s"}}
+        onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
+        onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}>
+        Start Assessment
+      </button>
+    </div>
   </div>
 );
 
 
 // ── PRODUCT CARD ─────────────────────────────────────────────────────────────
-const ProductCard=({product,onBuy,onLearn})=>{ const isMobile=useIsMobile(); return (
+const ProductCard=({product,onBuy,onLearn,onGallery})=>{ const isMobile=useIsMobile(); return (
   <div style={{background:"#fff",borderRadius:16,border:"1.5px solid "+COLORS.border,overflow:"hidden",boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:isMobile?"row":"column",transition:"box-shadow 0.18s"}}
     onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 8px 32px rgba(28,43,58,0.12)";}}
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
 
-    {/* Image */}
-    <div style={{background:COLORS.sand,display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
+    {/* Image — click goes to product gallery */}
+    <div onClick={onGallery} style={{background:COLORS.sand,display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
+      cursor:"pointer",
       width:isMobile?130:"100%",height:isMobile?"auto":180,padding:isMobile?"8px":"16px",
       borderRadius:isMobile?"12px 0 0 12px":0}}>
       <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{
@@ -2962,6 +2927,209 @@ const EducationPage=({onBuy,setView})=>{
 };
 
 
+
+// ── HOW IT WORKS PAGE ────────────────────────────────────────────────────────
+const HowItWorksPage=({setView})=>{
+  const isMobile=useIsMobile();
+
+  const STEPS=[
+    {
+      num:"01",
+      phase:"Order",
+      title:"Place Your Order",
+      duration:"Day 1",
+      icon:"🛒",
+      color:"#3A6B8A",
+      colorLight:"#EAF2F8",
+      desc:"Select your appliance, complete a short clinical intake, and check out securely. Your order is immediately reviewed by Dr. Benson and queued for lab fabrication.",
+      details:["Choose your appliance type","Complete HIPAA-secure intake form","Dentist reviews your order within 48 hours","Receive confirmation email with tracking"]
+    },
+    {
+      num:"02",
+      phase:"Impression Kit",
+      title:"Your Impression Kit Ships",
+      duration:"Days 2–3",
+      icon:"📦",
+      color:"#4A7C6F",
+      colorLight:"#EAF2EF",
+      desc:"We ship your custom VPS putty impression kit directly to your door. Inside you will find everything you need — upper and lower trays, putty, and a step-by-step instruction card.",
+      details:["Ships within 1 business day of dentist approval","Includes upper and lower impression trays","Professional-grade VPS putty included","Step-by-step printed instruction card","Prepaid return shipping label included"]
+    },
+    {
+      num:"03",
+      phase:"Take Your Impressions",
+      title:"Take Your Impressions at Home",
+      duration:"Days 4–7",
+      icon:"🦷",
+      color:"#3A6B8A",
+      colorLight:"#EAF2F8",
+      desc:"Follow the simple 5-step guide to take your own dental impressions. The process takes about 10 minutes. Most patients get it right on the first try — if not, we send a free replacement kit.",
+      details:["Takes approximately 10 minutes","Step-by-step video guide available","Free replacement kit if impression fails QC","Mail back in prepaid return packaging","Lab receives impressions in 2-3 business days"]
+    },
+    {
+      num:"04",
+      phase:"Lab Fabrication",
+      title:"Your Appliance is Fabricated",
+      duration:"Days 8–14",
+      icon:"⚙️",
+      color:"#4A7C6F",
+      colorLight:"#EAF2EF",
+      desc:"Your impressions are poured into a precise dental stone model at our ADA-compliant lab. A technician hand-trims and polishes your appliance to your exact anatomy — the same process used in dental offices.",
+      details:["Impressions poured into dental stone model","Hand-fabricated by certified lab technicians","ADA-compliant materials throughout","Quality inspection before shipping","Same lab process used by dental practices nationwide"]
+    },
+    {
+      num:"05",
+      phase:"Delivery",
+      title:"Your Appliance Arrives",
+      duration:"Days 15–17",
+      icon:"✅",
+      color:"#3A6B8A",
+      colorLight:"#EAF2F8",
+      desc:"Your custom appliance ships in a branded protective case with a care guide. Start wearing it the night it arrives. Most patients notice a difference within the first week.",
+      details:["Ships in protective case","Includes care and cleaning guide","Itemized Superbill for FSA/HSA/insurance reimbursement","6-Month Defect Warranty begins at delivery","Lifetime 50% off replacement protection"]
+    },
+  ];
+
+  return (
+    <div style={{background:COLORS.canvas,minHeight:"100vh"}}>
+
+      {/* Header */}
+      <div style={{background:"linear-gradient(135deg,"+COLORS.navy+","+COLORS.clinicalBlue+")",
+        padding:isMobile?"36px 20px 48px":"72px 40px 80px",textAlign:"center"}}>
+        <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",
+          fontSize:10,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",
+          padding:"4px 14px",borderRadius:20,marginBottom:16}}>The Process</div>
+        <h1 style={{fontSize:isMobile?"28px":"clamp(32px,5vw,48px)",fontWeight:800,color:"#fff",
+          fontFamily:"Georgia, serif",margin:"0 0 14px",lineHeight:1.15}}>
+          From Order to Your Door
+        </h1>
+        <p style={{fontSize:isMobile?14:16,color:"rgba(255,255,255,0.8)",
+          maxWidth:560,margin:"0 auto 32px",lineHeight:1.7}}>
+          A custom dental appliance delivered to your door in about two weeks — 
+          prescribed by a real dentist, built by a real lab, no office visit required.
+        </p>
+
+        {/* Timeline summary bar */}
+        <div style={{display:"inline-flex",alignItems:"center",gap:isMobile?8:16,
+          background:"rgba(255,255,255,0.12)",borderRadius:40,
+          padding:isMobile?"10px 16px":"12px 28px",flexWrap:"wrap",justifyContent:"center"}}>
+          {["Order","Kit Ships","Impressions","Lab Build","Delivered"].map((label,i)=>(
+            <div key={i} style={{display:"flex",alignItems:"center",gap:isMobile?6:10}}>
+              <div style={{width:isMobile?22:26,height:isMobile?22:26,borderRadius:"50%",
+                background:"rgba(255,255,255,0.25)",display:"flex",alignItems:"center",
+                justifyContent:"center",fontSize:isMobile?9:10,fontWeight:800,color:"#fff"}}>
+                {i+1}
+              </div>
+              <span style={{fontSize:isMobile?10:12,fontWeight:600,color:"rgba(255,255,255,0.9)"}}>
+                {label}
+              </span>
+              {i<4&&<span style={{color:"rgba(255,255,255,0.4)",fontSize:isMobile?10:14}}>›</span>}
+            </div>
+          ))}
+        </div>
+
+        {/* Total timeline badge */}
+        <div style={{marginTop:20}}>
+          <div style={{display:"inline-block",background:"rgba(255,255,255,0.2)",
+            border:"1px solid rgba(255,255,255,0.3)",color:"#fff",
+            fontSize:isMobile?13:15,fontWeight:700,padding:"8px 24px",borderRadius:20}}>
+            ⏱ Total time: approximately 14–17 days door to door
+          </div>
+        </div>
+      </div>
+
+      {/* Steps */}
+      <div style={{maxWidth:760,margin:"0 auto",padding:isMobile?"28px 16px 60px":"56px 40px 80px"}}>
+        {STEPS.map((step,i)=>(
+          <div key={i} style={{display:"flex",gap:isMobile?16:24,marginBottom:isMobile?32:40,
+            position:"relative"}}>
+
+            {/* Left column — number + connector line */}
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",flexShrink:0}}>
+              <div style={{width:isMobile?44:52,height:isMobile?44:52,borderRadius:"50%",
+                background:step.color,display:"flex",alignItems:"center",
+                justifyContent:"center",flexShrink:0,
+                boxShadow:"0 4px 16px "+step.color+"44"}}>
+                <span style={{fontSize:isMobile?16:18}}>{step.icon}</span>
+              </div>
+              {i<STEPS.length-1&&(
+                <div style={{width:2,flex:1,background:"linear-gradient(to bottom,"+step.color+"60,transparent)",
+                  minHeight:isMobile?24:32,marginTop:8}}/>
+              )}
+            </div>
+
+            {/* Right column — content */}
+            <div style={{flex:1,paddingBottom:isMobile?0:8}}>
+              {/* Phase label + duration */}
+              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,flexWrap:"wrap"}}>
+                <div style={{background:step.colorLight,color:step.color,fontSize:10,fontWeight:700,
+                  padding:"3px 10px",borderRadius:10,letterSpacing:"0.06em",textTransform:"uppercase"}}>
+                  {step.phase}
+                </div>
+                <div style={{background:COLORS.sand,color:COLORS.muted,fontSize:10,fontWeight:600,
+                  padding:"3px 10px",borderRadius:10}}>
+                  {step.duration}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 style={{fontSize:isMobile?16:19,fontWeight:800,color:COLORS.navy,
+                margin:"0 0 8px",fontFamily:"Georgia, serif"}}>
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <p style={{fontSize:isMobile?13:14,color:COLORS.muted,lineHeight:1.75,margin:"0 0 14px"}}>
+                {step.desc}
+              </p>
+
+              {/* Details list */}
+              <div style={{background:"#fff",borderRadius:12,padding:"14px 18px",
+                border:"1px solid "+COLORS.border,display:"flex",flexDirection:"column",gap:8}}>
+                {step.details.map((d,j)=>(
+                  <div key={j} style={{display:"flex",gap:10,alignItems:"flex-start",fontSize:13}}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{flexShrink:0,marginTop:1}}>
+                      <path d="M2.5 7l3 3 6-6" stroke={step.color} strokeWidth="2"
+                        strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span style={{color:COLORS.navy,lineHeight:1.5}}>{d}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* CTA bottom */}
+        <div style={{background:COLORS.navy,borderRadius:20,padding:isMobile?"24px 20px":"36px 40px",
+          textAlign:"center",marginTop:16}}>
+          <div style={{fontSize:isMobile?20:26,fontWeight:800,color:"#fff",
+            fontFamily:"Georgia, serif",marginBottom:8}}>
+            Ready to get started?
+          </div>
+          <p style={{fontSize:14,color:"rgba(255,255,255,0.75)",margin:"0 0 24px",lineHeight:1.65}}>
+            Your custom appliance is one impression kit away. Most patients complete
+            the entire process in under three weeks.
+          </p>
+          <button onClick={()=>{
+              setView("site");
+              setTimeout(()=>{
+                const el=document.getElementById("our-products");
+                if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+              },150);
+            }}
+            style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",
+              borderRadius:12,padding:isMobile?"14px 28px":"16px 40px",
+              fontSize:isMobile?14:16,fontWeight:700,cursor:"pointer",
+              boxShadow:"0 4px 20px rgba(58,107,138,0.4)"}}>
+            View Our Products
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function App(){
   const isMobile=useIsMobile();
   const [view,setView]=useState("site");
@@ -2986,10 +3154,10 @@ export default function App(){
 
   
 const SCROLL_PRODUCTS=[
-    {id:3,hook:"Waking up with a sore jaw?",sub:"You might be grinding.",name:"Night Guard",funnel:"ng"},
-    {id:6,hook:"Did your retainer disappear?",sub:"Your smile won't wait.",name:"Invisible Retainer",funnel:"rt"},
-    {id:4,hook:"Coffee. Wine. Regret.",sub:"Time to whiten.",name:"Bleaching Trays",funnel:"bl"},
-    {id:5,hook:"One bad tackle away?",sub:"Protect what matters.",name:"Sport Guard",funnel:"sp"},
+    {id:3,hook:"Waking up with a sore jaw?",sub:"You might be grinding.",name:"Night Guard",funnel:"ng",page:"pg_ng"},
+    {id:6,hook:"Did your retainer disappear?",sub:"Your smile won't wait.",name:"Invisible Retainer",funnel:"rt",page:"pg_rt"},
+    {id:4,hook:"Coffee. Wine. Regret.",sub:"Time to whiten.",name:"Bleaching Trays",funnel:"bl",page:"pg_wt"},
+    {id:5,hook:"One bad tackle away?",sub:"Protect what matters.",name:"Sport Guard",funnel:"sp",page:"pg_sp"},
   ];
 
   return (
@@ -3006,7 +3174,7 @@ const SCROLL_PRODUCTS=[
           </div>
         </div>
         {!isMobile&&<div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:2}}>
-          {[{label:"Home",key:"site"},{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}].map(tab=>(
+          {[{label:"Home",key:"site"},{label:"How It Works",key:"how_it_works"},{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}].map(tab=>(
             <button key={tab.key} onClick={()=>{setView(tab.key);setMenuOpen(false);}} style={{padding:"8px 12px",border:"none",cursor:"pointer",fontSize:12,fontWeight:600,background:"transparent",color:view===tab.key?COLORS.clinicalBlue:COLORS.muted,borderBottom:view===tab.key?"2px solid "+COLORS.clinicalBlue:"2px solid transparent",borderRadius:0,transition:"all 0.15s",whiteSpace:"nowrap"}}>{tab.label}</button>
           ))}
         </div>}
@@ -3018,7 +3186,7 @@ const SCROLL_PRODUCTS=[
         </button>
         {menuOpen&&(
           <div style={{position:"absolute",top:64,right:0,width:isMobile?"100vw":260,background:"#fff",boxShadow:"0 16px 48px rgba(28,43,58,0.16)",borderRadius:"0 0 16px 16px",border:"1px solid "+COLORS.border,borderTop:"none",zIndex:300,overflow:"hidden"}}>
-            {[...(isMobile?[{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}]:[]),{label:"How to Take Your Impression",key:"impression"},{label:"Education",key:"learn"},{label:"Insurance",key:"superbill"},{label:"About Us",key:"about"},{label:"Warranty & Protection",key:"warranty"},{label:"FAQ",key:"faq"},{label:"Shipping & Returns",key:"shipping"},{label:"Track Order",key:"track"},{label:"Contact",key:"contact"}].map((item,i,arr)=>(
+            {[...(isMobile?[{label:"Night Guard",key:"pg_ng"},{label:"Retainer",key:"pg_rt"},{label:"Sport Guard",key:"pg_sp"},{label:"Whitening",key:"pg_wt"}]:[]),{label:"How It Works",key:"how_it_works"},{label:"How to Take Your Impression",key:"impression"},{label:"Education",key:"learn"},{label:"Insurance",key:"superbill"},{label:"About Us",key:"about"},{label:"Warranty & Protection",key:"warranty"},{label:"FAQ",key:"faq"},{label:"Shipping & Returns",key:"shipping"},{label:"Track Order",key:"track"},{label:"Contact",key:"contact"}].map((item,i,arr)=>(
               <button key={item.key} onClick={()=>{setView(item.key);setMenuOpen(false);}} style={{width:"100%",display:"flex",alignItems:"center",gap:14,padding:"14px 20px",background:view===item.key?COLORS.clinicalBlueLight:"#fff",border:"none",borderBottom:i<arr.length-1?"1px solid "+COLORS.border:"none",cursor:"pointer",textAlign:"left"}}>
                 <div style={{fontSize:14,fontWeight:700,color:view===item.key?COLORS.clinicalBlueDark:COLORS.navy}}>{item.label}</div>
               </button>
@@ -3041,6 +3209,7 @@ const SCROLL_PRODUCTS=[
       {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>setShowRT(true)} setView={setView}/>}
       {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setShowSP(true)} setView={setView}/>}
       {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setShowBL(true)} setView={setView}/>}
+      {view==="how_it_works"&&<HowItWorksPage setView={setView}/>}
       {view==="learn"&&<EducationPage onBuy={p=>{setCheckoutProduct(p);setView("checkout");}} setView={setView}/>}
       {view==="superbill"&&<SuperbillPage setView={setView}/>}
       {view==="portal"&&(
@@ -3085,49 +3254,9 @@ const SCROLL_PRODUCTS=[
                 <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
               </div>
               <p style={{fontSize:isMobile?14:17,color:COLORS.muted,lineHeight:1.6,margin:isMobile?"0 auto 24px":"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
-              {/* Video hero with play button */}
-              {(()=>{
-                const [playing,setPlaying]=useState(false);
-                const [showPlay,setShowPlay]=useState(true);
-                const vidRef=useRef(null);
-                const handlePlay=()=>{
-                  if(vidRef.current){
-                    vidRef.current.play();
-                    setPlaying(true);
-                    setShowPlay(false);
-                  }
-                };
-                const handleEnd=()=>{
-                  setPlaying(false);
-                  setShowPlay(true);
-                };
-                return (
-                  <div style={{position:"relative",width:"100%",cursor:showPlay?"pointer":"default",lineHeight:0}} onClick={showPlay?handlePlay:undefined}>
-                    <video
-                      ref={vidRef}
-                      src="/videos/hero.mp4"
-                      poster={HERO_IMG}
-                      onEnded={handleEnd}
-                      playsInline
-                      style={{width:"100%",display:"block",objectFit:"contain"}}
-                    />
-                    {showPlay&&(
-                      <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(28,43,58,0.08)"}}>
-                        <div style={{width:isMobile?56:72,height:isMobile?56:72,borderRadius:"50%",background:"rgba(255,255,255,0.92)",backdropFilter:"blur(8px)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 8px 32px rgba(28,43,58,0.2)",transition:"transform 0.18s"}}
-                          onMouseEnter={e=>e.currentTarget.style.transform="scale(1.08)"}
-                          onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}>
-                          <svg width={isMobile?20:26} height={isMobile?20:26} viewBox="0 0 24 24" fill="none">
-                            <path d="M8 5.14v14l11-7-11-7z" fill={COLORS.clinicalBlue}/>
-                          </svg>
-                        </div>
-                        <div style={{position:"absolute",bottom:isMobile?12:20,left:0,right:0,textAlign:"center"}}>
-                          <span style={{fontSize:isMobile?11:12,fontWeight:700,color:"rgba(28,43,58,0.6)",letterSpacing:"0.08em",textTransform:"uppercase",background:"rgba(255,255,255,0.7)",backdropFilter:"blur(4px)",padding:"4px 14px",borderRadius:20}}>Tap to watch</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
+              <div style={{display:"flex",justifyContent:"center",marginBottom:0,overflow:"hidden",lineHeight:0}}>
+                <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"contain"}}/>
+              </div>
               <div style={{textAlign:"center",paddingBottom:48}}>
                 <button
                   onClick={()=>productsRef.current&&productsRef.current.scrollIntoView({behavior:"smooth",block:"start"})}
@@ -3170,13 +3299,16 @@ const SCROLL_PRODUCTS=[
             <div style={{width:"100%",background:COLORS.sand,borderTop:"1px solid "+COLORS.border,padding:"22px 0 26px"}}>
               <div ref={scrollStripRef} style={{display:"flex",gap:16,overflowX:"auto",padding:isMobile?"16px 16px":"20px 60px",scrollSnapType:"x mandatory",msOverflowStyle:"none",scrollbarWidth:"none"}}>
                 {SCROLL_PRODUCTS.map(p=>(
-                  <ScrollCard key={p.id} product={p} onQuiz={()=>{
-                    if(p.funnel==="ng")setShowNG(true);
-                    else if(p.funnel==="rt")setShowRT(true);
-                    else if(p.funnel==="bl")setShowBL(true);
-                    else if(p.funnel==="sp")setShowSP(true);
-                    else setScreeningProduct(PRODUCTS.find(x=>x.id===p.id));
-                  }}/>
+                  <ScrollCard key={p.id} product={p}
+                    onQuiz={()=>{
+                      if(p.funnel==="ng")setShowNG(true);
+                      else if(p.funnel==="rt")setShowRT(true);
+                      else if(p.funnel==="bl")setShowBL(true);
+                      else if(p.funnel==="sp")setShowSP(true);
+                      else setScreeningProduct(PRODUCTS.find(x=>x.id===p.id));
+                    }}
+                    onPage={()=>setView(p.page)}
+                  />
                 ))}
               </div>
               <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:16}}>
@@ -3363,6 +3495,13 @@ const SCROLL_PRODUCTS=[
                   else if(prod.id===6)setShowRT(true);
                   else if(prod.id===4)setShowBL(true);
                   else if(prod.id===5)setShowSP(true);
+                }} onGallery={()=>{
+                  const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
+                  setView(pageMap[p.id]||"site");
+                  setTimeout(()=>{
+                    const el=document.querySelector("[data-gallery]");
+                    if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+                  },150);
                 }} onLearn={(p)=>{setView("learn");setTimeout(()=>{const el=document.getElementById("study-"+(p.id===1||p.id===2||p.id===3?1:p.id===5?2:p.id===4?3:4));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});},120);}}/>)}
               </div>
             </div>
