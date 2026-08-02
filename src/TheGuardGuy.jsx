@@ -3148,7 +3148,13 @@ export default function App(){
   const scrollStripRef=useRef(null);
 
   const handlePass=(product)=>{setScreeningProduct(null);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
-  const handleFunnelBuy=(product)=>{setShowNG(false);setShowRT(false);setShowBL(false);setShowSP(false);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+  const handleFunnelBuy=(product)=>{
+    setShowNG(false);setShowRT(false);setShowBL(false);setShowSP(false);
+    const url=JOTFORM_URLS[product.id];
+    if(url) window.open(url,"_blank","noopener,noreferrer");
+    else {setCheckoutProduct(product);setView("checkout");}
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
   const goToCheckout=(product)=>{setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
 
