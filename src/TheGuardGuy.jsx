@@ -3130,6 +3130,15 @@ const HowItWorksPage=({setView})=>{
   );
 };
 
+const JOTFORM_URLS={
+  1:"https://form.jotform.com/262130693177054",
+  2:"https://form.jotform.com/262130177660048",
+  3:"https://form.jotform.com/262130483494053",
+  4:"https://form.jotform.com/262130498815056",
+  5:"https://form.jotform.com/262130106449045",
+  6:"https://form.jotform.com/262130297696060",
+};
+
 export default function App(){
   const isMobile=useIsMobile();
   const [view,setView]=useState("site");
