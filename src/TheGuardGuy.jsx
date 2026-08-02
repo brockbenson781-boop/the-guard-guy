@@ -3165,7 +3165,7 @@ export default function App(){
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+  const goToCheckout=(product)=>{window.open(JOTFORM_URLS[product.id],"_blank","noopener,noreferrer");};
 
   
 const SCROLL_PRODUCTS=[
@@ -3220,10 +3220,10 @@ const SCROLL_PRODUCTS=[
       {view==="track"&&<OrderTracker/>}
       {view==="contact"&&<ContactPage/>}
       {view==="privacy"&&<PrivacyPage/>}
-      {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={()=>setShowNG(true)} setView={setView} preSelectedVariantId={ngQuizResult}/>}
-      {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>setShowRT(true)} setView={setView}/>}
-      {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setShowSP(true)} setView={setView}/>}
-      {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setShowBL(true)} setView={setView}/>}
+      {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={(prod)=>window.open(JOTFORM_URLS[prod?prod.id:1],"_blank","noopener,noreferrer")} setView={setView} preSelectedVariantId={ngQuizResult}/>}
+      {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[6],"_blank","noopener,noreferrer")} setView={setView}/>}
+      {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[5],"_blank","noopener,noreferrer")} setView={setView}/>}
+      {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[4],"_blank","noopener,noreferrer")} setView={setView}/>}
       {view==="how_it_works"&&<HowItWorksPage setView={setView}/>}
       {view==="learn"&&<EducationPage onBuy={p=>{setCheckoutProduct(p);setView("checkout");}} setView={setView}/>}
       {view==="superbill"&&<SuperbillPage setView={setView}/>}
@@ -3316,11 +3316,10 @@ const SCROLL_PRODUCTS=[
                 {SCROLL_PRODUCTS.map(p=>(
                   <ScrollCard key={p.id} product={p}
                     onQuiz={()=>{
-                      if(p.funnel==="ng")setShowNG(true);
-                      else if(p.funnel==="rt")setShowRT(true);
-                      else if(p.funnel==="bl")setShowBL(true);
-                      else if(p.funnel==="sp")setShowSP(true);
-                      else setScreeningProduct(PRODUCTS.find(x=>x.id===p.id));
+                      if(p.funnel==="ng")window.open(JOTFORM_URLS[1],"_blank","noopener,noreferrer");
+                      else if(p.funnel==="rt")window.open(JOTFORM_URLS[6],"_blank","noopener,noreferrer");
+                      else if(p.funnel==="bl")window.open(JOTFORM_URLS[4],"_blank","noopener,noreferrer");
+                      else if(p.funnel==="sp")window.open(JOTFORM_URLS[5],"_blank","noopener,noreferrer");
                     }}
                     onPage={()=>setView(p.page)}
                   />
@@ -3506,10 +3505,7 @@ const SCROLL_PRODUCTS=[
               </div>
               <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?16:24}}>
                 {PRODUCTS.map(p=><ProductCard key={p.id} product={p} onBuy={(prod)=>{
-                  if(prod.id===1||prod.id===2||prod.id===3)setShowNG(true);
-                  else if(prod.id===6)setShowRT(true);
-                  else if(prod.id===4)setShowBL(true);
-                  else if(prod.id===5)setShowSP(true);
+                  window.open(JOTFORM_URLS[prod.id],"_blank","noopener,noreferrer");
                 }} onGallery={()=>{
                   const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
                   setView(pageMap[p.id]||"site");
