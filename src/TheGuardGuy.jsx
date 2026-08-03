@@ -2677,19 +2677,15 @@ const ScrollCard=({product,onQuiz,onPage})=>(
     <div style={{fontSize:11,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:4}}>{product.name}</div>
     <div style={{fontSize:16,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",marginBottom:4,lineHeight:1.3}}>{product.hook}</div>
     <div style={{fontSize:13,color:COLORS.muted,marginBottom:0,flex:1}}>{product.sub}</div>
-    {/* Two action buttons */}
-    <div style={{display:"flex",gap:8,marginTop:16,flexShrink:0}}>
+    {/* Single View Product button */}
+    <div style={{marginTop:16,flexShrink:0}}>
       <button onClick={onPage}
-        style={{flex:1,background:"#fff",color:COLORS.clinicalBlue,border:"1.5px solid "+COLORS.clinicalBlue,borderRadius:8,padding:"9px 8px",fontSize:12,fontWeight:700,cursor:"pointer",transition:"all 0.15s"}}
-        onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueLight;}}
-        onMouseLeave={e=>{e.currentTarget.style.background="#fff";}}>
-        View Product
-      </button>
-      <button onClick={onQuiz}
-        style={{flex:1,background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:8,padding:"9px 8px",fontSize:12,fontWeight:700,cursor:"pointer",transition:"background 0.15s"}}
+        style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
+          borderRadius:8,padding:"11px 8px",fontSize:13,fontWeight:700,cursor:"pointer",
+          transition:"background 0.15s"}}
         onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
         onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}>
-        Start Assessment
+        View Product
       </button>
     </div>
   </div>
@@ -2730,17 +2726,19 @@ const ProductCard=({product,onBuy,onLearn,onGallery})=>{ const isMobile=useIsMob
 
       {/* Price + CTA */}
       <div style={{paddingTop:isMobile?10:14,borderTop:"1px solid "+COLORS.border,marginTop:"auto"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:4,flexWrap:"wrap",gap:8}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8,flexWrap:"wrap",gap:8}}>
           <div>
             <span style={{fontSize:isMobile?20:22,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif"}}>${product.price}</span>
             <span style={{fontSize:11,color:COLORS.muted,marginLeft:4}}>one-time</span>
           </div>
-          <button onClick={()=>onBuy(product)}
-            style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:8,padding:isMobile?"10px 16px":"8px 14px",fontSize:isMobile?13:12,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",minHeight:40}}>
-            Get Started
-          </button>
         </div>
-        <div style={{fontSize:10,color:"#92650A",fontWeight:600}}>FSA/HSA eligible — Superbill included</div>
+        <button onClick={()=>onLearn&&onLearn(product)}
+          style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
+            borderRadius:8,padding:isMobile?"11px":"10px",fontSize:13,fontWeight:700,
+            cursor:"pointer",marginBottom:6,minHeight:40}}>
+          View Product
+        </button>
+        <div style={{fontSize:10,color:"#92650A",fontWeight:600,textAlign:"center"}}>FSA/HSA eligible — Superbill included</div>
       </div>
     </div>
   </div>
