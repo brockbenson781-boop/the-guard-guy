@@ -1540,38 +1540,17 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
 
               <div style={{height:1,background:COLORS.border,margin:"20px 0"}}/>
 
-              {/* Assessment CTA — primary action */}
-              {!assessmentDone&&(
-                <div>
-                  <button onClick={()=>{setAssessmentDone(true);onQuiz();}}
-                    onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
-                    onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
-                    style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:12,padding:"15px",fontSize:15,fontWeight:700,cursor:"pointer",transition:"background 0.18s",marginBottom:10}}>
-                    Start Free Assessment
-                  </button>
-                  <p style={{fontSize:11,color:COLORS.muted,textAlign:"center",margin:"0 0 10px",lineHeight:1.6}}>Takes 2 minutes. Clinical screening ensures this is safe and right for you. No personal info collected.</p>
-                  <button onClick={()=>onBuy(activeProduct)}
-                    onMouseEnter={e=>{e.currentTarget.style.background=COLORS.sand;}}
-                    onMouseLeave={e=>{e.currentTarget.style.background="transparent";}}
-                    style={{width:"100%",background:"transparent",color:COLORS.muted,border:"1.5px solid "+COLORS.border,borderRadius:12,padding:"12px",fontSize:13,fontWeight:600,cursor:"pointer",transition:"all 0.18s"}}>
-                    Skip to Checkout
-                  </button>
-                </div>
-              )}
+              {/* Single Order Now CTA */}
+              <button onClick={()=>onBuy(activeProduct)}
+                onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
+                onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
+                style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
+                  borderRadius:12,padding:"15px",fontSize:15,fontWeight:700,cursor:"pointer",
+                  transition:"background 0.18s",marginBottom:10}}>
+                Order Now
+              </button>
 
-              {assessmentDone&&(
-                <div>
-                  <button onClick={()=>onBuy(activeProduct)}
-                    onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
-                    onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
-                    style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:12,padding:"15px",fontSize:15,fontWeight:700,cursor:"pointer",transition:"background 0.18s",marginBottom:10}}>
-                    Get My {activeVariant.name}
-                  </button>
-                  <button onClick={()=>setAssessmentDone(false)} style={{width:"100%",background:"transparent",color:COLORS.muted,border:"none",fontSize:12,cursor:"pointer",textDecoration:"underline"}}>Retake assessment</button>
-                </div>
-              )}
-
-              <div style={{marginTop:16,padding:"12px 14px",background:COLORS.canvas,borderRadius:10,border:"1px solid "+COLORS.border}}>
+                            <div style={{marginTop:16,padding:"12px 14px",background:COLORS.canvas,borderRadius:10,border:"1px solid "+COLORS.border}}>
                 <div style={{fontSize:11,color:COLORS.muted,lineHeight:1.65,textAlign:"center"}}>
                   Impression kit ships in 2-3 days. Your appliance ships 5-7 business days after dentist approval.
                 </div>
@@ -3132,7 +3111,7 @@ const HowItWorksPage=({setView})=>{
 
 const JOTFORM_URLS={
   1:"https://form.jotform.com/262130693177054",
-  2:"https://form.jotform.com/262130177660048",
+  2:"https://form.jotform.com/262138947710057",
   3:"https://form.jotform.com/262130483494053",
   4:"https://form.jotform.com/262130498815056",
   5:"https://form.jotform.com/262130106449045",
