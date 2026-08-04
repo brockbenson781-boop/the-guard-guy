@@ -70,29 +70,30 @@ const STRIPE_LINKS={
   6:"https://buy.stripe.com/test_eVq14ngNbefc8CA3kW2oE01",
 };
 
-const PRODUCT_IMAGES={1:P1,2:P2,3:P3,4:P4,5:P5,6:P6};
+const PRODUCT_IMAGES={1:P1,2:P2,3:P3,4:P4,5:P5,6:P6,61:P6,62:P6};
 const S1="/images/step-1.jpg";
 const S2="/images/step-2.jpg";
 const S3="/images/step-3.jpg";
 const HERO_IMG="/images/hero.jpg";
 
 const PRODUCTS=[
-  {id:1,name:"Soft Night Guard",price:150,tag:"Most Popular",desc:"Flexible, comfortable protection for light-to-moderate bruxism.",material:"Soft EVA",thickness:"1.5mm",wear:"Nightly"},
+  {id:1,name:"Soft Night Guard",price:145,tag:"Most Popular",desc:"Flexible, comfortable protection for light-to-moderate bruxism.",material:"Soft EVA",thickness:"1.5mm",wear:"Nightly"},
   {id:2,name:"Hard Night Guard",price:160,tag:"Max Protection",desc:"Rigid acrylic barrier for heavy grinders. Dentist-prescribed grade.",material:"Hard Acrylic",thickness:"3mm",wear:"Nightly"},
   {id:3,name:"Hybrid Hard/Soft",price:165,tag:"Best of Both",desc:"Hard outer shell meets soft inner cushion. The gold standard.",material:"Dual-Layer",thickness:"2.5mm",wear:"Nightly"},
-  {id:4,name:"Custom Bleaching Trays",price:155,tag:"Whiten at Home",desc:"Precision-fit trays for professional-grade whitening.",material:"Soft EVA",thickness:"1mm",wear:"As needed"},
+  {id:4,name:"Custom Bleaching Trays",price:125,tag:"Whiten at Home",desc:"Precision-fit trays for professional-grade whitening.",material:"Soft EVA",thickness:"1mm",wear:"As needed"},
   {id:5,name:"Sport Guard",price:175,tag:"Impact Shield",desc:"Lab-fabricated impact protection. Superior to boil-and-bite.",material:"Laminated EVA",thickness:"4mm",wear:"During sport"},
-  {id:6,name:"Invisible Retainers",price:169,tag:"Hold Your Smile",desc:"Crystal-clear retainers to maintain orthodontic results.",material:"Clear Essix",thickness:"0.75mm",wear:"Nightly"},
+  {id:6,name:"Invisible Retainers",price:145,tag:"Hold Your Smile",desc:"Crystal-clear retainers to maintain orthodontic results.",material:"Clear Essix",thickness:"0.75mm",wear:"Nightly"},
 ];
 
 const COST_DATA={
   products:[
-    {name:"Soft Night Guard",sell:150,lab:36,ship:16,kit:10,platform:6,dentist:12,ads:40,total:120,net:30},
-    {name:"Hard Night Guard",sell:160,lab:44,ship:16,kit:10,platform:6,dentist:12,ads:40,total:128,net:32},
+    {name:"Soft Night Guard",sell:145,lab:33,ship:16,kit:10,platform:6,dentist:12,ads:40,total:117,net:28},
+    {name:"Hard Night Guard",sell:160,lab:39,ship:16,kit:10,platform:6,dentist:12,ads:40,total:123,net:37},
     {name:"Hybrid Hard/Soft",sell:165,lab:45,ship:16,kit:10,platform:6,dentist:12,ads:40,total:129,net:36},
-    {name:"Bleaching Trays",sell:155,lab:56,ship:16,kit:10,platform:6,dentist:12,ads:35,total:135,net:20},
-    {name:"Sport Guard",sell:175,lab:75,ship:16,kit:10,platform:6,dentist:12,ads:25,total:144,net:31},
-    {name:"Invisible Retainers",sell:169,lab:35,ship:16,kit:10,platform:6,dentist:12,ads:30,total:109,net:60},
+    {name:"Bleaching Trays",sell:125,lab:27,ship:16,kit:10,platform:6,dentist:12,ads:35,total:106,net:19},
+    {name:"Sport Guard",sell:175,lab:69,ship:16,kit:10,platform:6,dentist:12,ads:25,total:138,net:37},
+    {name:"Invisible Retainers (Pair)",sell:145,lab:45,ship:16,kit:10,platform:6,dentist:12,ads:30,total:119,net:26},
+    {name:"Invisible Retainer (Single)",sell:119,lab:27,ship:16,kit:10,platform:6,dentist:12,ads:25,total:96,net:23},
   ],
   overhead:[
     {name:"Jotform HIPAA Gold",cost:99,note:"HIPAA-compliant intake forms"},
@@ -725,7 +726,7 @@ const NG_STEPS=[
 const NG_OUTCOMES={
   hybrid:{productId:3,name:"Hybrid Hard/Soft Night Guard",price:165,color:COLORS.clinicalBlue,colorLight:COLORS.clinicalBlueLight,tagline:"The gold standard for your situation.",why:"Based on your responses, the Hybrid Guard is your ideal match. Its hard outer shell absorbs grinding forces while the soft inner liner protects your existing dental work and maximizes comfort.",features:["Hard outer layer for maximum durability","Soft inner liner protects crowns and veneers","Best for mild-to-moderate grinders","Most prescribed guard by dentists"]},
   hard:{productId:2,name:"Hard Night Guard",price:160,color:COLORS.sage,colorLight:COLORS.sageLight,tagline:"Maximum protection for serious grinders.",why:"Your grinding pattern indicates significant wear forces. The Hard Guard is fabricated from ultra-dense rigid acrylic engineered to outlast heavy grinding where softer materials fail.",features:["100% rigid acrylic for maximum longevity","Designed for severe destructive grinding","Dentist-grade material specification","Takes the wear so your teeth do not"]},
-  soft:{productId:1,name:"Soft Night Guard",price:150,color:"#4A7C6F",colorLight:COLORS.sageLight,tagline:"Comfort-first protection for light clenchers.",why:"Your history with bulky guards and lighter grinding pattern make the Soft Guard the right choice. Its flexible thermoplastic material is monomer-free and activates in warm water for a custom fit.",features:["Lightweight flexible thermoplastic","Monomer-free - ideal for sensitivity","Activates in warm water for perfect fit","Best compliance rate of any guard type"]},
+  soft:{productId:1,name:"Soft Night Guard",price:145,color:"#4A7C6F",colorLight:COLORS.sageLight,tagline:"Comfort-first protection for light clenchers.",why:"Your history with bulky guards and lighter grinding pattern make the Soft Guard the right choice. Its flexible thermoplastic material is monomer-free and activates in warm water for a custom fit.",features:["Lightweight flexible thermoplastic","Monomer-free - ideal for sensitivity","Activates in warm water for perfect fit","Best compliance rate of any guard type"]},
 };
 
 const NightGuardFunnel=({onClose,onBuyProduct})=>{
@@ -1238,7 +1239,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
       color:COLORS.clinicalBlue,
       colorLight:COLORS.clinicalBlueLight,
       variants:[
-        {id:1,name:"Soft Night Guard",price:150,tag:"Best for first-timers",desc:"Flexible thermoplastic. Ideal for light clenchers and sensitive teeth.",best:"Light grinding, first-time wearers, sensitive teeth"},
+        {id:1,name:"Soft Night Guard",price:145,tag:"Best for first-timers",desc:"Flexible thermoplastic. Ideal for light clenchers and sensitive teeth.",best:"Light grinding, first-time wearers, sensitive teeth"},
         {id:3,name:"Hybrid Hard/Soft",price:165,tag:"Most popular",desc:"Hard outer shell meets soft inner cushion. The gold standard for most bruxers.",best:"Mild-to-moderate grinding, crowns, veneers"},
         {id:2,name:"Hard Night Guard",price:160,tag:"Max protection",desc:"100% rigid acrylic for severe grinders who chew through softer guards.",best:"Severe grinding, history of cracked teeth"},
       ],
@@ -1281,10 +1282,14 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
       badge:"Ships as a Matched Pair",
       color:"#6B4A8A",
       colorLight:"#F3EEF8",
-      variants:[{id:6,name:"Invisible Retainers",price:169,tag:"Upper + lower pair",desc:"Crystal-clear Essix-style retainers. Virtually invisible, comfortable, and durable.",best:"Anyone who has completed orthodontic treatment"}],
+      variants:[
+        {id:6,name:"Upper + Lower Pair",price:145,tag:"Best value",desc:"Both upper and lower retainers fabricated as a matched pair from your impressions.",shortDesc:"Full matched pair — upper and lower",best:"Anyone who has completed orthodontic treatment"},
+        {id:61,name:"Upper Retainer Only",price:119,tag:"Single arch",desc:"Custom clear upper retainer only, fabricated from your impressions to hold your upper teeth in place.",shortDesc:"Single upper arch retainer",best:"Patients who only need upper retention"},
+        {id:62,name:"Lower Retainer Only",price:119,tag:"Single arch",desc:"Custom clear lower retainer only, fabricated from your impressions to hold your lower teeth in place.",shortDesc:"Single lower arch retainer",best:"Patients who only need lower retention"},
+      ],
       defaultVariant:6,
       faqs:[
-        {q:"Do I get both upper and lower?",a:"Yes. Every retainer order includes both a full upper and full lower retainer fabricated as a matched pair from your impressions."},
+        {q:"Do I get both upper and lower?",a:"Yes — if you order the Upper + Lower Pair. We also offer single arch options if you only need an upper or lower retainer. Each is fabricated from your impressions at $119."},
         {q:"Will it fit over my permanent bonded wire?",a:"Yes. Our lab will custom-block out the wire anatomy on your model so the retainer snaps perfectly over it without stressing the bond."},
         {q:"How long will it last?",a:"With nightly use, clear retainers typically last 1-3 years before showing wear."},
         {q:"Can I use this to straighten my teeth?",a:"No. Retainers are passive appliances designed to hold your current position. They cannot move teeth."},
@@ -1331,7 +1336,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
       badge:"Professional Strength at Home",
       color:"#92650A",
       colorLight:"#FFFBEB",
-      variants:[{id:4,name:"Custom Bleaching Trays",price:155,tag:"Gel not included",desc:"Precision-scalloped custom reservoirs. Compatible with 10–22% carbamide peroxide gel.",best:"Anyone who wants professional whitening at home"}],
+      variants:[{id:4,name:"Custom Bleaching Trays",price:125,tag:"Gel not included",desc:"Precision-scalloped custom reservoirs. Compatible with 10–22% carbamide peroxide gel.",best:"Anyone who wants professional whitening at home"}],
       defaultVariant:4,
       faqs:[
         {q:"Does gel come included?",a:"No. Trays only. We recommend purchasing 16% or 22% carbamide peroxide gel from your dentist or a licensed pharmacy."},
@@ -1606,7 +1611,7 @@ const CheckoutPage=({product,onBack,setView})=>{
         body:JSON.stringify({
           productId:product?product.id:1,
           productName:product?product.name:"Custom Appliance",
-          price:product?product.price:150,
+          price:product?product.price:145,
           email,
         }),
       });
@@ -2667,7 +2672,7 @@ const ScrollCard=({product,onQuiz,onPage})=>(
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
     {/* Image — click goes to product page */}
     <div onClick={onPage} style={{cursor:"pointer",position:"relative",marginBottom:14,flexShrink:0}}>
-      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{width:"100%",height:140,objectFit:"contain",borderRadius:10,background:COLORS.canvas,display:"block"}}/>
+      <img src={PRODUCT_IMAGES[product.id]} alt={product.name} style={{width:"100%",height:140,objectFit:"contain",borderRadius:10,background:"radial-gradient(ellipse at center, #ffffff 0%, #dddde0 100%)",display:"block"}}/>
       <div style={{position:"absolute",bottom:8,right:8,background:"rgba(28,43,58,0.7)",color:"#fff",fontSize:10,fontWeight:700,padding:"3px 8px",borderRadius:6,letterSpacing:"0.04em",opacity:0,transition:"opacity 0.18s"}}
         onMouseEnter={e=>{e.currentTarget.style.opacity="1";}}
         onMouseLeave={e=>{e.currentTarget.style.opacity="0";}}>
@@ -2699,7 +2704,7 @@ const ProductCard=({product,onBuy,onLearn,onGallery})=>{ const isMobile=useIsMob
     onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 2px 12px rgba(28,43,58,0.06)";}}>
 
     {/* Image — click goes to product gallery */}
-    <div onClick={onGallery} style={{background:COLORS.sand,display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
+    <div onClick={onGallery} style={{background:"#DDDDE0",display:"flex",justifyContent:"center",alignItems:"center",flexShrink:0,
       cursor:"pointer",
       width:isMobile?130:"100%",height:isMobile?"auto":180,padding:isMobile?"8px":"16px",
       borderRadius:isMobile?"12px 0 0 12px":0}}>
@@ -3114,6 +3119,79 @@ const JOTFORM_URLS={
   4:"https://form.jotform.com/262130498815056",
   5:"https://form.jotform.com/262130106449045",
   6:"https://form.jotform.com/262130297696060",
+  61:"https://form.jotform.com/262130297696060",
+  62:"https://form.jotform.com/262130297696060",
+};
+
+
+// ── JOTFORM MODAL ─────────────────────────────────────────────────────────────
+const JotformModal=({formUrl,onClose})=>{
+  const isMobile=useIsMobile();
+  // Close on Escape key
+  React.useEffect(()=>{
+    const handler=(e)=>{if(e.key==="Escape")onClose();};
+    window.addEventListener("keydown",handler);
+    return ()=>window.removeEventListener("keydown",handler);
+  },[onClose]);
+
+  return (
+    <div onClick={onClose}
+      style={{position:"fixed",inset:0,background:"rgba(10,14,20,0.85)",
+        zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",
+        padding:isMobile?"0":"20px"}}>
+
+      {/* Modal container */}
+      <div onClick={e=>e.stopPropagation()}
+        style={{position:"relative",width:"100%",maxWidth:720,
+          height:isMobile?"100vh":"90vh",
+          background:"#fff",borderRadius:isMobile?0:20,
+          overflow:"hidden",boxShadow:"0 32px 80px rgba(0,0,0,0.4)",
+          display:"flex",flexDirection:"column"}}>
+
+        {/* Header bar */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",
+          padding:"16px 20px",borderBottom:"1px solid #E8EEF4",
+          background:"#fff",flexShrink:0}}>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C9.5 2 7.5 3.5 6 5C4.5 3.5 2 4 2 7C2 10 4 12 4 15C4 18 5 22 7 22C8.5 22 9 20 10 18C10.5 17 11 16.5 12 16.5C13 16.5 13.5 17 14 18C15 20 15.5 22 17 22C19 22 20 18 20 15C20 12 22 10 22 7C22 4 19.5 3.5 18 5C16.5 3.5 14.5 2 12 2Z" fill="#3A6B8A"/>
+            </svg>
+            <div>
+              <div style={{fontSize:14,fontWeight:700,color:"#1C2B3A",fontFamily:"Georgia, serif"}}>The Guard Guy</div>
+              <div style={{fontSize:10,fontWeight:600,color:"#3A6B8A",letterSpacing:"0.05em",textTransform:"uppercase"}}>Secure Checkout</div>
+            </div>
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:12}}>
+            <div style={{display:"flex",alignItems:"center",gap:5,fontSize:11,color:"#4A7C6F",fontWeight:600}}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1L7.5 4.5H11L8 6.5L9 10L6 8L3 10L4 6.5L1 4.5H4.5L6 1Z" fill="#4A7C6F"/>
+              </svg>
+              HIPAA Secure
+            </div>
+            <button onClick={onClose}
+              style={{width:36,height:36,borderRadius:"50%",background:"#F7F5F0",
+                border:"1px solid #E0DAD0",cursor:"pointer",display:"flex",
+                alignItems:"center",justifyContent:"center"}}
+              onMouseEnter={e=>e.currentTarget.style.background="#E0DAD0"}
+              onMouseLeave={e=>e.currentTarget.style.background="#F7F5F0"}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 2l10 10M12 2L2 12" stroke="#1C2B3A" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Jotform iframe */}
+        <iframe
+          src={formUrl}
+          style={{flex:1,border:"none",width:"100%"}}
+          title="Secure Checkout"
+          allow="payment"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default function App(){
@@ -3122,6 +3200,7 @@ export default function App(){
   const [screeningProduct,setScreeningProduct]=useState(null);
   const [purchasedProduct,setPurchasedProduct]=useState(null);
   const [checkoutProduct,setCheckoutProduct]=useState(null);
+  const [jotformUrl,setJotformUrl]=useState(null);
   const [menuOpen,setMenuOpen]=useState(false);
   const [portalTab,setPortalTab]=useState("case");
   const [showNG,setShowNG]=useState(false);
@@ -3142,7 +3221,7 @@ export default function App(){
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{window.open(JOTFORM_URLS[product.id],"_blank","noopener,noreferrer");};
+  const goToCheckout=(product)=>{setJotformUrl(JOTFORM_URLS[product.id]);};
 
   
 const SCROLL_PRODUCTS=[
@@ -3198,9 +3277,9 @@ const SCROLL_PRODUCTS=[
       {view==="contact"&&<ContactPage/>}
       {view==="privacy"&&<PrivacyPage/>}
       {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={(prod)=>window.open(JOTFORM_URLS[prod?prod.id:1],"_blank","noopener,noreferrer")} setView={setView} preSelectedVariantId={ngQuizResult}/>}
-      {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[6],"_blank","noopener,noreferrer")} setView={setView}/>}
-      {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[5],"_blank","noopener,noreferrer")} setView={setView}/>}
-      {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>window.open(JOTFORM_URLS[4],"_blank","noopener,noreferrer")} setView={setView}/>}
+      {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[6])} setView={setView}/>}
+      {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[5])} setView={setView}/>}
+      {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[4])} setView={setView}/>}
       {view==="how_it_works"&&<HowItWorksPage setView={setView}/>}
       {view==="learn"&&<EducationPage onBuy={p=>{setCheckoutProduct(p);setView("checkout");}} setView={setView}/>}
       {view==="superbill"&&<SuperbillPage setView={setView}/>}
@@ -3293,10 +3372,10 @@ const SCROLL_PRODUCTS=[
                 {SCROLL_PRODUCTS.map(p=>(
                   <ScrollCard key={p.id} product={p}
                     onQuiz={()=>{
-                      if(p.funnel==="ng")window.open(JOTFORM_URLS[1],"_blank","noopener,noreferrer");
-                      else if(p.funnel==="rt")window.open(JOTFORM_URLS[6],"_blank","noopener,noreferrer");
-                      else if(p.funnel==="bl")window.open(JOTFORM_URLS[4],"_blank","noopener,noreferrer");
-                      else if(p.funnel==="sp")window.open(JOTFORM_URLS[5],"_blank","noopener,noreferrer");
+                      if(p.funnel==="ng")setJotformUrl(JOTFORM_URLS[1]);
+                      else if(p.funnel==="rt")setJotformUrl(JOTFORM_URLS[6]);
+                      else if(p.funnel==="bl")setJotformUrl(JOTFORM_URLS[4]);
+                      else if(p.funnel==="sp")setJotformUrl(JOTFORM_URLS[5]);
                     }}
                     onPage={()=>setView(p.page)}
                   />
@@ -3482,7 +3561,7 @@ const SCROLL_PRODUCTS=[
               </div>
               <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?16:24}}>
                 {PRODUCTS.map(p=><ProductCard key={p.id} product={p} onBuy={(prod)=>{
-                  window.open(JOTFORM_URLS[prod.id],"_blank","noopener,noreferrer");
+                  setJotformUrl(JOTFORM_URLS[prod.id]);
                 }} onGallery={()=>{
                   const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
                   setView(pageMap[p.id]||"site");
@@ -3490,7 +3569,11 @@ const SCROLL_PRODUCTS=[
                     const el=document.querySelector("[data-gallery]");
                     if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
                   },150);
-                }} onLearn={(p)=>{setView("learn");setTimeout(()=>{const el=document.getElementById("study-"+(p.id===1||p.id===2||p.id===3?1:p.id===5?2:p.id===4?3:4));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});},120);}}/>)}
+                }} onLearn={(p)=>{
+                  const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
+                  setView(pageMap[p.id]||"site");
+                  window.scrollTo({top:0,behavior:"smooth"});
+                }}/>)}
               </div>
             </div>
           </section>
@@ -3570,6 +3653,7 @@ const SCROLL_PRODUCTS=[
         </>
       )}
 
+      {jotformUrl&&<JotformModal formUrl={jotformUrl} onClose={()=>setJotformUrl(null)}/>}
       {showNG&&<NightGuardFunnel onClose={()=>setShowNG(false)} onBuyProduct={handleFunnelBuy}/>}
       {showNGQuiz&&<NightGuardQuiz onClose={()=>setShowNGQuiz(false)} onResult={handleQuizResult}/>}
       {showRT&&<RetainerFunnel onClose={()=>setShowRT(false)} onBuyProduct={handleFunnelBuy}/>}
