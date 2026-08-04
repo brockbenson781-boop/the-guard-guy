@@ -3276,7 +3276,7 @@ const SCROLL_PRODUCTS=[
       {view==="track"&&<OrderTracker/>}
       {view==="contact"&&<ContactPage/>}
       {view==="privacy"&&<PrivacyPage/>}
-      {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={(prod)=>window.open(JOTFORM_URLS[prod?prod.id:1],"_blank","noopener,noreferrer")} setView={setView} preSelectedVariantId={ngQuizResult}/>}
+      {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={(prod)=>setJotformUrl(JOTFORM_URLS[prod?prod.id:1])} setView={setView} preSelectedVariantId={ngQuizResult}/>}
       {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[6])} setView={setView}/>}
       {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[5])} setView={setView}/>}
       {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[4])} setView={setView}/>}
