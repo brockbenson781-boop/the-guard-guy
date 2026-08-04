@@ -3212,12 +3212,12 @@ export default function App(){
   const productsRef=useRef(null);
   const scrollStripRef=useRef(null);
 
-  const handlePass=(product)=>{setScreeningProduct(null);setCheckoutProduct(product);setView("checkout");window.scrollTo({top:0,behavior:"smooth"});};
+  const handlePass=(product)=>{setJotformUrl(JOTFORM_URLS[product.id]||JOTFORM_URLS[6]);window.scrollTo({top:0,behavior:"smooth"});};
   const handleFunnelBuy=(product)=>{
     setShowNG(false);setShowRT(false);setShowBL(false);setShowSP(false);
     const url=JOTFORM_URLS[product.id];
     if(url) window.open(url,"_blank","noopener,noreferrer");
-    else {setCheckoutProduct(product);setView("checkout");}
+    else {setJotformUrl(JOTFORM_URLS[product.id]||JOTFORM_URLS[6]);}
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
@@ -3285,7 +3285,7 @@ const SCROLL_PRODUCTS=[
       {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[5])} setView={setView}/>}
       {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[4])} setView={setView}/>}
       {view==="how_it_works"&&<HowItWorksPage setView={setView}/>}
-      {view==="learn"&&<EducationPage onBuy={p=>{setCheckoutProduct(p);setView("checkout");}} setView={setView}/>}
+      {view==="learn"&&<EducationPage onBuy={(p)=>{setJotformUrl(JOTFORM_URLS[p.id]||JOTFORM_URLS[6]);}} setView={setView}/>}
       {view==="superbill"&&<SuperbillPage setView={setView}/>}
       {view==="portal"&&(
         <div style={{maxWidth:700,margin:"0 auto",padding:"clamp(28px,6vw,60px) clamp(16px,4vw,24px)"}}>
