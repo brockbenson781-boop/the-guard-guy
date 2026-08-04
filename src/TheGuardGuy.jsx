@@ -1546,7 +1546,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
               <div style={{height:1,background:COLORS.border,margin:"20px 0"}}/>
 
               {/* Single Order Now CTA */}
-              <button onClick={()=>onBuy(activeProduct)}
+              <button onClick={()=>onBuy(activeVariant)}
                 onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
                 onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
                 style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
@@ -3221,7 +3221,11 @@ export default function App(){
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{setJotformUrl(JOTFORM_URLS[product.id]);};
+  const goToCheckout=(product)=>{
+    const id=product.id;
+    const url=JOTFORM_URLS[id]||JOTFORM_URLS[6];
+    setJotformUrl(url);
+  };
 
   
 const SCROLL_PRODUCTS=[
