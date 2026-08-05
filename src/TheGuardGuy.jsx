@@ -1283,9 +1283,12 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
       color:"#6B4A8A",
       colorLight:"#F3EEF8",
       variants:[
-        {id:6,name:"Upper + Lower Pair",price:145,tag:"Best value",desc:"Both upper and lower retainers fabricated as a matched pair from your impressions.",shortDesc:"Full matched pair — upper and lower",best:"Anyone who has completed orthodontic treatment"},
-        {id:61,name:"Upper Retainer Only",price:119,tag:"Single arch",desc:"Custom clear upper retainer only, fabricated from your impressions to hold your upper teeth in place.",shortDesc:"Single upper arch retainer",best:"Patients who only need upper retention"},
-        {id:62,name:"Lower Retainer Only",price:119,tag:"Single arch",desc:"Custom clear lower retainer only, fabricated from your impressions to hold your lower teeth in place.",shortDesc:"Single lower arch retainer",best:"Patients who only need lower retention"},
+        {id:6,name:"Upper + Lower Pair",price:145,tag:"Best value",desc:"Both upper and lower retainers fabricated as a matched pair from your impressions.",shortDesc:"Full matched pair — upper and lower",best:"Anyone who has completed orthodontic treatment",
+          includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Upper AND lower retainer pair fabricated","Protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"]},
+        {id:61,name:"Upper Retainer Only",price:119,tag:"Single arch",desc:"Custom clear upper retainer only, fabricated from your impressions to hold your upper teeth in place.",shortDesc:"Single upper arch retainer",best:"Patients who only need upper retention",
+          includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Upper retainer fabricated","Protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"]},
+        {id:62,name:"Lower Retainer Only",price:119,tag:"Single arch",desc:"Custom clear lower retainer only, fabricated from your impressions to hold your lower teeth in place.",shortDesc:"Single lower arch retainer",best:"Patients who only need lower retention",
+          includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Lower retainer fabricated","Protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"]},
       ],
       defaultVariant:6,
       faqs:[
@@ -1327,7 +1330,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"Will it affect my breathing or speech?",a:"Custom guards have the slimmest profile possible while maintaining protection. Most athletes report normal breathing and speech within days."},
       ],
       stats:[{n:"5M+",l:"Teeth knocked out annually"},{n:"4mm",l:"High-impact thickness"},{n:"60x",l:"More injury risk without"},{n:"$3K+",l:"Cost to replace one tooth"}],
-      symptoms:[{title:"You play contact or collision sports",desc:"Football, hockey, basketball, soccer, and martial arts all carry significant risk of dental trauma without proper protection."},{title:"Your league or team requires one",desc:"Many leagues mandate mouthguards, but generic boil-and-bite guards provide far less protection than a custom-fitted appliance."},{title:"Previous dental injury during sport",desc:"A history of chipped, broken, or knocked-out teeth during sport makes proper protection even more critical going forward."},{title:"You wear braces during sport",desc:"Braces significantly increase soft tissue injury risk during impact. A custom guard protects both your teeth and the inside of your mouth."},"You want pro-level protection at a fair price"],
+      symptoms:[{title:"You play contact or collision sports",desc:"Football, hockey, basketball, soccer, and martial arts all carry significant risk of dental trauma without proper protection."},{title:"Your league or team requires one",desc:"Many leagues mandate mouthguards, but generic boil-and-bite guards provide far less protection than a custom-fitted appliance."},{title:"Previous dental injury during sport",desc:"A history of chipped, broken, or knocked-out teeth during sport makes proper protection even more critical going forward."},{title:"You wear braces during sport",desc:"Braces significantly increase soft tissue injury risk during impact. A custom guard protects both your teeth and the inside of your mouth."},{title:"You want pro-level protection at a fair price",desc:"Custom-fitted guards made from dental-grade EVA outperform any store-bought option in both fit and impact absorption — at a fraction of the in-office cost."}],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","ADA-compliant dental lab fabrication","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Up to 1 free re-impression kit if mold fails","6-Month Defect Warranty — cracks and bad fit covered free","Lifetime Fit Protection — 50% off every future replacement"],
     },
     wt:{
@@ -1345,7 +1348,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
         {q:"Is it safe if I have sensitive teeth?",a:"Our clinical assessment will identify your sensitivity level and recommend starting with 10% carbamide peroxide — a gentler formulation with minimal discomfort."},
       ],
       stats:[{n:"70%",l:"Less than in-office cost"},{n:"10-14",l:"Nights to full results"},{n:"6-8",l:"Shades lighter"},{n:"FSA/HSA",l:"Eligible"}],
-      symptoms:[{title:"Coffee, tea, wine, or tobacco staining",desc:"Daily beverages and habits gradually discolor enamel. Custom trays hold whitening gel against every surface for even, thorough results."},{title:"Post-orthodontic smile refresh",desc:"After braces or Invisalign come off, whitening is the natural next step to reveal your new smile at its brightest."},{title:"Upcoming wedding or special event",desc:"Professional-grade whitening in the weeks before a major event gives you noticeably brighter results that over-the-counter strips cannot match."},{title:"Professional results without the office visit",desc:"Custom trays use the same carbamide peroxide gels your dentist prescribes, at a fraction of the in-office cost and on your own schedule."},"Previously whitened and want to maintain"],
+      symptoms:[{title:"Coffee, tea, wine, or tobacco staining",desc:"Daily beverages and habits gradually discolor enamel. Custom trays hold whitening gel against every surface for even, thorough results."},{title:"Post-orthodontic smile refresh",desc:"After braces or Invisalign come off, whitening is the natural next step to reveal your new smile at its brightest."},{title:"Upcoming wedding or special event",desc:"Professional-grade whitening in the weeks before a major event gives you noticeably brighter results that over-the-counter strips cannot match."},{title:"Professional results without the office visit",desc:"Custom trays use the same carbamide peroxide gels your dentist prescribes, at a fraction of the in-office cost and on your own schedule."},{title:"Previously whitened and want to maintain results",desc:"Custom trays make it easy to touch up your smile every few months, keeping your results consistent without returning to the dentist."}],
       includes:["Custom VPS putty impression kit shipped free","Licensed dentist review within 48hrs","Upper AND lower precision-scalloped trays","Branded protective case","Itemized Superbill for HSA/FSA/insurance","Free re-impression if mold fails lab standards"],
       longDesc:"Our custom bleaching trays are precision-scalloped to hug every surface of your enamel, creating a sealed reservoir that holds professional-strength whitening gel exactly where it needs to work. Unlike one-size strips that miss back teeth, custom trays deliver even, complete coverage — the same method used in dental offices.",
       specs:[
@@ -2923,7 +2926,7 @@ const HowItWorksPage=({setView})=>{
       icon:"🛒",
       color:"#3A6B8A",
       colorLight:"#EAF2F8",
-      desc:"Select your appliance, complete a short clinical intake, and check out securely. Your order is immediately reviewed by Dr. Benson and queued for lab fabrication.",
+      desc:"Select your appliance, complete a short clinical intake, and check out securely. Your order is immediately reviewed by a licensed dentist and queued for lab fabrication.",
       details:["Choose your appliance type","Complete HIPAA-secure intake form","Dentist reviews your order within 48 hours","Receive confirmation email with tracking"]
     },
     {
@@ -3201,6 +3204,7 @@ export default function App(){
   const [purchasedProduct,setPurchasedProduct]=useState(null);
   const [checkoutProduct,setCheckoutProduct]=useState(null);
   const [jotformUrl,setJotformUrl]=useState(null);
+  const [checkoutUrl,setCheckoutUrl]=useState(null);
   const [menuOpen,setMenuOpen]=useState(false);
   const [portalTab,setPortalTab]=useState("case");
   const [showNG,setShowNG]=useState(false);
@@ -3222,10 +3226,11 @@ export default function App(){
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
   const goToCheckout=(product)=>{
-    const id=product&&product.id;
-    const url=JOTFORM_URLS[id]||JOTFORM_URLS[1];
-    console.log("goToCheckout called, product:", product, "id:", id, "url:", url);
-    setJotformUrl(url||"https://form.jotform.com/262130693177054");
+    const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://form.jotform.com/262130693177054";
+    setJotformUrl(url);
+    setCheckoutUrl(url);
+    setView("checkout");
+    window.scrollTo({top:0,behavior:"smooth"});
   };
 
   
@@ -3272,7 +3277,35 @@ const SCROLL_PRODUCTS=[
         {menuOpen&&<div onClick={()=>setMenuOpen(false)} style={{position:"fixed",inset:0,zIndex:199}}/>}
       </nav>
 
-      {view==="checkout"&&<CheckoutPage product={checkoutProduct} onBack={()=>setView("site")} setView={setView}/>}
+      {view==="checkout"&&(
+        <div style={{minHeight:"100vh",background:COLORS.canvas,display:"flex",flexDirection:"column"}}>
+          {/* Header bar */}
+          <div style={{background:COLORS.navy,padding:"14px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
+            <div style={{display:"flex",alignItems:"center",gap:10}}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C9.5 2 7.5 3.5 6 5C4.5 3.5 2 4 2 7C2 10 4 12 4 15C4 18 5 22 7 22C8.5 22 9 20 10 18C10.5 17 11 16.5 12 16.5C13 16.5 13.5 17 14 18C15 20 15.5 22 17 22C19 22 20 18 20 15C20 12 22 10 22 7C22 4 19.5 3.5 18 5C16.5 3.5 14.5 2 12 2Z" fill="#fff"/>
+              </svg>
+              <div>
+                <div style={{fontSize:14,fontWeight:700,color:"#fff",fontFamily:"Georgia, serif"}}>The Guard Guy</div>
+                <div style={{fontSize:10,color:"rgba(255,255,255,0.7)",letterSpacing:"0.06em",textTransform:"uppercase"}}>Secure Checkout</div>
+              </div>
+            </div>
+            <div style={{display:"flex",alignItems:"center",gap:16}}>
+              <div style={{fontSize:11,color:"rgba(255,255,255,0.8)",fontWeight:600}}>🔒 HIPAA Secure</div>
+              <button onClick={()=>setView("site")} style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.3)",color:"#fff",borderRadius:8,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer"}}>
+                ← Back
+              </button>
+            </div>
+          </div>
+          {/* Jotform iframe */}
+          <iframe
+            src={checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054"}
+            style={{flex:1,border:"none",width:"100%",minHeight:"calc(100vh - 56px)"}}
+            title="Secure Checkout"
+            allow="payment"
+          />
+        </div>
+      )}
       {view==="impression"&&<ImpressionGuidePage setView={setView}/>}
       {view==="about"&&<AboutPage setView={setView}/>}
       {view==="warranty"&&<WarrantyPage setView={setView}/>}
@@ -3416,9 +3449,9 @@ const SCROLL_PRODUCTS=[
               </div>
               <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr 1fr",gap:isMobile?16:24}}>
                 {[
-                  {step:"1",title:"Order and receive your kit",desc:"Select your guard, pass a quick safety screening, and a putty impression kit ships to your door.",img:S1},
-                  {step:"2",title:"Make your impression at home",desc:"Mix the putty, press the tray to your teeth, and mail it back in the prepaid envelope.",img:S2},
-                  {step:"3",title:"Dentist reviews, lab fabricates",desc:"A licensed dentist approves your case and your custom appliance is milled to a perfect fit. Up to 1 free re-impression kit included if your mold does not pass lab inspection.",superbill:true,img:S3},
+                  {step:"1",title:"Your impression kit ships free",desc:"Select your appliance and complete a brief HIPAA-secure intake. A professional VPS putty impression kit is mailed directly to your door within 1–2 business days.",img:S1},
+                  {step:"2",title:"Take your impressions at home",desc:"Follow the simple step-by-step guide included in your kit. Press the putty trays to your teeth, let them set, and mail everything back in the prepaid return envelope.",img:S2},
+                  {step:"3",title:"Receive your custom appliance",desc:"A licensed dentist reviews your impressions and a certified dental lab fabricates your custom appliance to a precise fit. Delivered to your door in 14–17 days.",superbill:true,img:S3},
                 ].map(item=>(
                   <div key={item.step} style={{borderRadius:16,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:"column"}}>
                     <div style={{width:"100%",aspectRatio:"4/3",overflow:"hidden",background:COLORS.sand}}>
@@ -3429,16 +3462,21 @@ const SCROLL_PRODUCTS=[
                       <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 8px",letterSpacing:"-0.01em"}}>{item.title}</h3>
                       <p style={{fontSize:14,color:COLORS.muted,lineHeight:1.65,margin:"0 0 16px",flex:1}}>{item.desc}</p>
                       {item.superbill&&(
-                        <button onClick={()=>setView("superbill")}
-                          onMouseEnter={e=>{e.currentTarget.style.background="#FFF3C4";}}
-                          onMouseLeave={e=>{e.currentTarget.style.background="#FFFBEB";}}
-                          style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"12px 16px",background:"#FFFBEB",border:"1px solid #F5D87A",borderRadius:10,cursor:"pointer",transition:"all 0.18s",width:"100%",textAlign:"left"}}>
-                          <div>
-                            <div style={{fontSize:12,fontWeight:700,color:"#92650A",marginBottom:2}}>Superbill included with every order</div>
-                            <div style={{fontSize:11,color:"#B8860B",lineHeight:1.5}}>Submit to your PPO for up to 80% reimbursement.</div>
+                        <div>
+                          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"12px 16px",background:"#FFFBEB",border:"1px solid #F5D87A",borderRadius:10}}>
+                            <div>
+                              <div style={{fontSize:12,fontWeight:700,color:"#92650A",marginBottom:2}}>Superbill included with every order</div>
+                              <div style={{fontSize:11,color:"#B8860B",lineHeight:1.5}}>Submit to your PPO for up to 80% reimbursement.</div>
+                            </div>
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{flexShrink:0}}><path d="M6 3l6 6-6 6" stroke="#B8860B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                           </div>
-                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{flexShrink:0}}><path d="M6 3l6 6-6 6" stroke="#B8860B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        </button>
+                          <div style={{marginTop:6,textAlign:"right"}}>
+                            <span onClick={()=>setView("superbill")}
+                              style={{fontSize:10,color:COLORS.clinicalBlue,textDecoration:"underline",cursor:"pointer",fontWeight:600}}>
+                              Find out more about superbills →
+                            </span>
+                          </div>
+                        </div>
                       )}
                     </div>
                   </div>
