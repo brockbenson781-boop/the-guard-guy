@@ -1549,7 +1549,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
               <div style={{height:1,background:COLORS.border,margin:"20px 0"}}/>
 
               {/* Single Order Now CTA */}
-              <button onClick={()=>{alert("Opening checkout for: "+(activeVariant&&activeVariant.name));onBuy(activeVariant);}}
+              <button onClick={()=>onBuy(activeVariant)}
                 onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
                 onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
                 style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
@@ -3225,7 +3225,7 @@ export default function App(){
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{alert("goToCheckout called with id: "+(product&&product.id));
+  const goToCheckout=(product)=>{
     const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://form.jotform.com/262130693177054";
     setJotformUrl(url);
     setCheckoutUrl(url);
@@ -3278,7 +3278,7 @@ const SCROLL_PRODUCTS=[
       </nav>
 
       {view==="checkout"&&(
-        <div style={{minHeight:"100vh",background:COLORS.canvas,display:"flex",flexDirection:"column"}}>
+        <div style={{minHeight:"100vh",background:"#fff",display:"flex",flexDirection:"column"}}>
           {/* Header bar */}
           <div style={{background:COLORS.navy,padding:"14px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
             <div style={{display:"flex",alignItems:"center",gap:10}}>
@@ -3297,13 +3297,17 @@ const SCROLL_PRODUCTS=[
               </button>
             </div>
           </div>
-          {/* Jotform iframe */}
-          <iframe
-            src={checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054"}
-            style={{flex:1,border:"none",width:"100%",minHeight:"calc(100vh - 56px)"}}
-            title="Secure Checkout"
-            allow="payment"
-          />
+          {/* Jotform embed */}
+          <div id="jotform-container" style={{flex:1,width:"100%",minHeight:"calc(100vh - 56px)",background:"#fff"}}>
+            <iframe
+              src={(checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054")+"?isIframeEmbed=1"}
+              style={{width:"100%",height:"100%",minHeight:"calc(100vh - 56px)",border:"none"}}
+              title="Secure Checkout"
+              allow="payment *"
+              allowFullScreen={true}
+              scrolling="yes"
+            />
+          </div>
         </div>
       )}
       {view==="impression"&&<ImpressionGuidePage setView={setView}/>}
