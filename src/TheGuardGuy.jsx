@@ -1549,7 +1549,7 @@ const ProductPage=({productId,onBuy,onQuiz,setView,preSelectedVariantId})=>{
               <div style={{height:1,background:COLORS.border,margin:"20px 0"}}/>
 
               {/* Single Order Now CTA */}
-              <button onClick={()=>{console.log("Order Now clicked, activeVariant:", activeVariant);onBuy(activeVariant);}}
+              <button onClick={()=>{alert("Opening checkout for: "+(activeVariant&&activeVariant.name));onBuy(activeVariant);}}
                 onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
                 onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
                 style={{width:"100%",background:COLORS.clinicalBlue,color:"#fff",border:"none",
@@ -3225,7 +3225,7 @@ export default function App(){
     window.scrollTo({top:0,behavior:"smooth"});
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
-  const goToCheckout=(product)=>{
+  const goToCheckout=(product)=>{alert("goToCheckout called with id: "+(product&&product.id));
     const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://form.jotform.com/262130693177054";
     setJotformUrl(url);
     setCheckoutUrl(url);
