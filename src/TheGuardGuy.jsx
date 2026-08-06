@@ -3208,33 +3208,37 @@ const JOTFORM_URLS={
   62:"https://pci.jotform.com/form/262130297696060",
 };
 
-const JOTFORM_SCRIPT_URLS={
-  1:"https://pci.jotform.com/jsform/262130693177054",
-  2:"https://pci.jotform.com/jsform/262138947710057",
-  3:"https://pci.jotform.com/jsform/262130483494053",
-  4:"https://pci.jotform.com/jsform/262130498815056",
-  5:"https://pci.jotform.com/jsform/262130106449045",
-  6:"https://pci.jotform.com/jsform/262130297696060",
-  61:"https://pci.jotform.com/jsform/262130297696060",
-  62:"https://pci.jotform.com/jsform/262130297696060",
-};
+
 
 
 
 // ── JOTFORM EMBED ─────────────────────────────────────────────────────────────
 const JotformEmbed=({scriptUrl})=>{
-  const src=scriptUrl
-    ? scriptUrl.replace("https://pci.jotform.com/jsform/","https://pci.jotform.com/form/")
-    : "https://pci.jotform.com/form/262130693177054";
+  const divId="jotform-embed-"+Math.random().toString(36).substr(2,9);
+  const formId=scriptUrl
+    ? scriptUrl.replace("https://pci.jotform.com/jsform/","")
+               .replace("https://pci.jotform.com/form/","")
+               .replace("https://form.jotform.com/","")
+    : "262130693177054";
+
+  React.useEffect(()=>{
+    // Remove any previous Jotform scripts
+    const old=document.querySelectorAll("script[data-jotform]");
+    old.forEach(s=>s.remove());
+    // Inject fresh script
+    const script=document.createElement("script");
+    script.src="https://pci.jotform.com/jsform/"+formId;
+    script.type="text/javascript";
+    script.async=true;
+    script.setAttribute("data-jotform","true");
+    document.body.appendChild(script);
+    return ()=>{script.remove();};
+  },[formId]);
+
   return (
-    <iframe
-      src={src}
-      title="Secure Checkout"
-      style={{width:"100%",minHeight:"85vh",border:"none",display:"block"}}
-      allow="payment *"
-      allowFullScreen={true}
-      scrolling="yes"
-    />
+    <div style={{width:"100%",minHeight:"85vh",padding:"20px 0"}}>
+      <div id={divId}/>
+    </div>
   );
 };
 
