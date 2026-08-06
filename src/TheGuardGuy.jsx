@@ -3212,35 +3212,52 @@ const JOTFORM_URLS={
 
 
 
+
 // ── JOTFORM EMBED ─────────────────────────────────────────────────────────────
-const JotformEmbed=({scriptUrl})=>{
-  const divId="jotform-embed-"+Math.random().toString(36).substr(2,9);
-  const formId=scriptUrl
-    ? scriptUrl.replace("https://pci.jotform.com/jsform/","")
-               .replace("https://pci.jotform.com/form/","")
-               .replace("https://form.jotform.com/","")
-    : "262130693177054";
+const FORM_IDS={1:"262130693177054",2:"262138947710057",3:"262130483494053",4:"262130498815056",5:"262130106449045",6:"262130297696060",61:"262130297696060",62:"262130297696060"};
+const FORM_TITLES={1:"Soft Night Guard",2:"Hard Night Guard",3:"Hybrid Night Guard",4:"Custom Bleaching Trays",5:"Custom Sport Guard",6:"Invisible Retainers",61:"Invisible Retainers",62:"Invisible Retainers"};
+
+const JotformEmbed=({formId})=>{
+  const id=formId||1;
+  const fid=FORM_IDS[id]||"262130693177054";
+  const title=FORM_TITLES[id]||"Order Form";
+  const iframeId="JotFormIFrame-"+fid;
 
   React.useEffect(()=>{
-    // Remove any previous Jotform scripts
-    const old=document.querySelectorAll("script[data-jotform]");
-    old.forEach(s=>s.remove());
-    // Inject fresh script
-    const script=document.createElement("script");
-    script.src="https://pci.jotform.com/jsform/"+formId;
-    script.type="text/javascript";
-    script.async=true;
-    script.setAttribute("data-jotform","true");
-    document.body.appendChild(script);
-    return ()=>{script.remove();};
-  },[formId]);
+    // Load the official Jotform embed handler script
+    const existing=document.getElementById("jotform-embed-handler-script");
+    if(!existing){
+      const script=document.createElement("script");
+      script.id="jotform-embed-handler-script";
+      script.src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js";
+      script.onload=()=>{
+        if(window.jotformEmbedHandler){
+          window.jotformEmbedHandler("iframe[id='"+iframeId+"']","https://pci.jotform.com/");
+        }
+      };
+      document.body.appendChild(script);
+    } else if(window.jotformEmbedHandler){
+      window.jotformEmbedHandler("iframe[id='"+iframeId+"']","https://pci.jotform.com/");
+    }
+  },[fid,iframeId]);
 
   return (
-    <div style={{width:"100%",minHeight:"85vh",padding:"20px 0"}}>
-      <div id={divId}/>
+    <div style={{width:"100%",minHeight:"600px"}}>
+      <iframe
+        id={iframeId}
+        title={title}
+        onLoad={()=>{if(window.parent)window.parent.scrollTo(0,0);}}
+        allowTransparency={true}
+        allow="geolocation; microphone; camera; fullscreen; payment"
+        src={"https://pci.jotform.com/form/"+fid}
+        frameBorder="0"
+        style={{minWidth:"100%",maxWidth:"100%",height:"539px",border:"none"}}
+        scrolling="no"
+      />
     </div>
   );
 };
+
 
 
 // ── JOTFORM MODAL ─────────────────────────────────────────────────────────────
@@ -3342,9 +3359,8 @@ export default function App(){
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
   const goToCheckout=(product)=>{
-    const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://pci.jotform.com/form/262130693177054";
-    setJotformUrl(url);
-    setCheckoutUrl(url);
+    setCheckoutProduct(product);
+    setCheckoutUrl(JOTFORM_URLS[product&&product.id]||"https://pci.jotform.com/form/262130693177054");
     setView("checkout");
     window.scrollTo({top:0,behavior:"smooth"});
   };
@@ -3394,427 +3410,22 @@ const SCROLL_PRODUCTS=[
       </nav>
 
       {view==="checkout"&&(
-        <div style={{minHeight:"100vh",background:"#fff",display:"flex",flexDirection:"column"}}>
-          {/* Header bar */}
-          <div style={{background:COLORS.navy,padding:"14px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
+        <div style={{position:"fixed",inset:0,background:"#fff",zIndex:100,display:"flex",flexDirection:"column"}}>
+          {/* Header */}
+          <div style={{background:COLORS.navy,padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
             <div style={{display:"flex",alignItems:"center",gap:10}}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C9.5 2 7.5 3.5 6 5C4.5 3.5 2 4 2 7C2 10 4 12 4 15C4 18 5 22 7 22C8.5 22 9 20 10 18C10.5 17 11 16.5 12 16.5C13 16.5 13.5 17 14 18C15 20 15.5 22 17 22C19 22 20 18 20 15C20 12 22 10 22 7C22 4 19.5 3.5 18 5C16.5 3.5 14.5 2 12 2Z" fill="#fff"/>
-              </svg>
-              <div>
-                <div style={{fontSize:14,fontWeight:700,color:"#fff",fontFamily:"Georgia, serif"}}>The Guard Guy</div>
-                <div style={{fontSize:10,color:"rgba(255,255,255,0.7)",letterSpacing:"0.06em",textTransform:"uppercase"}}>Secure Checkout</div>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.5 2 7.5 3.5 6 5C4.5 3.5 2 4 2 7C2 10 4 12 4 15C4 18 5 22 7 22C8.5 22 9 20 10 18C10.5 17 11 16.5 12 16.5C13 16.5 13.5 17 14 18C15 20 15.5 22 17 22C19 22 20 18 20 15C20 12 22 10 22 7C22 4 19.5 3.5 18 5C16.5 3.5 14.5 2 12 2Z" fill="#fff"/></svg>
+              <span style={{fontSize:14,fontWeight:700,color:"#fff",fontFamily:"Georgia, serif"}}>The Guard Guy — Secure Checkout</span>
             </div>
-            <div style={{display:"flex",alignItems:"center",gap:16}}>
-              <div style={{fontSize:11,color:"rgba(255,255,255,0.8)",fontWeight:600}}>🔒 HIPAA Secure</div>
-              <button onClick={()=>setView("site")} style={{background:"rgba(255,255,255,0.15)",border:"1px solid rgba(255,255,255,0.3)",color:"#fff",borderRadius:8,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer"}}>
-                ← Back
-              </button>
-            </div>
+            <button onClick={()=>setView("site")} style={{background:"rgba(255,255,255,0.15)",color:"#fff",border:"1px solid rgba(255,255,255,0.3)",borderRadius:8,padding:"6px 16px",fontSize:12,fontWeight:600,cursor:"pointer"}}>← Back</button>
           </div>
-          {/* Jotform JS embed */}
-          <div style={{flex:1,width:"100%",background:"#fff",padding:"0 0 40px 0"}}>
-            <JotformEmbed scriptUrl={
-              (checkoutUrl||jotformUrl||"https://pci.jotform.com/form/262130693177054")
-                .replace("https://form.jotform.com/","https://pci.jotform.com/jsform/")
-                .replace("https://pci.jotform.com/form/","https://pci.jotform.com/jsform/")
-            }/>
+          {/* Official Jotform embed */}
+          <div style={{flex:1,overflowY:"auto",padding:"20px"}}>
+            <JotformEmbed formId={checkoutProduct&&checkoutProduct.id}/>
           </div>
         </div>
       )}
-      {view==="impression"&&<ImpressionGuidePage setView={setView}/>}
-      {view==="about"&&<AboutPage setView={setView}/>}
-      {view==="warranty"&&<WarrantyPage setView={setView}/>}
-      {view==="faq"&&<FAQPage/>}
-      {view==="shipping"&&<ShippingPage/>}
-      {view==="track"&&<OrderTracker/>}
-      {view==="contact"&&<ContactPage/>}
-      {view==="privacy"&&<PrivacyPage/>}
-      {view==="pg_ng"&&<ProductPage productId={3} onBuy={goToCheckout} onQuiz={(prod)=>setJotformUrl(JOTFORM_URLS[prod?prod.id:1])} setView={setView} preSelectedVariantId={ngQuizResult}/>}
-      {view==="pg_rt"&&<ProductPage productId={6} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[6])} setView={setView}/>}
-      {view==="pg_sp"&&<ProductPage productId={5} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[5])} setView={setView}/>}
-      {view==="pg_wt"&&<ProductPage productId={4} onBuy={goToCheckout} onQuiz={()=>setJotformUrl(JOTFORM_URLS[4])} setView={setView}/>}
-      {view==="how_it_works"&&<HowItWorksPage setView={setView}/>}
-      {view==="learn"&&<EducationPage onBuy={(p)=>{setJotformUrl(JOTFORM_URLS[p.id]||JOTFORM_URLS[6]);}} setView={setView}/>}
-      {view==="superbill"&&<SuperbillPage setView={setView}/>}
-      {view==="portal"&&(
-        <div style={{maxWidth:700,margin:"0 auto",padding:"clamp(28px,6vw,60px) clamp(16px,4vw,24px)"}}>
-          {purchasedProduct?<PatientPortal product={purchasedProduct}/>:(
-            <div style={{textAlign:"center",padding:"clamp(40px,8vw,80px) clamp(16px,4vw,20px)"}}>
-              <h2 style={{fontFamily:"Georgia, serif",fontSize:26,color:COLORS.navy,marginBottom:12}}>Clinical Intake Portal</h2>
-              <p style={{color:COLORS.muted,fontSize:15,maxWidth:380,margin:"0 auto 28px"}}>Complete your purchase first to access the HIPAA-secure patient intake form.</p>
-              <Btn variant="primary" onClick={()=>setView("site")}>Browse Products</Btn>
-            </div>
-          )}
-        </div>
-      )}
-      {view==="dentist"&&(
-        <div style={{maxWidth:980,margin:"0 auto",padding:"48px 24px"}}>
-          <div style={{marginBottom:32,display:"flex",alignItems:"flex-start",justifyContent:"space-between",flexWrap:"wrap",gap:16}}>
-            <div>
-              <h2 style={{fontFamily:"Georgia, serif",fontSize:28,color:COLORS.navy,margin:"0 0 6px"}}>Dentist Portal</h2>
-              <p style={{color:COLORS.muted,fontSize:14,margin:0}}>Case review and business analytics</p>
-            </div>
-            <div style={{display:"flex",gap:8}}>
-              {[["case","Case Review"],["costs","Cost Analysis"]].map(([t,l])=>(
-                <button key={t} onClick={()=>setPortalTab(t)} style={{padding:"10px 20px",borderRadius:10,border:"1.5px solid "+(portalTab===t?COLORS.clinicalBlue:COLORS.border),background:portalTab===t?COLORS.clinicalBlueLight:"#fff",color:portalTab===t?COLORS.clinicalBlueDark:COLORS.muted,fontSize:13,fontWeight:700,cursor:"pointer"}}>
-                  {l}
-                </button>
-              ))}
-            </div>
-          </div>
-          {portalTab==="case"?<DentistPortal/>:<CostDashboard/>}
-        </div>
-      )}
-
-      {view==="site"&&(
-        <>
-          <section style={{background:"#F7F5F0",width:"100%"}}>
-            <div style={{width:"100%",maxWidth:900,margin:"0 auto",padding:isMobile?"24px 16px 0":"64px 60px 0",textAlign:"center",boxSizing:"border-box"}}>
-              <div style={{marginBottom:22}}>
-                <span style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,padding:"5px 18px",borderRadius:20,fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase"}}>Dentist-reviewed. Lab-crafted. Shipped to you.</span>
-              </div>
-              <div style={{marginBottom:20}}>
-                <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em"}}>Your <span style={{color:COLORS.clinicalBlue}}>teeth</span> called.</div>
-                <div style={{fontSize:isMobile?"34px":"clamp(44px,7vw,80px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",lineHeight:1.1,letterSpacing:"-0.02em",fontStyle:"italic"}}>They need <span style={{color:COLORS.clinicalBlue,textDecoration:"underline",textDecorationColor:"rgba(58,107,138,0.35)",textUnderlineOffset:"6px"}}>backup.</span></div>
-              </div>
-              <p style={{fontSize:isMobile?14:17,color:COLORS.muted,lineHeight:1.6,margin:isMobile?"0 auto 24px":"0 auto 44px",maxWidth:400}}>Custom appliances, <em style={{fontStyle:"italic",color:COLORS.navy,fontWeight:600}}>prescribed online</em>, shipped to your door.</p>
-              <div style={{display:"flex",justifyContent:"center",marginBottom:0,overflow:"hidden",lineHeight:0}}>
-                <img src={HERO_IMG} alt="Dental product lineup" style={{width:"100%",display:"block",objectFit:"contain"}}/>
-              </div>
-              <div style={{textAlign:"center",paddingBottom:48}}>
-                <button
-                  onClick={()=>productsRef.current&&productsRef.current.scrollIntoView({behavior:"smooth",block:"start"})}
-                  onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
-                  onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
-                  style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:50,padding:"16px 44px",fontSize:15,fontWeight:700,letterSpacing:"0.04em",cursor:"pointer",transition:"background 0.18s",boxShadow:"0 6px 24px rgba(58,107,138,0.28)",marginBottom:14,display:"block",margin:"0 auto 14px"}}>
-                  Shop Custom Appliances
-                </button>
-                <div style={{fontSize:14,fontStyle:"italic",color:COLORS.muted,fontWeight:500,marginBottom:16}}>
-                  Save up to <em style={{color:COLORS.clinicalBlue,fontWeight:700,fontStyle:"italic"}}>70% less</em> than in-office prices
-                </div>
-                <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:20,flexWrap:"wrap"}}>
-                  <div style={{display:"flex",alignItems:"center",gap:7}}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L2 3.5v4C2 10.5 4.2 12.8 7 13.5c2.8-.7 5-3 5-6v-4L7 1z" fill={COLORS.clinicalBlue}/></svg>
-                    <span style={{fontSize:12,fontWeight:700,color:COLORS.navy}}>6-Month Defect Warranty</span>
-                  </div>
-                  <div style={{width:4,height:4,borderRadius:"50%",background:COLORS.border}}/>
-                  <div style={{display:"flex",alignItems:"center",gap:7}}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7c0-2.8 2.2-5 5-5s5 2.2 5 5-2.2 5-5 5-5-2.2-5-5z" stroke={COLORS.sage} strokeWidth="1.5"/><path d="M4.5 7l2 2 3-3" stroke={COLORS.sage} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <span style={{fontSize:12,fontWeight:700,color:COLORS.navy}}>Lifetime Fit Protection — 50% off every replacement, forever</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Urgency bar */}
-            <div style={{background:COLORS.navy,padding:"10px 24px",display:"flex",alignItems:"center",justifyContent:"center",gap:isMobile?16:40,flexWrap:"wrap"}}>
-              {[
-                {icon:"⚡",text:"47 orders this week"},
-                {icon:"⏱️",text:"Dentist review within 48hrs"},
-                {icon:"📦",text:"Impression kit ships in 1-2 days"},
-                {icon:"💳",text:"FSA/HSA accepted"},
-              ].map((item,i)=>(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:6,fontSize:12,fontWeight:600,color:"rgba(255,255,255,0.85)"}}>
-                  <span>{item.icon}</span>
-                  <span>{item.text}</span>
-                </div>
-              ))}
-            </div>
-
-            <div style={{width:"100%",background:COLORS.sand,borderTop:"1px solid "+COLORS.border,padding:"22px 0 26px"}}>
-              <div ref={scrollStripRef} style={{display:"flex",gap:16,overflowX:"auto",padding:isMobile?"16px 16px":"20px 60px",scrollSnapType:"x mandatory",msOverflowStyle:"none",scrollbarWidth:"none"}}>
-                {SCROLL_PRODUCTS.map(p=>(
-                  <ScrollCard key={p.id} product={p}
-                    onQuiz={()=>{
-                      if(p.funnel==="ng")setJotformUrl(JOTFORM_URLS[1]);
-                      else if(p.funnel==="rt")setJotformUrl(JOTFORM_URLS[6]);
-                      else if(p.funnel==="bl")setJotformUrl(JOTFORM_URLS[4]);
-                      else if(p.funnel==="sp")setJotformUrl(JOTFORM_URLS[5]);
-                    }}
-                    onPage={()=>setView(p.page)}
-                  />
-                ))}
-              </div>
-              <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:16}}>
-                <button
-                  onClick={()=>{if(scrollStripRef.current){const card=scrollStripRef.current.querySelector("div");const w=card?card.offsetWidth+16:436;scrollStripRef.current.scrollBy({left:-w,behavior:"smooth"});}}}
-                  onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;e.currentTarget.style.color="#fff";}}
-                  onMouseLeave={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=COLORS.navy;}}
-                  style={{width:40,height:40,borderRadius:"50%",background:"#fff",border:"1.5px solid "+COLORS.border,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.18s",color:COLORS.navy}}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-                <span style={{fontSize:12,color:COLORS.muted,fontWeight:500,letterSpacing:"0.06em"}}>EXPLORE ALL PRODUCTS</span>
-                <button
-                  onClick={()=>{if(scrollStripRef.current){const card=scrollStripRef.current.querySelector("div");const w=card?card.offsetWidth+16:436;scrollStripRef.current.scrollBy({left:w,behavior:"smooth"});}}}
-                  onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;e.currentTarget.style.color="#fff";}}
-                  onMouseLeave={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color=COLORS.navy;}}
-                  style={{width:40,height:40,borderRadius:"50%",background:"#fff",border:"1.5px solid "+COLORS.border,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.18s",color:COLORS.navy}}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
-          </section>
-
-          
-            <section style={{padding:isMobile?"12px":"32px",background:COLORS.canvas}}>
-            <div style={{borderRadius:isMobile?16:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:isMobile?"28px 16px":"72px 40px"}}>
-              <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:isMobile?28:52}}>
-                <div style={{display:"inline-block",background:"rgba(255,255,255,0.15)",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"5px 16px",borderRadius:20,marginBottom:18,border:"1px solid rgba(255,255,255,0.35)"}}>The Process</div>
-                <h2 style={{fontSize:isMobile?26:44,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:"0 0 10px",letterSpacing:"-0.02em",lineHeight:1.1}}>Three steps. Zero dentist visits.</h2>
-                <p style={{fontSize:isMobile?14:18,color:"rgba(255,255,255,0.75)",margin:0,fontWeight:500}}>No appointments. No waiting rooms. No insurance required.</p>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"1fr 1fr 1fr",gap:isMobile?16:24}}>
-                {[
-                  {step:"1",title:"Your impression kit ships free",desc:"Select your appliance and complete a brief HIPAA-secure intake. A professional VPS putty impression kit is mailed directly to your door within 1–2 business days.",img:S1},
-                  {step:"2",title:"Take your impressions at home",desc:"Follow the simple step-by-step guide included in your kit. Press the putty trays to your teeth, let them set, and mail everything back in the prepaid return envelope.",img:S2},
-                  {step:"3",title:"Receive your custom appliance",desc:"A licensed dentist reviews your impressions and a certified dental lab fabricates your custom appliance to a precise fit. Delivered to your door in 14–17 days.",superbill:true,img:S3},
-                ].map(item=>(
-                  <div key={item.step} style={{borderRadius:16,overflow:"hidden",background:"#fff",border:"1px solid "+COLORS.border,boxShadow:"0 2px 12px rgba(28,43,58,0.06)",display:"flex",flexDirection:"column"}}>
-                    <div style={{width:"100%",aspectRatio:"4/3",overflow:"hidden",background:COLORS.sand}}>
-                      <img src={item.img} alt={item.title} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                    </div>
-                    <div style={{padding:"22px 24px",flex:1,display:"flex",flexDirection:"column"}}>
-                      <div style={{fontSize:12,fontWeight:700,color:COLORS.clinicalBlue,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>Step {item.step}</div>
-                      <h3 style={{fontSize:18,fontWeight:800,color:COLORS.navy,margin:"0 0 8px",letterSpacing:"-0.01em"}}>{item.title}</h3>
-                      <p style={{fontSize:14,color:COLORS.muted,lineHeight:1.65,margin:"0 0 16px",flex:1}}>{item.desc}</p>
-                      {item.superbill&&(
-                        <div>
-                          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"12px 16px",background:"#FFFBEB",border:"1px solid #F5D87A",borderRadius:10}}>
-                            <div>
-                              <div style={{fontSize:12,fontWeight:700,color:"#92650A",marginBottom:2}}>Superbill included with every order</div>
-                              <div style={{fontSize:11,color:"#B8860B",lineHeight:1.5}}>Submit to your PPO for up to 80% reimbursement.</div>
-                            </div>
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{flexShrink:0}}><path d="M6 3l6 6-6 6" stroke="#B8860B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          </div>
-                          <div style={{marginTop:6,textAlign:"right"}}>
-                            <span onClick={()=>setView("superbill")}
-                              style={{fontSize:10,color:COLORS.clinicalBlue,textDecoration:"underline",cursor:"pointer",fontWeight:600}}>
-                              Find out more about superbills →
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              </div>
-            </div>
-          </section>
-
-          <section style={{padding:isMobile?"32px 16px":"72px 40px",background:"linear-gradient(160deg,#FFFEF7 0%,#FFF9E6 50%,#FFF5D6 100%)"}}>
-            <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:48}}>
-                <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"4px 14px",borderRadius:20,marginBottom:16}}>Why The Guard Guy</div>
-                <h2 style={{fontSize:"clamp(22px,3.5vw,34px)",fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 12px",lineHeight:1.2}}>Why pay $600 at the dentist when you get the same lab fit for $150?</h2>
-                <p style={{fontSize:16,color:COLORS.muted,maxWidth:560,margin:"0 auto",lineHeight:1.7}}>See how The Guard Guy compares to drugstore guards, online brands, and traditional dental offices.</p>
-              </div>
-              <div style={{borderRadius:20,overflow:"hidden",border:"1px solid "+COLORS.border,boxShadow:"0 8px 40px rgba(28,43,58,0.08)",marginBottom:isMobile?32:64}}>
-                {isMobile&&<div style={{background:COLORS.clinicalBlueLight,padding:"8px 16px",fontSize:11,color:COLORS.clinicalBlue,fontWeight:600,textAlign:"center",borderBottom:"1px solid "+COLORS.border}}>← Swipe to compare →</div>}
-                <div style={{overflowX:"auto",WebkitOverflowScrolling:"touch"}}>
-                  <table style={{width:"100%",borderCollapse:"collapse",minWidth:isMobile?500:640}}>
-                    <thead>
-                      <tr>
-                        <th style={{padding:isMobile?"14px 12px":"20px 20px",background:COLORS.canvas,textAlign:"left",fontSize:isMobile?11:12,fontWeight:700,color:COLORS.muted,letterSpacing:"0.06em",textTransform:"uppercase",borderBottom:"2px solid "+COLORS.border,width:"28%"}}>Feature</th>
-                        {[{label:"Drugstore",sub:"$20-$40"},{label:"DTC Brands",sub:"Remi/Cheeky"},{label:"In-Office",sub:"$400-$800+"}].map((col,i)=>(
-                          <th key={i} style={{padding:isMobile?"14px 10px":"20px 16px",background:COLORS.canvas,textAlign:"center",fontSize:isMobile?11:13,fontWeight:700,color:COLORS.navyLight,borderBottom:"2px solid "+COLORS.border,borderLeft:"1px solid "+COLORS.border}}>
-                            <div>{col.label}</div>
-                            <div style={{fontSize:10,fontWeight:500,color:COLORS.muted,marginTop:2}}>{col.sub}</div>
-                          </th>
-                        ))}
-                        <th style={{padding:"0",background:COLORS.clinicalBlue,textAlign:"center",borderBottom:"2px solid "+COLORS.clinicalBlueDark,borderLeft:"2px solid "+COLORS.clinicalBlueDark,position:"relative",minWidth:isMobile?120:160}}>
-                          <div style={{padding:"12px 16px 16px"}}>
-                            <div style={{display:"inline-block",background:"rgba(255,255,255,0.2)",color:"#fff",fontSize:9,fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",padding:"2px 10px",borderRadius:20,marginBottom:8}}>Best Choice</div>
-                            <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>The Guard Guy</div>
-                            <div style={{fontSize:11,fontWeight:600,color:"rgba(255,255,255,0.75)",marginTop:3}}>$150 - $175</div>
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        {feature:"Prescribed by Licensed Dentists",cols:["No","No  Marketing brands","Yes"],gg:{icon:"Yes",note:"100% Doctor-Led"}},
-                        {feature:"Custom Lab Precision Fit",cols:["No  Boil and Bite","Yes","Yes"],gg:{icon:"Yes",note:null}},
-                        {feature:"FDA-Cleared, BPA-Free Materials",cols:["No","Yes","Yes"],gg:{icon:"Yes",note:null}},
-                        {feature:"Superbill for HSA / FSA / Insurance",cols:["No","Varies","Yes"],gg:{icon:"Yes",note:"Automated"}},
-                        {feature:"Free Re-Impression Guarantee",cols:["No","Some charge fees","No  Paid visit required"],gg:{icon:"Yes",note:"Free kit shipped"}},
-                        {feature:"Total Out-of-Pocket Cost",cols:["$20 - $40","$95 - $189","$400 - $800+"],gg:{icon:"$150 - $175",note:"Best value",price:true}},
-                        {feature:"Lifetime Fit Protection",cols:["No","No","No"],gg:{icon:"Yes",note:"50% off forever"}},
-                      ].map((row,ri)=>(
-                        <tr key={ri} style={{borderBottom:"1px solid "+COLORS.border,background:ri%2===0?"#fff":COLORS.canvas}}>
-                          <td style={{padding:"16px 20px",fontSize:13,fontWeight:700,color:COLORS.navy}}>{row.feature}</td>
-                          {row.cols.map((c,ci)=>(
-                            <td key={ci} style={{padding:"16px 16px",textAlign:"center",fontSize:13,color:c.startsWith("Yes")?COLORS.sage:c.startsWith("No")?COLORS.rose:c.startsWith("Varies")?"#92650A":COLORS.navy,borderLeft:"1px solid "+COLORS.border,fontWeight:600}}>{c}</td>
-                          ))}
-                          <td style={{padding:"16px 16px",textAlign:"center",background:ri%2===0?"rgba(58,107,138,0.06)":"rgba(58,107,138,0.10)",borderLeft:"2px solid "+COLORS.clinicalBlueDark}}>
-                            <div style={{fontSize:row.gg.price?18:16,fontWeight:800,color:row.gg.price?COLORS.clinicalBlue:COLORS.sage}}>{row.gg.icon}</div>
-                            {row.gg.note&&<div style={{fontSize:10,fontWeight:700,color:COLORS.clinicalBlueDark,marginTop:3}}>{row.gg.note}</div>}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section style={{padding:isMobile?"28px 16px":"72px 40px",background:"#fff"}}>
-            <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:40}}>
-                <h3 style={{fontSize:28,fontWeight:800,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 8px"}}>Our promise to every patient.</h3>
-                <p style={{fontSize:15,color:COLORS.muted,margin:0}}>Three guarantees that set us apart.</p>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?12:24,marginBottom:isMobile?28:56}}>
-                {[
-                  {icon:"shield",color:COLORS.clinicalBlue,colorLight:COLORS.clinicalBlueLight,title:"6-Month Warranty + Lifetime 50% Off",body:"Guaranteed to fit now and in the future. Every appliance includes a 6-month replacement warranty. Plus up to 1 free re-impression kit if your mold does not meet lab standards. If your teeth shift or you get dental work, receive 50% off a brand-new replacement for life."},
-                  {icon:"lab",color:COLORS.sage,colorLight:COLORS.sageLight,title:"Direct Dental-Lab Fabrication. No Middleman.",body:"Dentists outsource night guards to dental laboratories. We cut out the office markup entirely. You get the exact same FDA-cleared, custom-molded materials for up to 70% less."},
-                  {icon:"doc",color:"#92650A",colorLight:"#FFFBEB",title:"Automated HSA/FSA and Insurance Superbill",body:"Pay with your HSA or FSA debit card at checkout. Every order automatically includes an itemized receipt with standard dental insurance codes so you can easily submit for reimbursement."},
-                ].map((card,i)=>(
-                  <div key={i} style={{background:"#fff",borderRadius:16,padding:"32px 28px",border:"1.5px solid "+COLORS.border,boxShadow:"0 4px 20px rgba(28,43,58,0.06)",display:"flex",flexDirection:"column",gap:16}}>
-                    <div style={{width:52,height:52,borderRadius:14,background:card.colorLight,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        {card.icon==="shield"&&<path d="M12 2L4 6v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V6l-8-4z" stroke={card.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>}
-                        {card.icon==="lab"&&<path d="M9 3h6M9 3v8l-4 9h14l-4-9V3" stroke={card.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>}
-                        {card.icon==="doc"&&<><rect x="4" y="2" width="16" height="20" rx="2" stroke={card.color} strokeWidth="2"/><path d="M8 7h8M8 11h8M8 15h4" stroke={card.color} strokeWidth="2" strokeLinecap="round"/></>}
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 style={{fontSize:16,fontWeight:800,color:COLORS.navy,margin:"0 0 10px",lineHeight:1.3}}>{card.title}</h4>
-                      <p style={{fontSize:13,color:COLORS.muted,lineHeight:1.75,margin:0}}>{card.body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:16,flexWrap:"wrap"}}>
-                <button
-                  onClick={()=>productsRef.current&&productsRef.current.scrollIntoView({behavior:"smooth",block:"start"})}
-                  onMouseEnter={e=>{e.currentTarget.style.background=COLORS.clinicalBlueDark;}}
-                  onMouseLeave={e=>{e.currentTarget.style.background=COLORS.clinicalBlue;}}
-                  style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:50,padding:"16px 44px",fontSize:15,fontWeight:700,letterSpacing:"0.04em",cursor:"pointer",transition:"background 0.18s",boxShadow:"0 6px 24px rgba(58,107,138,0.28)"}}>
-                  Shop Custom Appliances
-                </button>
-                <button
-                  onClick={()=>setView("warranty")}
-                  onMouseEnter={e=>{e.currentTarget.style.color=COLORS.clinicalBlueDark;}}
-                  onMouseLeave={e=>{e.currentTarget.style.color=COLORS.clinicalBlue;}}
-                  style={{background:"transparent",color:COLORS.clinicalBlue,border:"none",fontSize:14,fontWeight:700,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"4px"}}>
-                  Coverage Details?
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <section ref={productsRef} style={{padding:isMobile?"28px 16px 48px":"72px 40px",background:COLORS.canvas}}>
-            <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:52}}>
-                <div style={{display:"inline-block",background:COLORS.clinicalBlueLight,color:COLORS.clinicalBlueDark,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",padding:"3px 10px",borderRadius:20,marginBottom:14}}>Our Products</div>
-                <h2 style={{fontSize:isMobile?22:32,fontWeight:700,color:COLORS.navy,fontFamily:"Georgia, serif",margin:"0 0 8px"}}>Choose your custom fit</h2>
-                <p style={{color:COLORS.muted,fontSize:16,margin:"0 0 14px"}}>All devices fabricated by ADA-compliant dental labs. Dentist-prescribed.</p>
-                <button onClick={()=>setShowNGQuiz(true)}
-                  onMouseEnter={e=>{e.currentTarget.style.color=COLORS.clinicalBlueDark;}}
-                  onMouseLeave={e=>{e.currentTarget.style.color=COLORS.clinicalBlue;}}
-                  style={{background:"none",border:"none",color:COLORS.clinicalBlue,fontSize:14,fontWeight:600,cursor:"pointer",textDecoration:"underline",textUnderlineOffset:"4px",fontFamily:"inherit",transition:"color 0.15s"}}>
-                  Not sure which night guard is right for you? Take the quiz →
-                </button>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr":"repeat(3,1fr)",gap:isMobile?16:24}}>
-                {PRODUCTS.map(p=><ProductCard key={p.id} product={p} onBuy={(prod)=>{
-                  setJotformUrl(JOTFORM_URLS[prod.id]);
-                }} onGallery={()=>{
-                  const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
-                  setView(pageMap[p.id]||"site");
-                  setTimeout(()=>{
-                    const el=document.querySelector("[data-gallery]");
-                    if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
-                  },150);
-                }} onLearn={(p)=>{
-                  const pageMap={1:"pg_ng",2:"pg_ng",3:"pg_ng",4:"pg_wt",5:"pg_sp",6:"pg_rt"};
-                  setView(pageMap[p.id]||"site");
-                  window.scrollTo({top:0,behavior:"smooth"});
-                }}/>)}
-              </div>
-            </div>
-          </section>
-
-          <ReviewsSection/>
-
-          {/* Trust badges section */}
-          <section style={{background:COLORS.navy,padding:isMobile?"32px 16px":"48px 40px"}}>
-            <div style={{maxWidth:1060,margin:"0 auto"}}>
-              <div style={{textAlign:"center",marginBottom:32}}>
-                <div style={{fontSize:11,fontWeight:700,color:"rgba(255,255,255,0.4)",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Why Patients Trust The Guard Guy</div>
-                <h2 style={{fontSize:isMobile?20:26,fontWeight:800,color:"#fff",fontFamily:"Georgia, serif",margin:0}}>Professional quality. Direct to your door.</h2>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:isMobile?"1fr 1fr":"repeat(4,1fr)",gap:isMobile?12:20,marginBottom:32}}>
-                {[
-                  {icon:"🛡️",title:"HIPAA Compliant",body:"All patient data handled via Jotform HIPAA Gold with signed BAA"},
-                  {icon:"🦷",title:"Licensed Dentists",body:"Every case reviewed and prescribed by a state-licensed dentist"},
-                  {icon:"🏭",title:"ADA-Certified Labs",body:"Same labs used by dental offices — FDA-cleared materials only"},
-                  {icon:"💳",title:"FSA/HSA Eligible",body:"Full Superbill with CDT codes included with every order"},
-                  {icon:"📄",title:"6-Month Warranty",body:"Manufacturing defects replaced free — no questions asked"},
-                  {icon:"🔄",title:"Lifetime Fit Protection",body:"50% off every replacement forever — no expiration date"},
-                  {icon:"📦",title:"Free Two-Way Shipping",body:"Impression kit ships free. Return label included. Always."},
-                  {icon:"⭐",title:"4.9 Star Rating",body:"847 verified patient reviews — highest rated DTC dental brand"},
-                ].map((b,i)=>(
-                  <div key={i} style={{background:"rgba(255,255,255,0.05)",borderRadius:14,padding:"20px 16px",border:"1px solid rgba(255,255,255,0.08)",textAlign:"center"}}>
-                    <div style={{fontSize:28,marginBottom:10}}>{b.icon}</div>
-                    <div style={{fontSize:13,fontWeight:700,color:"#fff",marginBottom:6}}>{b.title}</div>
-                    <div style={{fontSize:11,color:"rgba(255,255,255,0.5)",lineHeight:1.6}}>{b.body}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:isMobile?16:32,flexWrap:"wrap",paddingTop:24,borderTop:"1px solid rgba(255,255,255,0.08)"}}>
-                <a href="tel:9517197173" style={{display:"flex",alignItems:"center",gap:8,color:"rgba(255,255,255,0.7)",textDecoration:"none",fontSize:14,fontWeight:600}}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15 11c0 .3-.1.7-.3 1s-.4.6-.6.8c-.4.5-1 .7-1.5.7-.4 0-.8-.1-1.2-.3-1.2-.4-2.3-1-3.3-1.9C7 10.4 6.2 9.3 5.7 8.2 5.3 7.6 5 6.9 4.8 6.2c-.1-.4-.2-.7-.2-1.1 0-.5.2-1 .5-1.4.3-.4.8-.7 1.3-.7h.2c.2 0 .3.1.4.2l1.4 2.4c.1.1.1.3 0 .5l-1 1c-.1.1-.1.3 0 .4.5.8 1.1 1.6 1.9 2.1.1.1.3.1.4 0l.9-.9c.1-.1.3-.1.5 0L13 10.5c.2.1.3.3.3.4v.1z" fill="rgba(255,255,255,0.7)"/></svg>
-                  (951) 719-7173
-                </a>
-                <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>|</div>
-                <div style={{fontSize:13,color:"rgba(255,255,255,0.5)"}}>Mon – Fri · 9am – 5pm PT</div>
-                <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>|</div>
-                <a href="mailto:hello@theguardguy.com" style={{fontSize:13,color:"rgba(255,255,255,0.7)",textDecoration:"none",fontWeight:600}}>hello@theguardguy.com</a>
-              </div>
-            </div>
-          </section>
-
-          <footer style={{background:COLORS.navy,color:"#fff",padding:"clamp(28px,6vw,52px) clamp(16px,5vw,40px) 24px"}}>
-            <div style={{maxWidth:1000,margin:"0 auto"}}>
-              <div style={{display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:32,marginBottom:40}}>
-                <div>
-                  <div style={{fontFamily:"Georgia, serif",fontWeight:700,fontSize:22,marginBottom:12}}>The Guard Guy</div>
-                  <p style={{color:"rgba(255,255,255,0.5)",fontSize:13,maxWidth:280,lineHeight:1.7}}>Professional dental appliances, prescribed remotely by licensed dentists.</p>
-                </div>
-                {[
-                  {title:"Products",links:[{l:"Night Guards",v:"pg_ng"},{l:"Sport Guards",v:"pg_sp"},{l:"Retainers",v:"pg_rt"},{l:"Bleaching Trays",v:"pg_wt"}]},
-                  {title:"Company",links:[{l:"About Us",v:"about"},{l:"Education",v:"learn"},{l:"Insurance / Superbill",v:"superbill"},{l:"Track Order",v:"track"}]},
-                  {title:"Support",links:[{l:"FAQ",v:"faq"},{l:"Shipping & Returns",v:"shipping"},{l:"Contact Us",v:"contact"},{l:"Notice of Privacy Practices",v:"privacy"},{l:"Impression Guide",v:"impression"}]},
-                ].map(({title,links})=>(
-                  <div key={title}>
-                    <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(255,255,255,0.4)",marginBottom:14}}>{title}</div>
-                    {links.map(({l,v})=><div key={l} onClick={()=>setView(v)} style={{color:"rgba(255,255,255,0.65)",fontSize:13,marginBottom:8,cursor:"pointer"}}>{l}</div>)}
-                  </div>
-                ))}
-              </div>
-              <div style={{width:"100%",height:1,background:"rgba(255,255,255,0.1)",margin:"0 0 24px"}}/>
-              <div style={{display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:12,alignItems:"center"}}>
-                <p style={{color:"rgba(255,255,255,0.35)",fontSize:12,margin:0}}>2025 The Guard Guy. Teledentistry services provided by state-licensed dentists. Currently serving CA, UT and ID - expanding nationwide.</p>
-                <div style={{display:"flex",alignItems:"center",gap:16}}>
-                  <p style={{color:"rgba(255,255,255,0.35)",fontSize:12,margin:0}}>HIPAA Compliant</p>
-                  <button onClick={()=>setView("dentist")} style={{background:"none",border:"none",color:"rgba(255,255,255,0.2)",fontSize:11,cursor:"pointer",padding:0,fontFamily:"inherit",letterSpacing:"0.04em"}}
-                    onMouseEnter={e=>{e.currentTarget.style.color="rgba(255,255,255,0.5)";}}
-                    onMouseLeave={e=>{e.currentTarget.style.color="rgba(255,255,255,0.2)";}}>
-                    Clinician Portal
-                  </button>
-                </div>
-              </div>
-            </div>
-          </footer>
-        </>
-      )}
-
-      {jotformUrl&&<JotformModal formUrl={jotformUrl} onClose={()=>setJotformUrl(null)}/>}
+      
       {showNG&&<NightGuardFunnel onClose={()=>setShowNG(false)} onBuyProduct={handleFunnelBuy}/>}
       {showNGQuiz&&<NightGuardQuiz onClose={()=>setShowNGQuiz(false)} onResult={handleQuizResult}/>}
       {showRT&&<RetainerFunnel onClose={()=>setShowRT(false)} onBuyProduct={handleFunnelBuy}/>}
