@@ -330,6 +330,8 @@ const DentistPortal=({setView})=>{
   const [error,setError]=useState(null);
   const [search,setSearch]=useState("");
   const [filter,setFilter]=useState("All");
+  const [notifications,setNotifications]=useState([]);
+  const [showNotifs,setShowNotifs]=useState(false);
   const [expandedId,setExpandedId]=useState(null);
   const [trackingResults,setTrackingResults]=useState({});
   const [lastRefresh,setLastRefresh]=useState(null);
@@ -390,6 +392,20 @@ const DentistPortal=({setView})=>{
       const idx=keys.indexOf(p.currentStage);
       if(idx>=keys.length-1)return p;
       const next=keys[idx+1];
+      const nextStage=ORDER_STAGES.find(s=>s.key===next);
+      if(nextStage&&nextStage.ping){
+        setNotifications(n=>[{
+          id:Date.now(),
+          orderId,
+          patientName:p.patientName,
+          product:p.product,
+          message:nextStage.pingMsg,
+          stage:nextStage.label,
+          icon:nextStage.icon,
+          time:new Date().toLocaleTimeString(),
+          read:false,
+        },...n]);
+      }
       return {...p,currentStage:next,stageDates:{...p.stageDates,[next]:new Date().toLocaleDateString()}};
     }));
   };
@@ -467,7 +483,69 @@ const DentistPortal=({setView})=>{
         <div style={{display:"flex",gap:8}}>
           <button onClick={fetchData} style={{background:"rgba(255,255,255,0.1)",color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,padding:"8px 16px",fontSize:12,fontWeight:600,cursor:"pointer"}}>↻ Refresh</button>
           <button onClick={()=>setView("site")} style={{background:"rgba(255,255,255,0.1)",color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,padding:"8px 16px",fontSize:12,fontWeight:600,cursor:"pointer"}}>← Site</button>
+
+          {/* Notification Bell */}
+          <button onClick={()=>setShowNotifs(n=>!n)}
+            style={{position:"relative",background:notifications.some(n=>!n.read)?"rgba(255,200,0,0.2)":"rgba(255,255,255,0.1)",
+              color:"#fff",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,
+              padding:"8px 14px",fontSize:12,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
+            🔔
+            {notifications.filter(n=>!n.read).length>0&&(
+              <span style={{background:"#EF4444",color:"#fff",borderRadius:"50%",
+                width:18,height:18,fontSize:10,fontWeight:800,display:"flex",
+                alignItems:"center",justifyContent:"center"}}>
+                {notifications.filter(n=>!n.read).length}
+              </span>
+            )}
+          </button>
         </div>
+
+        {/* Notification Panel */}
+        {showNotifs&&(
+          <div style={{position:"absolute",top:60,right:20,width:360,background:"#fff",
+            borderRadius:16,boxShadow:"0 16px 48px rgba(0,0,0,0.2)",zIndex:999,
+            border:"1px solid "+COLORS.border,overflow:"hidden"}}>
+            <div style={{background:COLORS.navy,padding:"12px 16px",display:"flex",
+              justifyContent:"space-between",alignItems:"center"}}>
+              <span style={{color:"#fff",fontWeight:700,fontSize:13}}>🔔 Notifications</span>
+              <div style={{display:"flex",gap:8}}>
+                <button onClick={()=>setNotifications(n=>n.map(x=>({...x,read:true})))}
+                  style={{background:"rgba(255,255,255,0.15)",color:"#fff",border:"none",
+                    borderRadius:6,padding:"4px 10px",fontSize:11,cursor:"pointer"}}>
+                  Mark all read
+                </button>
+                <button onClick={()=>setShowNotifs(false)}
+                  style={{background:"transparent",color:"rgba(255,255,255,0.7)",border:"none",
+                    fontSize:16,cursor:"pointer",lineHeight:1}}>×</button>
+              </div>
+            </div>
+            <div style={{maxHeight:400,overflowY:"auto"}}>
+              {notifications.length===0&&(
+                <div style={{padding:"24px",textAlign:"center",color:COLORS.muted,fontSize:13}}>
+                  No notifications yet
+                </div>
+              )}
+              {notifications.map((n,i)=>(
+                <div key={i} onClick={()=>setNotifications(prev=>prev.map((x,j)=>j===i?{...x,read:true}:x))}
+                  style={{padding:"12px 16px",borderBottom:"1px solid "+COLORS.border,
+                    background:n.read?"#fff":COLORS.clinicalBlueLight,cursor:"pointer",
+                    transition:"background 0.15s"}}>
+                  <div style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+                    <span style={{fontSize:18,flexShrink:0}}>{n.icon}</span>
+                    <div style={{flex:1}}>
+                      <div style={{fontSize:12,fontWeight:700,color:COLORS.navy,marginBottom:2}}>
+                        {n.patientName} — {n.product}
+                      </div>
+                      <div style={{fontSize:11,color:COLORS.muted,lineHeight:1.5}}>{n.message}</div>
+                      <div style={{fontSize:10,color:COLORS.muted,marginTop:4}}>{n.time}</div>
+                    </div>
+                    {!n.read&&<div style={{width:8,height:8,borderRadius:"50%",background:COLORS.clinicalBlue,flexShrink:0,marginTop:4}}/>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div style={{maxWidth:1200,margin:"0 auto",padding:"20px"}}>
@@ -655,8 +733,12 @@ const DentistPortal=({setView})=>{
 
                   <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
                     {p.currentStage!=="delivered"&&(
-                      <button onClick={()=>advanceStage(p.orderId)} style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",borderRadius:8,padding:"12px 20px",fontSize:13,fontWeight:700,cursor:"pointer",flex:isMobile?"1":"unset",minHeight:44}}>
-                        Advance: {ORDER_STAGES[Math.min(curIdx+1,ORDER_STAGES.length-1)].label}
+                      <button onClick={()=>advanceStage(p.orderId)}
+                        style={{background:COLORS.clinicalBlue,color:"#fff",border:"none",
+                          borderRadius:8,padding:"12px 20px",fontSize:13,fontWeight:700,
+                          cursor:"pointer",flex:isMobile?"1":"unset",minHeight:44,
+                          boxShadow:"0 4px 12px rgba(58,107,138,0.3)"}}>
+                        ✓ Mark Complete → {ORDER_STAGES[Math.min(curIdx+1,ORDER_STAGES.length-1)].icon} {ORDER_STAGES[Math.min(curIdx+1,ORDER_STAGES.length-1)].label}
                       </button>
                     )}
                     <a href={"mailto:"+p.email} style={{background:COLORS.sand,color:COLORS.navy,borderRadius:8,padding:"12px 16px",fontSize:13,fontWeight:600,textDecoration:"none",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:6,minHeight:44,flex:isMobile?"1":"unset"}}>Email</a>
@@ -3126,6 +3208,39 @@ const JOTFORM_URLS={
   62:"https://form.jotform.com/262130297696060",
 };
 
+const JOTFORM_SCRIPT_URLS={
+  1:"https://pci.jotform.com/jsform/262130693177054",
+  2:"https://pci.jotform.com/jsform/262138947710057",
+  3:"https://pci.jotform.com/jsform/262130483494053",
+  4:"https://pci.jotform.com/jsform/262130498815056",
+  5:"https://pci.jotform.com/jsform/262130106449045",
+  6:"https://pci.jotform.com/jsform/262130297696060",
+  61:"https://pci.jotform.com/jsform/262130297696060",
+  62:"https://pci.jotform.com/jsform/262130297696060",
+};
+
+
+
+// ── JOTFORM EMBED ─────────────────────────────────────────────────────────────
+const JotformEmbed=({scriptUrl})=>{
+  const containerRef=React.useRef(null);
+  React.useEffect(()=>{
+    if(!scriptUrl||!containerRef.current)return;
+    // Clear previous form
+    containerRef.current.innerHTML="";
+    // Create and append script tag
+    const script=document.createElement("script");
+    script.src=scriptUrl;
+    script.type="text/javascript";
+    script.async=true;
+    containerRef.current.appendChild(script);
+    return ()=>{
+      if(containerRef.current)containerRef.current.innerHTML="";
+    };
+  },[scriptUrl]);
+  return <div ref={containerRef} style={{width:"100%",minHeight:"80vh"}}/>;
+};
+
 
 // ── JOTFORM MODAL ─────────────────────────────────────────────────────────────
 const JotformModal=({formUrl,onClose})=>{
@@ -3297,16 +3412,13 @@ const SCROLL_PRODUCTS=[
               </button>
             </div>
           </div>
-          {/* Jotform embed */}
-          <div id="jotform-container" style={{flex:1,width:"100%",minHeight:"calc(100vh - 56px)",background:"#fff"}}>
-            <iframe
-              src={(checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054")+"?isIframeEmbed=1"}
-              style={{width:"100%",height:"100%",minHeight:"calc(100vh - 56px)",border:"none"}}
-              title="Secure Checkout"
-              allow="payment *"
-              allowFullScreen={true}
-              scrolling="yes"
-            />
+          {/* Jotform JS embed */}
+          <div style={{flex:1,width:"100%",background:"#fff",padding:"0 0 40px 0"}}>
+            <JotformEmbed scriptUrl={
+              (checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054")
+                .replace("https://form.jotform.com/","https://pci.jotform.com/jsform/")
+                .replace("https://pci.jotform.com/form/","https://pci.jotform.com/jsform/")
+            }/>
           </div>
         </div>
       )}
@@ -3443,7 +3555,8 @@ const SCROLL_PRODUCTS=[
             </div>
           </section>
 
-          <section style={{padding:isMobile?"12px":"32px",background:COLORS.canvas}}>
+          
+            <section style={{padding:isMobile?"12px":"32px",background:COLORS.canvas}}>
             <div style={{borderRadius:isMobile?16:24,overflow:"hidden",border:"3px solid #fff",boxShadow:"0 0 0 1px rgba(58,107,138,0.15),0 16px 48px rgba(28,43,58,0.12)",background:"linear-gradient(160deg,#2C536C 0%,#3A6B8A 40%,#4A7E9E 70%,#2C536C 100%)",padding:isMobile?"28px 16px":"72px 40px"}}>
               <div style={{maxWidth:1060,margin:"0 auto"}}>
               <div style={{textAlign:"center",marginBottom:isMobile?28:52}}>
