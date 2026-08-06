@@ -3198,14 +3198,14 @@ const HowItWorksPage=({setView})=>{
 };
 
 const JOTFORM_URLS={
-  1:"https://form.jotform.com/262130693177054",
-  2:"https://form.jotform.com/262138947710057",
-  3:"https://form.jotform.com/262130483494053",
-  4:"https://form.jotform.com/262130498815056",
-  5:"https://form.jotform.com/262130106449045",
-  6:"https://form.jotform.com/262130297696060",
-  61:"https://form.jotform.com/262130297696060",
-  62:"https://form.jotform.com/262130297696060",
+  1:"https://pci.jotform.com/form/262130693177054",
+  2:"https://pci.jotform.com/form/262138947710057",
+  3:"https://pci.jotform.com/form/262130483494053",
+  4:"https://pci.jotform.com/form/262130498815056",
+  5:"https://pci.jotform.com/form/262130106449045",
+  6:"https://pci.jotform.com/form/262130297696060",
+  61:"https://pci.jotform.com/form/262130297696060",
+  62:"https://pci.jotform.com/form/262130297696060",
 };
 
 const JOTFORM_SCRIPT_URLS={
@@ -3223,22 +3223,19 @@ const JOTFORM_SCRIPT_URLS={
 
 // ── JOTFORM EMBED ─────────────────────────────────────────────────────────────
 const JotformEmbed=({scriptUrl})=>{
-  const containerRef=React.useRef(null);
-  React.useEffect(()=>{
-    if(!scriptUrl||!containerRef.current)return;
-    // Clear previous form
-    containerRef.current.innerHTML="";
-    // Create and append script tag
-    const script=document.createElement("script");
-    script.src=scriptUrl;
-    script.type="text/javascript";
-    script.async=true;
-    containerRef.current.appendChild(script);
-    return ()=>{
-      if(containerRef.current)containerRef.current.innerHTML="";
-    };
-  },[scriptUrl]);
-  return <div ref={containerRef} style={{width:"100%",minHeight:"80vh"}}/>;
+  const src=scriptUrl
+    ? scriptUrl.replace("https://pci.jotform.com/jsform/","https://pci.jotform.com/form/")
+    : "https://pci.jotform.com/form/262130693177054";
+  return (
+    <iframe
+      src={src}
+      title="Secure Checkout"
+      style={{width:"100%",minHeight:"85vh",border:"none",display:"block"}}
+      allow="payment *"
+      allowFullScreen={true}
+      scrolling="yes"
+    />
+  );
 };
 
 
@@ -3341,7 +3338,7 @@ export default function App(){
   };
   const handleQuizResult=(productId)=>{setShowNGQuiz(false);setNgQuizResult(productId);setView("pg_ng");window.scrollTo({top:0,behavior:"smooth"});};
   const goToCheckout=(product)=>{
-    const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://form.jotform.com/262130693177054";
+    const url=(product&&product.url)||JOTFORM_URLS[product&&product.id]||"https://pci.jotform.com/form/262130693177054";
     setJotformUrl(url);
     setCheckoutUrl(url);
     setView("checkout");
@@ -3415,7 +3412,7 @@ const SCROLL_PRODUCTS=[
           {/* Jotform JS embed */}
           <div style={{flex:1,width:"100%",background:"#fff",padding:"0 0 40px 0"}}>
             <JotformEmbed scriptUrl={
-              (checkoutUrl||jotformUrl||"https://form.jotform.com/262130693177054")
+              (checkoutUrl||jotformUrl||"https://pci.jotform.com/form/262130693177054")
                 .replace("https://form.jotform.com/","https://pci.jotform.com/jsform/")
                 .replace("https://pci.jotform.com/form/","https://pci.jotform.com/jsform/")
             }/>
