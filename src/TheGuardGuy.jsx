@@ -3224,35 +3224,39 @@ const JotformEmbed=({formId})=>{
   const iframeId="JotFormIFrame-"+fid;
 
   React.useEffect(()=>{
-    // Load the official Jotform embed handler script
-    const existing=document.getElementById("jotform-embed-handler-script");
-    if(!existing){
-      const script=document.createElement("script");
-      script.id="jotform-embed-handler-script";
-      script.src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js";
-      script.onload=()=>{
-        if(window.jotformEmbedHandler){
-          window.jotformEmbedHandler("iframe[id='"+iframeId+"']","https://pci.jotform.com/");
-        }
-      };
-      document.body.appendChild(script);
-    } else if(window.jotformEmbedHandler){
-      window.jotformEmbedHandler("iframe[id='"+iframeId+"']","https://pci.jotform.com/");
-    }
+    // Remove old handler script if form changed
+    const old=document.getElementById("jotform-embed-handler-script");
+    if(old)old.remove();
+    // Load official Jotform embed handler
+    const script=document.createElement("script");
+    script.id="jotform-embed-handler-script";
+    script.src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js";
+    script.async=true;
+    script.onload=()=>{
+      if(window.jotformEmbedHandler){
+        window.jotformEmbedHandler("iframe[id='"+iframeId+"']","https://pci.jotform.com/");
+      }
+    };
+    document.body.appendChild(script);
+    return ()=>{
+      const s=document.getElementById("jotform-embed-handler-script");
+      if(s)s.remove();
+    };
   },[fid,iframeId]);
 
   return (
     <div style={{width:"100%",minHeight:"600px"}}>
       <iframe
         id={iframeId}
+        key={fid}
         title={title}
-        onLoad={()=>{if(window.parent)window.parent.scrollTo(0,0);}}
+        onLoad={()=>{try{window.parent.scrollTo(0,0);}catch(e){}}}
         allowTransparency={true}
         allow="geolocation; microphone; camera; fullscreen; payment"
         src={"https://pci.jotform.com/form/"+fid}
         frameBorder="0"
-        style={{minWidth:"100%",maxWidth:"100%",height:"539px",border:"none"}}
-        scrolling="no"
+        style={{minWidth:"100%",maxWidth:"100%",height:"800px",border:"none"}}
+        scrolling="yes"
       />
     </div>
   );
